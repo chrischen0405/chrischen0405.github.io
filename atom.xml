@@ -188,17 +188,17 @@
     
       <category term="JavaScript" scheme="http://chrischen0405.github.io/tags/JavaScript/"/>
     
-      <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
-    
-      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
       <category term="lufylegend" scheme="http://chrischen0405.github.io/tags/lufylegend/"/>
     
       <category term="cropper" scheme="http://chrischen0405.github.io/tags/cropper/"/>
     
+      <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
+    
       <category term="jQuery" scheme="http://chrischen0405.github.io/tags/jQuery/"/>
     
       <category term="游戏" scheme="http://chrischen0405.github.io/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -384,9 +384,9 @@
     
       <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
     
-      <category term="动画" scheme="http://chrischen0405.github.io/tags/%E5%8A%A8%E7%94%BB/"/>
-    
       <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="动画" scheme="http://chrischen0405.github.io/tags/%E5%8A%A8%E7%94%BB/"/>
     
   </entry>
   
