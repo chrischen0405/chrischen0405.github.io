@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Chris的博客">
 <meta property="og:description" content="之前大二的时候软件工程课程上了解了git用于版本控制，但是一直用的都是Sourcetree或者JetBrain自带的可视化版本控制系统，但是最近实习的时候渐渐接触了命令行使用git，发现命令行如果用习惯了以后比图形化界面方便多了。接下来介绍使用git作版本控制的基本使用流程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-02T16:39:14.283Z">
+<meta property="og:updated_time" content="2019-05-02T16:46:16.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git使用流程">
 <meta name="twitter:description" content="之前大二的时候软件工程课程上了解了git用于版本控制，但是一直用的都是Sourcetree或者JetBrain自带的可视化版本控制系统，但是最近实习的时候渐渐接触了命令行使用git，发现命令行如果用习惯了以后比图形化界面方便多了。接下来介绍使用git作版本控制的基本使用流程。">
@@ -354,34 +354,34 @@
       
 
       
-        <p>之前大二的时候软件工程课程上了解了<code>git</code>用于版本控制，但是一直用的都是Sourcetree或者JetBrain自带的可视化版本控制系统，但是最近实<br>习的时候渐渐接触了命令行使用<code>git</code>，发现命令行如果用习惯了以后比图形化界面方便多了。接下来介绍使用<code>git</code>作版本控制的基本使用流程。<br><a id="more"></a></p>
+        <p>之前大二的时候软件工程课程上了解了<code>git</code>用于版本控制，但是一直用的都是Sourcetree或者JetBrain自带的可视化版本控制系统，但是最近实习的时候渐渐接触了命令行使用<code>git</code>，发现命令行如果用习惯了以后比图形化界面方便多了。接下来介绍使用<code>git</code>作版本控制的基本使用流程。<br><a id="more"></a></p>
 <ul>
 <li>如果项目不在本地就从远程克隆，如果项目在本地就拉取新代码<ul>
-<li><code>git clone [url]</code>————从<code>git</code>仓库克隆项目至本地</li>
-<li><code>git pull --rebase origin master</code>————拉取远程<code>master</code>分支代码</li>
+<li><code>git clone [url]</code>——从<code>git</code>仓库克隆项目至本地</li>
+<li><code>git pull --rebase origin master</code>——拉取远程<code>master</code>分支代码</li>
 </ul>
 </li>
 <li>以<code>dev</code>分支开发来说<ul>
-<li><code>git checkout dev</code>————切换到<code>dev</code>分支</li>
-<li><code>git checkout -b dev</code>————新建并切换到<code>dev</code>分支</li>
+<li><code>git checkout dev</code>——切换到<code>dev</code>分支</li>
+<li><code>git checkout -b dev</code>——新建并切换到<code>dev</code>分支</li>
 </ul>
 </li>
 <li>完成<code>dev</code>部分的开发<ul>
-<li><code>git add *</code>————首先将所有文件添加到版本控制系统</li>
-<li><code>git commit -a -m &quot;提交理由&quot;</code>————提交代码并且填写理由</li>
-<li><code>git push origin dev</code>————将<code>dev</code>分支代码提交至远端</li>
+<li><code>git add *</code>——首先将所有文件添加到版本控制系统</li>
+<li><code>git commit -a -m &quot;提交理由&quot;</code>——提交代码并且填写理由</li>
+<li><code>git push origin dev</code>——将<code>dev</code>分支代码提交至远端</li>
 </ul>
 </li>
 <li>完成整个开发，除了以上部分以外，还要继续合并分支<ul>
-<li><code>git checkout master</code>————切换到<code>master</code>分支</li>
-<li><code>git merge dev</code>————合并<code>dev</code>分支</li>
-<li><code>git merge --continue</code>————如果出现冲突，解决完以后继续合并分支</li>
-<li><code>git push origin master</code>————将<code>master</code>分支代码提交至远端</li>
+<li><code>git checkout master</code>——切换到<code>master</code>分支</li>
+<li><code>git merge dev</code>——合并<code>dev</code>分支</li>
+<li><code>git merge --continue</code>——如果出现冲突，解决完以后继续合并分支</li>
+<li><code>git push origin master</code>——将<code>master</code>分支代码提交至远端</li>
 </ul>
 </li>
 <li>删除已经合并的分支<ul>
-<li><code>git branch -d dev</code>————删除本地的<code>dev</code>分支</li>
-<li><code>git push origin :dev</code>————删除远程的<code>dev</code>分支</li>
+<li><code>git branch -d dev</code>——删除本地的<code>dev</code>分支</li>
+<li><code>git push origin :dev</code>——删除远程的<code>dev</code>分支</li>
 </ul>
 </li>
 </ul>
@@ -462,6 +462,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/06/02/post20190602/" rel="prev" title="父元素由于子元素使用float而无法自适应高度">
+                父元素由于子元素使用float而无法自适应高度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -530,7 +534,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +556,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
