@@ -3,6 +3,37 @@
   
     
     <entry>
+      <title>git基本命令以及使用场景介绍</title>
+      <link href="/2019/11/01/post20191101/"/>
+      <url>/2019/11/01/post20191101/</url>
+      <content type="html"><![CDATA[<p>使用了一阵子<code>git</code>，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：）</p><h3 id="git基本流程"><a href="#git基本流程" class="headerlink" title="git基本流程"></a>git基本流程</h3><p>可能以下流程不是标准的<code>git flow</code>，但是日常开发中用的最多的也是这几个命令，有错之处还望指正<br><a id="more"></a></p><h4 id="第一步-从远端克隆仓库"><a href="#第一步-从远端克隆仓库" class="headerlink" title="第一步 从远端克隆仓库"></a>第一步 从远端克隆仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;仓库地址&gt;</span><br></pre></td></tr></table></figure><h4 id="第二步-从master开一个新的分支"><a href="#第二步-从master开一个新的分支" class="headerlink" title="第二步 从master开一个新的分支"></a>第二步 从<code>master</code>开一个新的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;分支名称&gt;</span><br></pre></td></tr></table></figure><p>如果只是切换已经有的分支就不用加<code>-b</code>了，比如，远端有一个<code>dev</code>分支，本地在从<code>master</code>分支切换到<code>dev</code>分支的时候就不需要加<code>-b</code>参数了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure></p><h4 id="第三步-提交修改的代码"><a href="#第三步-提交修改的代码" class="headerlink" title="第三步 提交修改的代码"></a>第三步 提交修改的代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -a -m &quot;git message&quot;</span><br></pre></td></tr></table></figure><p>这里的参数<code>-m</code>是可以填写提交信息，后面的<code>git message</code>就是填写的提交信息，至于提交信息的填写规范可以自行查看。<br>参数<code>-a</code>是用来把已经被<code>git</code>追踪的修改或删除的文件提交，如果只是修改或者删除文件的话可以不使用<code>git add</code>，但如果有新增的文件，在提交前需要把文件添加到 <code>git</code>系统中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></p><p><code>.</code>表示所有的文件，也可以指定具体的文件名，但是我一直都是<code>git add .</code>，图方便嘻嘻</p><h4 id="第四步-把分支合并"><a href="#第四步-把分支合并" class="headerlink" title="第四步 把分支合并"></a>第四步 把分支合并</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master //切换到master分支</span><br><span class="line">git pull --rebase origin master //拉取远端master代码</span><br><span class="line">git merge &lt;分支名称&gt; //合并分支</span><br></pre></td></tr></table></figure><p>在提交完自己分支修改的代码之后，首先切换到需要合代码的分支，比如<code>master</code>分支，然后拉取远端代码，因为在协同工作的时候，可能别人已经把修改之后的代码推到远端，所以需要先把<code>master</code>更新到最新，然后再把自己的分支合并即可。<br>拉代码的时候不加<code>--rebase</code>也没有关系，只不过加了<code>--rebase</code>以后<code>git</code>的提交树会比较清爽，感兴趣的可以搜<strong>变基合并</strong></p><h4 id="第五步-把修改提交到远端"><a href="#第五步-把修改提交到远端" class="headerlink" title="第五步 把修改提交到远端"></a>第五步 把修改提交到远端</h4><p>上一步已经把修改合并到了<code>master</code>分支上，然后把本地的<code>master</code>分支推到远端：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p><h4 id="第六步-删除自己的分支"><a href="#第六步-删除自己的分支" class="headerlink" title="第六步 删除自己的分支"></a>第六步 删除自己的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;分支名称&gt;</span><br></pre></td></tr></table></figure><p>在功能分支合并了以后，就可以把功能分支删除了。<br>如果功能分支没有合并的话，<code>-d</code>是无法删除该分支的，但如果非要删，可以用<code>-D</code>参数强制删除该分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D &lt;分支名称&gt;</span><br></pre></td></tr></table></figure></p><p>不加参数的话就是查看本地所有分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p><p>如果本地的分支已经删除，还想删除远端的分支的话，可以用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :&lt;分支名称&gt;</span><br></pre></td></tr></table></figure></p><p>因为本地分支已经删除了，所以要在分支名称前加上<code>:</code>，不然<code>push</code>的时候会报错说分支不存在</p><h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><h4 id="暂存"><a href="#暂存" class="headerlink" title="暂存"></a>暂存</h4><p>在日常开发中，可能在写一个需求的时候，让你改一个紧急的bug，而且是在同一个项目里，这时候就要使用<code>git</code>的储存了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git stash //把修改的内容储存起来</span><br><span class="line">git stash list //查看储存的堆栈</span><br><span class="line">git stash pop //把最近的储存取出到工作区并且删除堆栈中的这次储存</span><br><span class="line">git stash apply //应用最近的储存</span><br><span class="line">git stash drop //删除最近的储存</span><br><span class="line">git stash clear //清空储存堆栈</span><br></pre></td></tr></table></figure></p><p>这些储存操作默认都是最近的一次储存，当然，<code>pop</code>，<code>apply</code>，<code>drop</code>操作可以指定第几次储存，命令最后需要加<code>stash@{$num}</code>，比如默认的就是<code>stash@{0}</code>，但是省略掉了。<br>需要注意的是，能够储存的文件必须得是被<code>git</code>追踪的文件，<strong>如果一个新增的文件没有<code>add</code>过是不能被储存的</strong>。<br>还有一点储存的用处就是我之前丢弃修改的时候是先<code>git stash</code>，然后直接<code>git statsh clear</code>把储存删除，相当于丢弃了我的修改。</p><h4 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h4><p>回退的问题可以有很多花里胡哨的情况发生，还好我日常中遇到需要回退的情况比较少。</p><h5 id="丢弃工作区的内容"><a href="#丢弃工作区的内容" class="headerlink" title="丢弃工作区的内容"></a>丢弃工作区的内容</h5><p>工作区的内容，就是还没有执行<code>git add</code>的修改，可以用<code>git checkout</code>来丢弃修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- *</span><br></pre></td></tr></table></figure></p><h5 id="丢弃暂存区的内容"><a href="#丢弃暂存区的内容" class="headerlink" title="丢弃暂存区的内容"></a>丢弃暂存区的内容</h5><p>暂存区的内容，就是在执行了<code>git add</code>以后，但是还没有<code>git commit</code>，就需要使用<code>git reset</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD *</span><br></pre></td></tr></table></figure></p><p>这样可以把暂存区的内容回退到<code>git add</code>以前，然后可以使用<code>git checkout</code>来丢弃修改</p><h5 id="回退提交"><a href="#回退提交" class="headerlink" title="回退提交"></a>回退提交</h5><p>在提交了以后想要回退，然后要保留修改的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD^</span><br></pre></td></tr></table></figure></p><p>这是回退到上一个提交节点，每多退一次提交就加一个<code>^</code>，当然也可以用<code>HEAD~3</code>，这个<code>3</code>就表示要回退。<br>如果要回退并且直接丢弃所有修改，只需要把参数<code>--soft</code>改为<code>--hard</code>即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^</span><br></pre></td></tr></table></figure></p><h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>以上差不多就是我在工作之中使用<code>git</code>的一些收获，可能会有错误，如果发现有什么不对的地方还望指正</p>]]></content>
+      
+      <categories>
+          
+          <category> 个人整理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> git </tag>
+            
+            <tag> 工具 </tag>
+            
+            <tag> git flow </tag>
+            
+            <tag> 版本控制 </tag>
+            
+            <tag> 回退 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>父元素由于子元素使用float而无法自适应高度</title>
       <link href="/2019/06/02/post20190602/"/>
       <url>/2019/06/02/post20190602/</url>
@@ -267,17 +298,17 @@
             
             <tag> JavaScript </tag>
             
+            <tag> canvas </tag>
+            
+            <tag> 教程 </tag>
+            
             <tag> lufylegend </tag>
             
             <tag> cropper </tag>
             
-            <tag> canvas </tag>
-            
             <tag> jQuery </tag>
             
             <tag> 游戏 </tag>
-            
-            <tag> 教程 </tag>
             
         </tags>
       
@@ -350,15 +381,15 @@
             
             <tag> JavaScript </tag>
             
-            <tag> canvas </tag>
-            
-            <tag> 教程 </tag>
-            
             <tag> HTML5 </tag>
             
             <tag> CSS3 </tag>
             
+            <tag> canvas </tag>
+            
             <tag> 动画 </tag>
+            
+            <tag> 教程 </tag>
             
         </tags>
       

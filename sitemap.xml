@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://chrischen0405.github.io/2019/11/01/post20191101/</loc>
+    
+    <lastmod>2019-11-01T14:30:42.472Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://chrischen0405.github.io/2019/06/02/post20190602/</loc>
     
     <lastmod>2019-06-02T07:49:53.206Z</lastmod>
@@ -93,13 +100,6 @@
   </url>
   
   <url>
-    <loc>http://chrischen0405.github.io/2018/11/21/post20181121-2/</loc>
-    
-    <lastmod>2019-02-27T06:50:32.339Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://chrischen0405.github.io/2018/11/05/post20181105/</loc>
     
     <lastmod>2019-02-27T06:50:32.339Z</lastmod>
@@ -107,9 +107,9 @@
   </url>
   
   <url>
-    <loc>http://chrischen0405.github.io/2018/10/12/post20181012/</loc>
+    <loc>http://chrischen0405.github.io/2018/11/21/post20181121-2/</loc>
     
-    <lastmod>2019-02-27T06:50:32.338Z</lastmod>
+    <lastmod>2019-02-27T06:50:32.339Z</lastmod>
     
   </url>
   
@@ -121,14 +121,21 @@
   </url>
   
   <url>
-    <loc>http://chrischen0405.github.io/2018/09/12/post20180912/</loc>
+    <loc>http://chrischen0405.github.io/2018/10/12/post20181012/</loc>
+    
+    <lastmod>2019-02-27T06:50:32.338Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chrischen0405.github.io/2018/10/10/post20181010/</loc>
     
     <lastmod>2019-02-27T06:50:32.337Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://chrischen0405.github.io/2018/10/10/post20181010/</loc>
+    <loc>http://chrischen0405.github.io/2018/09/12/post20180912/</loc>
     
     <lastmod>2019-02-27T06:50:32.337Z</lastmod>
     

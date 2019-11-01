@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://chrischen0405.github.io/"/>
-  <updated>2019-06-02T07:49:53.206Z</updated>
+  <updated>2019-11-01T14:30:42.472Z</updated>
   <id>http://chrischen0405.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git基本命令以及使用场景介绍</title>
+    <link href="http://chrischen0405.github.io/2019/11/01/post20191101/"/>
+    <id>http://chrischen0405.github.io/2019/11/01/post20191101/</id>
+    <published>2019-11-01T14:23:26.000Z</published>
+    <updated>2019-11-01T14:30:42.472Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用了一阵子<code>git</code>，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：）</p><h3 id="git基本流程"><a href="#git基本流程" class="headerlink" title="git基本流程"></a>git基本流程</h3><p>可能以下流程不是标准的<code>git flow</code>，但是日常开发中用的最多的也是这几个命令，有错之处还望指正<br><a id="more"></a></p><h4 id="第一步-从远端克隆仓库"><a href="#第一步-从远端克隆仓库" class="headerlink" title="第一步 从远端克隆仓库"></a>第一步 从远端克隆仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;仓库地址&gt;</span><br></pre></td></tr></table></figure><h4 id="第二步-从master开一个新的分支"><a href="#第二步-从master开一个新的分支" class="headerlink" title="第二步 从master开一个新的分支"></a>第二步 从<code>master</code>开一个新的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;分支名称&gt;</span><br></pre></td></tr></table></figure><p>如果只是切换已经有的分支就不用加<code>-b</code>了，比如，远端有一个<code>dev</code>分支，本地在从<code>master</code>分支切换到<code>dev</code>分支的时候就不需要加<code>-b</code>参数了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure></p><h4 id="第三步-提交修改的代码"><a href="#第三步-提交修改的代码" class="headerlink" title="第三步 提交修改的代码"></a>第三步 提交修改的代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -a -m &quot;git message&quot;</span><br></pre></td></tr></table></figure><p>这里的参数<code>-m</code>是可以填写提交信息，后面的<code>git message</code>就是填写的提交信息，至于提交信息的填写规范可以自行查看。<br>参数<code>-a</code>是用来把已经被<code>git</code>追踪的修改或删除的文件提交，如果只是修改或者删除文件的话可以不使用<code>git add</code>，但如果有新增的文件，在提交前需要把文件添加到 <code>git</code>系统中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></p><p><code>.</code>表示所有的文件，也可以指定具体的文件名，但是我一直都是<code>git add .</code>，图方便嘻嘻</p><h4 id="第四步-把分支合并"><a href="#第四步-把分支合并" class="headerlink" title="第四步 把分支合并"></a>第四步 把分支合并</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master //切换到master分支</span><br><span class="line">git pull --rebase origin master //拉取远端master代码</span><br><span class="line">git merge &lt;分支名称&gt; //合并分支</span><br></pre></td></tr></table></figure><p>在提交完自己分支修改的代码之后，首先切换到需要合代码的分支，比如<code>master</code>分支，然后拉取远端代码，因为在协同工作的时候，可能别人已经把修改之后的代码推到远端，所以需要先把<code>master</code>更新到最新，然后再把自己的分支合并即可。<br>拉代码的时候不加<code>--rebase</code>也没有关系，只不过加了<code>--rebase</code>以后<code>git</code>的提交树会比较清爽，感兴趣的可以搜<strong>变基合并</strong></p><h4 id="第五步-把修改提交到远端"><a href="#第五步-把修改提交到远端" class="headerlink" title="第五步 把修改提交到远端"></a>第五步 把修改提交到远端</h4><p>上一步已经把修改合并到了<code>master</code>分支上，然后把本地的<code>master</code>分支推到远端：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p><h4 id="第六步-删除自己的分支"><a href="#第六步-删除自己的分支" class="headerlink" title="第六步 删除自己的分支"></a>第六步 删除自己的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;分支名称&gt;</span><br></pre></td></tr></table></figure><p>在功能分支合并了以后，就可以把功能分支删除了。<br>如果功能分支没有合并的话，<code>-d</code>是无法删除该分支的，但如果非要删，可以用<code>-D</code>参数强制删除该分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D &lt;分支名称&gt;</span><br></pre></td></tr></table></figure></p><p>不加参数的话就是查看本地所有分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p><p>如果本地的分支已经删除，还想删除远端的分支的话，可以用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :&lt;分支名称&gt;</span><br></pre></td></tr></table></figure></p><p>因为本地分支已经删除了，所以要在分支名称前加上<code>:</code>，不然<code>push</code>的时候会报错说分支不存在</p><h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><h4 id="暂存"><a href="#暂存" class="headerlink" title="暂存"></a>暂存</h4><p>在日常开发中，可能在写一个需求的时候，让你改一个紧急的bug，而且是在同一个项目里，这时候就要使用<code>git</code>的储存了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git stash //把修改的内容储存起来</span><br><span class="line">git stash list //查看储存的堆栈</span><br><span class="line">git stash pop //把最近的储存取出到工作区并且删除堆栈中的这次储存</span><br><span class="line">git stash apply //应用最近的储存</span><br><span class="line">git stash drop //删除最近的储存</span><br><span class="line">git stash clear //清空储存堆栈</span><br></pre></td></tr></table></figure></p><p>这些储存操作默认都是最近的一次储存，当然，<code>pop</code>，<code>apply</code>，<code>drop</code>操作可以指定第几次储存，命令最后需要加<code>stash@{$num}</code>，比如默认的就是<code>stash@{0}</code>，但是省略掉了。<br>需要注意的是，能够储存的文件必须得是被<code>git</code>追踪的文件，<strong>如果一个新增的文件没有<code>add</code>过是不能被储存的</strong>。<br>还有一点储存的用处就是我之前丢弃修改的时候是先<code>git stash</code>，然后直接<code>git statsh clear</code>把储存删除，相当于丢弃了我的修改。</p><h4 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h4><p>回退的问题可以有很多花里胡哨的情况发生，还好我日常中遇到需要回退的情况比较少。</p><h5 id="丢弃工作区的内容"><a href="#丢弃工作区的内容" class="headerlink" title="丢弃工作区的内容"></a>丢弃工作区的内容</h5><p>工作区的内容，就是还没有执行<code>git add</code>的修改，可以用<code>git checkout</code>来丢弃修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- *</span><br></pre></td></tr></table></figure></p><h5 id="丢弃暂存区的内容"><a href="#丢弃暂存区的内容" class="headerlink" title="丢弃暂存区的内容"></a>丢弃暂存区的内容</h5><p>暂存区的内容，就是在执行了<code>git add</code>以后，但是还没有<code>git commit</code>，就需要使用<code>git reset</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD *</span><br></pre></td></tr></table></figure></p><p>这样可以把暂存区的内容回退到<code>git add</code>以前，然后可以使用<code>git checkout</code>来丢弃修改</p><h5 id="回退提交"><a href="#回退提交" class="headerlink" title="回退提交"></a>回退提交</h5><p>在提交了以后想要回退，然后要保留修改的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD^</span><br></pre></td></tr></table></figure></p><p>这是回退到上一个提交节点，每多退一次提交就加一个<code>^</code>，当然也可以用<code>HEAD~3</code>，这个<code>3</code>就表示要回退。<br>如果要回退并且直接丢弃所有修改，只需要把参数<code>--soft</code>改为<code>--hard</code>即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^</span><br></pre></td></tr></table></figure></p><h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>以上差不多就是我在工作之中使用<code>git</code>的一些收获，可能会有错误，如果发现有什么不对的地方还望指正</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用了一阵子&lt;code&gt;git&lt;/code&gt;，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：）&lt;/p&gt;
+&lt;h3 id=&quot;git基本流程&quot;&gt;&lt;a href=&quot;#git基本流程&quot; class=&quot;headerlink&quot; title=&quot;git基本流程&quot;&gt;&lt;/a&gt;git基本流程&lt;/h3&gt;&lt;p&gt;可能以下流程不是标准的&lt;code&gt;git flow&lt;/code&gt;，但是日常开发中用的最多的也是这几个命令，有错之处还望指正&lt;br&gt;
+    
+    </summary>
+    
+      <category term="个人整理" scheme="http://chrischen0405.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%95%B4%E7%90%86/"/>
+    
+    
+      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="git" scheme="http://chrischen0405.github.io/tags/git/"/>
+    
+      <category term="工具" scheme="http://chrischen0405.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="git flow" scheme="http://chrischen0405.github.io/tags/git-flow/"/>
+    
+      <category term="版本控制" scheme="http://chrischen0405.github.io/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+    
+      <category term="回退" scheme="http://chrischen0405.github.io/tags/%E5%9B%9E%E9%80%80/"/>
+    
+  </entry>
   
   <entry>
     <title>父元素由于子元素使用float而无法自适应高度</title>
@@ -295,17 +328,17 @@
     
       <category term="JavaScript" scheme="http://chrischen0405.github.io/tags/JavaScript/"/>
     
+      <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
+    
+      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="lufylegend" scheme="http://chrischen0405.github.io/tags/lufylegend/"/>
     
       <category term="cropper" scheme="http://chrischen0405.github.io/tags/cropper/"/>
     
-      <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
-    
       <category term="jQuery" scheme="http://chrischen0405.github.io/tags/jQuery/"/>
     
       <category term="游戏" scheme="http://chrischen0405.github.io/tags/%E6%B8%B8%E6%88%8F/"/>
-    
-      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -485,15 +518,15 @@
     
       <category term="JavaScript" scheme="http://chrischen0405.github.io/tags/JavaScript/"/>
     
-      <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
-    
-      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
       <category term="HTML5" scheme="http://chrischen0405.github.io/tags/HTML5/"/>
     
       <category term="CSS3" scheme="http://chrischen0405.github.io/tags/CSS3/"/>
     
+      <category term="canvas" scheme="http://chrischen0405.github.io/tags/canvas/"/>
+    
       <category term="动画" scheme="http://chrischen0405.github.io/tags/%E5%8A%A8%E7%94%BB/"/>
+    
+      <category term="教程" scheme="http://chrischen0405.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -627,28 +660,6 @@
       <category term="JavaScript" scheme="http://chrischen0405.github.io/tags/JavaScript/"/>
     
       <category term="数组去重" scheme="http://chrischen0405.github.io/tags/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实习日志</title>
-    <link href="http://chrischen0405.github.io/2018/08/31/workLog/"/>
-    <id>http://chrischen0405.github.io/2018/08/31/workLog/</id>
-    <published>2018-08-31T08:00:28.000Z</published>
-    <updated>2019-06-02T07:31:14.835Z</updated>
-    
-    <content type="html"><![CDATA[<p>既然实习了，不如记录一下<br><a id="more"></a></p><h3 id="2019-6-2"><a href="#2019-6-2" class="headerlink" title="2019/6/2"></a>2019/6/2</h3><p>日期：2019/5/27-2019/6/1</p><p>工作情况：<br>1、软装活动页编写完成并提测上线<br>2、口碑和主材618活动页编写完成并提测上线</p><p>工作心得：<br>软装活动页已经编写过好几次了，渐渐地熟悉起来，这周主要难度是618的活动页，有两个页面要写，其实需求我没怎么搞懂，因为之前也没有写过主材的页面。并且，在开发过程中，产品又改了四次需求，更是让我一头雾水，与此同时，到提测前产品都没有把所需的所有资料都给我，更是影响了开发进度，所以本来估计的三天的开发工时，也因此延长了一天开发时间。</p><h3 id="2019-5-26"><a href="#2019-5-26" class="headerlink" title="2019/5/26"></a>2019/5/26</h3><p>日期：2019/5/20-2019/5/25</p><p>工作情况：<br>1、喜得宝店铺列表和店铺详情修bug以及成功发版<br>2、m端及喜得宝后台的金融贷款页重写，完成开发测试及上线</p><p>工作心得：<br>喜得宝店铺开发进行了两周才成功发版，不得不说bug总是源源不断地出现，上周已经提测了但是这周依然修改了一星期的bug。<br>金融贷款页是原本就有的，本来很多地方都只要简单修改就好了，但是由于产品也是新来的，所以很多地方都改了，导致时间上稍微多花了一点，最关键的是在我开发的过程中，产品还在不断变更需求，这真的非常影响开发效率啊！</p><h3 id="2019-5-15"><a href="#2019-5-15" class="headerlink" title="2019/5/15"></a>2019/5/15</h3><p>日期：2019/5/13-2019/5/15</p><p>工作要求：<br>1、喜得宝pc端后台店铺列表和店铺详情前端页面编写<br>2、软装520活动页做iPhone X适配<br>3、修改混沌学生列表和学生详情前端页面  </p><p>工作情况：<br>1、喜得宝店铺列表功能完成顺利<br>2、喜得宝店铺详情地图弹窗功能上周已大致完成，图片拖拽排序功能尝试了三种组件才完成<br>3、iPhone X适配根据屏幕大小应用不同的样式，但是一开始使用媒体查询失败了，于是尝试了绑定class来实现<br>4、混沌页面工作量不大，今天已经完成并提测</p><p>工作心得：<br>element地图弹窗是个坑，图片拖拽排序也是个坑，踩坑花了好久时间，适配很奇怪的是媒体查询失效了，混沌的部分主要是增加，照着之前的代码看改起来很快，应该不会出什么问题，而且这周剩下的日子要回学校，所以写完就直接提测了，联调的时候我人就不在公司了。</p><h3 id="2019-5-13"><a href="#2019-5-13" class="headerlink" title="2019/5/13"></a>2019/5/13</h3><p>日期：2019/5/5-2019/5/11</p><p>工作要求：<br>1、软装520活动页<br>2、喜得宝pc端后台店铺列表和店铺详情前端页面编写  </p><p>工作情况：<br>1、软装520活动页完成编写测试及发布<br>2、喜得宝pc端店铺列表基本完成<br>3、店铺详情页面使用百度地图api，查看百度地图api文档</p><p>工作心得：<br>本来以为百度地图公司会已经用过了，结果没有，需要自己踩坑，之后有机会可以写一篇关于百度地图api+elementUI dialog的踩坑博客。</p><h3 id="2019-5-2"><a href="#2019-5-2" class="headerlink" title="2019/5/2"></a>2019/5/2</h3><p>日期：2019/4/22-2019/4/30</p><p>工作要求：<br>1、APP推广页入口添加<br>2、口碑家装pc网页投放页<br>3、喜得宝口碑家装pc端管理页  </p><p>工作情况：<br>1、APP推广页入口添加完成<br>2、口碑家装pc网页投放页完成编写测试及发布，上线出现显示问题及时修复<br>3、熟悉element文档<br>4、喜得宝口碑家装pc端管理页完成店铺列表及详情前端显示部分<br>5、熟悉百度地图API的接口</p><p>工作心得：<br>第一次完成整个pc端网页的编写，熟悉了布局以及浮动，比手机端网页复杂不少，管理页使用vue+elementUI</p><h3 id="2019-4-21"><a href="#2019-4-21" class="headerlink" title="2019/4/21"></a>2019/4/21</h3><p>日期：2019/4/17-2019/4/20</p><p>工作要求：<br>1、口碑家装五一活动页19.4.1<br>2、千聊音频课程导出<br>3、狗粮商城外部推广页<br>4、作品家APP顶部H5报名入口排查修复</p><p>工作情况：<br>1、开发完成家装APP狗粮商城外部推广页并且进行测试和发布<br>2、学习前端规范并且将规范转移至语雀发布<br>3、学习git命令行并建立新分支提交今日代码到分支<br>4、千聊的十个音频导出并且发送给相关人员<br>5、作品家APP顶端h5报名入口排查并发布测试<br>6、口碑家装五一活动页完成编写测试和发布，已上线，暂时没有出现问题  </p><p>工作心得：<br>进到兔狗的第一周，天天加班，一天比一天晚，今天又是人生第一次996，好累，但是真的学到很多。</p><h3 id="2018-12-14"><a href="#2018-12-14" class="headerlink" title="2018/12/14"></a>2018/12/14</h3><p>日期：2018/12/10-2018/12/14</p><p>工作要求：<br>完成双旦活动前端代码</p><p>工作情况：<br>1.根据意见修改页面动画<br>2.和后端对接口并协助完善代码<br>3.根据测试反馈修改完善前端代码<br>4.办理离职手续</p><h3 id="2018-12-7"><a href="#2018-12-7" class="headerlink" title="2018/12/7"></a>2018/12/7</h3><p>日期：2018/12/3-2018/12/7</p><p>工作要求：<br>编写双旦活动前端代码</p><p>工作情况：<br>1.对接素材，处理素材<br>2.编写活动页面静态页面和动画</p><h3 id="2018-11-23"><a href="#2018-11-23" class="headerlink" title="2018/11/23"></a>2018/11/23</h3><p>日期：2018/11/19-2018/11/23</p><p>工作要求：<br>开始编写12月份会员日活动前端代码</p><p>工作情况：<br>1.和UI对接素材<br>2.活动主页布局基本完成</p><h3 id="2018-11-21"><a href="#2018-11-21" class="headerlink" title="2018/11/21"></a>2018/11/21</h3><p>日期：2018/11/12-2018/11/16</p><p>工作要求：<br>了解深度学习</p><p>工作情况：<br>在慕课网上听深度学习相关课程</p><h3 id="2018-11-09"><a href="#2018-11-09" class="headerlink" title="2018/11/09"></a>2018/11/09</h3><p>日期：2018年11月5日——2018年11月9日  </p><p>工作要求：<br>继续完成11月份会员日活动  </p><p>工作情况：  </p><ol><li>根据测试反馈修改代码  </li><li>协助后端修改代码  </li></ol><p>完成情况：   </p><ol><li>修改游戏难度  </li><li>修改部分前端代码</li></ol><h3 id="2018-11-02"><a href="#2018-11-02" class="headerlink" title="2018/11/02"></a>2018/11/02</h3><p>日期：2018 年  10   月   29  日—— 2018年   11  月   2  日  </p><p>工作要求：<br>继续完成11月份会员日活动  </p><p>工作情况：<br>1．    根据测试反馈修改代码<br>2．    和后端对接接口<br>3．    和UI对接素材  </p><p>完成情况：   </p><ol><li>布局适配不同机型  </li><li>参考lufylegend.js官方论坛  </li><li>重新编写游戏部分代码  </li><li>协助后端修改后端代码 </li></ol><h3 id="2018-10-26"><a href="#2018-10-26" class="headerlink" title="2018/10/26"></a>2018/10/26</h3><p>日期：2018 年  10   月   22  日—— 2018年   10  月   26  日  </p><p>工作要求：<br>完成11月份会员日活动前端代码  </p><p>工作情况：   </p><ol><li>会员日活动主页布局  </li><li>会员日活动游戏部分  </li></ol><p>完成情况：   </p><ol><li>完成会员日活动主页布局  </li><li>实现图片上传压缩功能  </li><li>使用cropper.js完成图片裁剪功能  </li><li>整合图片上传压缩裁剪功能  </li><li>游戏部分使用自定义图片  </li><li>游戏细节优化  </li></ol><h3 id="2018-10-19"><a href="#2018-10-19" class="headerlink" title="2018/10/19"></a>2018/10/19</h3><p>日期：2018 年  10   月   15  日—— 2018年   10  月   19  日  </p><p>工作要求：  </p><ol><li>测评各个人脸识别接口  </li><li>编写11月会员日活动游戏部分  </li></ol><p>工作情况：   </p><ol><li>测评各个人脸识别接口  </li><li>学习lufylegend.js游戏引擎  </li><li>查看11月份会员日活动流程图  </li><li>尝试编写11月会员日活动游戏  </li></ol><p>完成情况：   </p><ol><li>评测各个人脸识别接口，百度，face++，虹软，腾讯优图  </li><li>根据测评结果形成博客  </li><li>阅读lufylegend.js游戏引擎官方文档  </li><li>查看lufylegend.js游戏引擎官方论坛  </li><li>查看11月份会员日活动流程  </li><li>使用lufylegend.js游戏引擎编写游戏部分  </li></ol><h3 id="2018-10-12"><a href="#2018-10-12" class="headerlink" title="2018/10/12"></a>2018/10/12</h3><p>日期：2018 年  10   月   8  日—— 2018年   10  月   12  日  </p><p>工作要求：<br>继续完成十月份会员日活动前端代码  </p><p>工作情况：   </p><ol><li>根据测试反馈修改代码  </li><li>和后端人员对接口  </li><li>与UI对接素材  </li></ol><p>完成情况：   </p><ol><li>根据需求改变扭蛋机动画  </li><li>修复中奖动画的bug  </li><li>重写中奖消息滚动的动画  </li><li>协助后端修改后端代码  </li></ol><h3 id="2018-9-28"><a href="#2018-9-28" class="headerlink" title="2018/9/28"></a>2018/9/28</h3><p>日期：2018 年  9   月   24  日—— 2018年   9  月   28  日  </p><p>工作要求：<br>编写十月份会员日活动前端代码  </p><p>工作情况：   </p><ol><li>与UI对接素材  </li><li>会员日活动界面布局  </li><li>会员日活动界面动画编写  </li></ol><p>完成情况：   </p><ol><li>会员日活动主界面布局  </li><li>扭蛋机抽奖动画完成  </li><li>中奖消息滚动完成  </li><li>扭蛋机动画适配全面屏手机  </li></ol><h3 id="2018-9-21"><a href="#2018-9-21" class="headerlink" title="2018/9/21"></a>2018/9/21</h3><p>日期：2018 年  9   月   17  日—— 2018年   9  月   21  日  </p><p>工作要求：  </p><ol><li>熟悉去年会员日活动  </li><li>查看10月份会员日活动流程图  </li></ol><p>工作情况：<br>查看去年会员日活动的游戏，接口  </p><p>完成情况：   </p><ol><li>阅读会员日活动代码  </li><li>查看会员日活动流程图  </li></ol><h3 id="2018-9-14"><a href="#2018-9-14" class="headerlink" title="2018/9/14"></a>2018/9/14</h3><p>日期：2018 年  9   月   10  日—— 2018年   9  月   14  日  </p><p>工作要求：  </p><ol><li>完成九月会员日活动前端部分  </li><li>编写门店拜访天气预报模块  </li></ol><p>工作情况：   </p><ol><li>根据测试反馈修改前端代码  </li><li>协助后端修改后端代码  </li><li>会员日活动上线后问题修复  </li><li>编写门店拜访天气预报模块  </li></ol><p>完成情况：   </p><ol><li>按时完成会员日活动前端代码编写  </li><li>完成门店拜访天气预报模块  </li></ol><h3 id="2018-9-07"><a href="#2018-9-07" class="headerlink" title="2018/9/07"></a>2018/9/07</h3><p>日期：2018 年  9   月   3  日—— 2018年   9  月   7  日  </p><p>工作要求：  </p><ol><li>继续优化九月份会员日活动  </li><li>测试天气预报接口  </li></ol><p>工作情况：   </p><ol><li>修改会员日活动游戏部分  </li><li>和后端对会员日活动接口  </li><li>测试天气预报接口  </li></ol><p>完成情况：   </p><ol><li>为游戏添加音效开关  </li><li>协助后端修改方法  </li><li>测试天气预报接口是否可用并写博客记录  </li></ol><h3 id="2018-8-24"><a href="#2018-8-24" class="headerlink" title="2018/8/24"></a>2018/8/24</h3><p>日期：2018 年  8   月   20  日—— 2018年   8  月   24  日  </p><p>工作要求：<br>公司九月份会员日活动前端代码编写  </p><p>工作情况：  </p><ol><li>编写活动主界面  </li><li>编写游戏界面  </li><li>编写游戏  </li></ol><p>完成情况：  </p><ol><li>活动主界面基本编写完成  </li><li>解决主界面在各种机型上的显示问题  </li><li>游戏界面编写完成  </li><li>游戏主体功能大致完成  </li></ol><h3 id="2018-8-17"><a href="#2018-8-17" class="headerlink" title="2018/8/17"></a>2018/8/17</h3><p>日期：2018 年  8   月   13  日—— 2018年   8  月   17  日  </p><p>工作要求：<br>继续学习canvas  </p><p>工作情况：  </p><ol><li>学习canvas动画  </li><li>学习JavaScript  </li></ol><p>完成情况：<br>1．    编写三个canvas动画的demo<br>2．    编写js数组相关方法的demo  </p><h3 id="2018-8-10"><a href="#2018-8-10" class="headerlink" title="2018/8/10"></a>2018/8/10</h3><p>日期：2018 年  8   月   6  日—— 2018年   8  月   10  日  </p><p>工作要求：  </p><ol><li>学习phaser.js游戏引擎  </li><li>学习jQuery插件cropper.js  </li></ol><p>工作情况：  </p><ol><li>查看phaser.js官方文档  </li><li>阅读使用phaser.js引擎的小游戏代码  </li><li>阅读cropper.js官方API  </li><li>阅读cropper.js使用教程及相关博客  </li></ol><p>完成情况：  </p><ol><li>使用phaser.js编写一个h5小游戏  </li><li>仿写一个cropper官网  </li></ol><h3 id="2018-8-03"><a href="#2018-8-03" class="headerlink" title="2018/8/03"></a>2018/8/03</h3><p>日期：2018 年  8   月   1  日—— 2018年   8  月   3  日</p><p>工作要求：<br>学习canvas  </p><p>工作情况：  </p><ol><li>学习canvas基础  </li><li>学习canvas arc()函数  </li><li>学习canvas绘制动画  </li></ol><p>完成情况：<br>编写三个demo用来学习canvas相关知识  </p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;既然实习了，不如记录一下&lt;br&gt;
-    
-    </summary>
-    
-      <category term="个人日志" scheme="http://chrischen0405.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%97%A5%E5%BF%97/"/>
-    
-    
-      <category term="日志" scheme="http://chrischen0405.github.io/tags/%E6%97%A5%E5%BF%97/"/>
     
   </entry>
   
