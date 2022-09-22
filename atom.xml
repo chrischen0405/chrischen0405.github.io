@@ -62,13 +62,13 @@
       <category term="踩坑" scheme="http://chrischen0405.github.io/categories/%E8%B8%A9%E5%9D%91/"/>
     
     
-      <category term="报错" scheme="http://chrischen0405.github.io/tags/%E6%8A%A5%E9%94%99/"/>
-    
       <category term="yarn" scheme="http://chrischen0405.github.io/tags/yarn/"/>
     
       <category term="npm" scheme="http://chrischen0405.github.io/tags/npm/"/>
     
       <category term="node" scheme="http://chrischen0405.github.io/tags/node/"/>
+    
+      <category term="报错" scheme="http://chrischen0405.github.io/tags/%E6%8A%A5%E9%94%99/"/>
     
   </entry>
   
@@ -120,9 +120,9 @@
       <category term="踩坑" scheme="http://chrischen0405.github.io/categories/%E8%B8%A9%E5%9D%91/"/>
     
     
-      <category term="flutter" scheme="http://chrischen0405.github.io/tags/flutter/"/>
-    
       <category term="报错" scheme="http://chrischen0405.github.io/tags/%E6%8A%A5%E9%94%99/"/>
+    
+      <category term="flutter" scheme="http://chrischen0405.github.io/tags/flutter/"/>
     
   </entry>
   
