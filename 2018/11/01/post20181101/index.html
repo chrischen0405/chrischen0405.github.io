@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,jQuery,教程,canvas,lufylegend,cropper,游戏,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前几天公司要做一个拼图的小游戏，我看到了《速度挑战 - 2小时完成HTML5拼图小游戏》，照着写完了一个小游戏以后，这几天使用cropper和lufylegend游戏引擎制作了一款简单的可以自定义图片的拼图华容道游戏，该游戏除了实现基本的游戏功能以外，还支持游戏图片上传，剪切，以及图片过大可以进行压缩的功能。">
+<meta name="keywords" content="JavaScript,jQuery,教程,canvas,lufylegend,cropper,游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于lufylegend和cropper自定义图片的拼图华容道">
+<meta property="og:url" content="http://chrischen0405.github.io/2018/11/01/post20181101/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="前几天公司要做一个拼图的小游戏，我看到了《速度挑战 - 2小时完成HTML5拼图小游戏》，照着写完了一个小游戏以后，这几天使用cropper和lufylegend游戏引擎制作了一款简单的可以自定义图片的拼图华容道游戏，该游戏除了实现基本的游戏功能以外，还支持游戏图片上传，剪切，以及图片过大可以进行压缩的功能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-22T07:47:58.222Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于lufylegend和cropper自定义图片的拼图华容道">
+<meta name="twitter:description" content="前几天公司要做一个拼图的小游戏，我看到了《速度挑战 - 2小时完成HTML5拼图小游戏》，照着写完了一个小游戏以后，这几天使用cropper和lufylegend游戏引擎制作了一款简单的可以自定义图片的拼图华容道游戏，该游戏除了实现基本的游戏功能以外，还支持游戏图片上传，剪切，以及图片过大可以进行压缩的功能。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2018/11/01/post20181101/">
+
+
+
+
+
+  <title>基于lufylegend和cropper自定义图片的拼图华容道 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2018/11/01/post20181101/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于lufylegend和cropper自定义图片的拼图华容道</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T13:32:49+08:00">
+                2018-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端的乐趣/" itemprop="url" rel="index">
+                    <span itemprop="name">前端的乐趣</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前几天公司要做一个拼图的小游戏，我看到了<a href="https://blog.csdn.net/yorhomwang/article/details/52133498" target="_blank" rel="noopener">《速度挑战 - 2小时完成HTML5拼图小游戏》</a>，照着写完了一个小游戏以后，这几天使用<a href="http://fengyuanchen.github.io/cropper/" target="_blank" rel="noopener">cropper</a>和<a href="http://lufylegend.com/" target="_blank" rel="noopener">lufylegend</a>游戏引擎制作了一款简单的可以自定义图片的拼图华容道游戏，该游戏除了实现基本的游戏功能以外，还支持游戏图片上传，剪切，以及图片过大可以进行压缩的功能。<br><a id="more"></a></p>
+<p><a href="https://chrischen0405.github.io/Demo/canvas/lufylegend/index.html">传送门</a></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>俗话说“兵马未动粮草先行”，在直接开始撸游戏之前，需要先做一些准备：<br>（1）<strong>cropper</strong><br><a href="http://fengyuanchen.github.io/cropper/" target="_blank" rel="noopener">cropper</a>是一款使用简单且功能强大的图片剪裁jQuery插件，我选择使用该插件来实现图片裁剪的功能，在使用之前需要引入cropper：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"https://cdn.bootcss.com/cropperjs/1.3.6/cropper.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/cropperjs/1.3.6/cropper.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>（2）<strong>jQuery</strong><br>jQuery就不多说了，cropper就是jQuery的插件，自然需要引入，需要注意的是<strong>jQuery需要在cropper之前引入</strong><br>（3）<strong>lufylegend</strong><br><a href="http://lufylegend.com/" target="_blank" rel="noopener">lufylegend</a>是一个HTML5开源引擎，使用之前需要引入：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/lib/lufylegend-1.10.1.simple.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>（4）WeUI<br><a href="https://weui.io/" target="_blank" rel="noopener">WeUI</a>是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。使用这个ui库主要是使用了<code>gallery</code>用来展示上传的图片用于下一步的裁剪，要使用的话也需要引入：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"https://res.wx.qq.com/open/libs/weuijs/1.1.3/weui.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>在做好之前的准备以后，就可以开始撸游戏了</p>
+<h3 id="1-布局"><a href="#1-布局" class="headerlink" title="1.布局"></a>1.布局</h3><p>游戏本身只需要一个<code>div</code>，整个页面分为两块，图片上传模块和游戏模块，整体还是比较简单，之后可以继续增加其他的内容：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">id</span>=<span class="string">"file"</span> <span class="attr">multiple</span>=<span class="string">"multiple"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span> <span class="attr">style</span>=<span class="string">"display: none"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--图片上传按钮--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"weui-uploader__input-box getImg"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"getImg"</span> <span class="attr">class</span>=<span class="string">"weui-uploader__input"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--图片上传--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"uploadPhotoBox"</span> <span class="attr">class</span>=<span class="string">"page gallery js_show img"</span> <span class="attr">style</span>=<span class="string">"display: none"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"weui-gallery"</span> <span class="attr">style</span>=<span class="string">"display: block"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"photoBox"</span> <span class="attr">class</span>=<span class="string">"photo weui-gallery__img"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"photo"</span> <span class="attr">style</span>=<span class="string">"max-width: 100%"</span> <span class="attr">src</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tool"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">id</span>=<span class="string">"crop"</span>&gt;</span>确定<span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">i</span> <span class="attr">id</span>=<span class="string">"cancel"</span>&gt;</span>取消<span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--游戏--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"game"</span> <span class="attr">style</span>=<span class="string">"display: none"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"time"</span>&gt;</span>时间： <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"time"</span>&gt;</span>99<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"steps"</span>&gt;</span>步数： <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"steps"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myGame"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>还有一点点样式：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.time</span>, <span class="selector-class">.steps</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: absolute;</span><br><span class="line">            <span class="attribute">margin-left</span>: <span class="number">20%</span>;</span><br><span class="line">            <span class="attribute">margin-top</span>: <span class="number">5%</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="selector-class">.steps</span> &#123;</span><br><span class="line">            <span class="attribute">margin-top</span>: <span class="number">10%</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="selector-class">.tool</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: absolute;</span><br><span class="line">            <span class="attribute">z-index</span>: <span class="number">2</span>;</span><br><span class="line">            <span class="attribute">background-color</span>: <span class="number">#111111</span>;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="selector-class">.tool</span> <span class="selector-tag">i</span> &#123;</span><br><span class="line">            <span class="attribute">font-size</span>: <span class="number">1rem</span>;</span><br><span class="line">            <span class="attribute">color</span>: white;</span><br><span class="line">            <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">float</span>: right;</span><br><span class="line">            <span class="attribute">padding-left</span>: <span class="number">2rem</span>;</span><br><span class="line">            <span class="attribute">padding-right</span>: <span class="number">2rem</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="selector-id">#cancel</span> &#123;</span><br><span class="line">            <span class="attribute">float</span>: left;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-定义全局变量"><a href="#2-定义全局变量" class="headerlink" title="2.定义全局变量"></a>2.定义全局变量</h3><p>首先需要定义一些变量，并且添加一些简单的逻辑事件，例如鼠标点击：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> imgResult;<span class="comment">//裁剪出来图片的base64值</span></span><br><span class="line"><span class="keyword">var</span> imgResultImg = <span class="keyword">new</span> Image();<span class="comment">//裁剪出来的图片对象</span></span><br><span class="line"><span class="keyword">var</span> flObj = <span class="built_in">document</span>.getElementById(<span class="string">"file"</span>);</span><br><span class="line"></span><br><span class="line">$(<span class="string">'#getImg'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    $(<span class="string">'#file'</span>).bind(<span class="string">'change'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//文件上传控件绑定监听事件</span></span><br><span class="line">        <span class="keyword">var</span> file = $(<span class="keyword">this</span>).val();</span><br><span class="line">        <span class="keyword">if</span> (file.length &gt; <span class="number">0</span>) &#123;<span class="comment">//文件不为空时自动提交图片</span></span><br><span class="line">            uploadImg();<span class="comment">//图片提交</span></span><br><span class="line">            $(<span class="string">'#photoBox'</span>).css(<span class="string">'display'</span>, <span class="string">'block'</span>);</span><br><span class="line">            $(<span class="string">'.getImg'</span>).css(<span class="string">'display'</span>, <span class="string">'none'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    $(<span class="string">'#file'</span>).click();</span><br><span class="line">    $(<span class="string">'#uploadPhotoBox'</span>).css(<span class="string">'display'</span>, <span class="string">'block'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">'#cancel'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//取消图片提交</span></span><br><span class="line">    <span class="built_in">window</span>.location.reload();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面的<code>uploadImg()</code>函数会在之后有定义</p>
+<h3 id="3-图片处理部分"><a href="#3-图片处理部分" class="headerlink" title="3.图片处理部分"></a>3.图片处理部分</h3><p>需要完成图片的上传，压缩，裁剪功能</p>
+<h4 id="3-1-图片上传"><a href="#3-1-图片上传" class="headerlink" title="3.1 图片上传"></a>3.1 图片上传</h4><p>在用户选择文件以后要先判断是否是图片，然后再判断图片大小确定是否要压缩，然后才能开始裁剪<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadImg</span>(<span class="params"></span>) </span>&#123;<span class="comment">//图片上传</span></span><br><span class="line">    $(<span class="string">'#photoBox'</span>).empty();</span><br><span class="line">    $(<span class="string">'#photoBox'</span>).html(<span class="string">'&lt;img id="photo" src=""&gt;'</span>);</span><br><span class="line">    <span class="keyword">var</span> file = flObj.files[<span class="number">0</span>];<span class="comment">//因为每次只上传了一张图片，所以获取到flObj.files[0];</span></span><br><span class="line">    <span class="keyword">var</span> fReader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    <span class="keyword">var</span> isImage = checkFile(file);<span class="comment">//检查文件是否为图像类型</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isImage) &#123;</span><br><span class="line">        alert(<span class="string">"请确保文件为图像类型"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fReader.onload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> imageSize = e.total; <span class="comment">//图片大小</span></span><br><span class="line">            <span class="keyword">var</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">            image.src = e.target.result;</span><br><span class="line">            image.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="comment">//判断是否需要压缩图片</span></span><br><span class="line">                image = judgeCompress(image, imageSize);</span><br><span class="line">                <span class="built_in">document</span>.getElementById(<span class="string">"photo"</span>).src = image.src;</span><br><span class="line">                cropper(<span class="built_in">document</span>.getElementById(<span class="string">"photo"</span>), options);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fReader.readAsDataURL(isImage);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>检查文件是否为图像类型：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkFile</span>(<span class="params">file</span>) </span>&#123;<span class="comment">//检查文件是否为图像类型</span></span><br><span class="line">    <span class="built_in">console</span>.log(file);</span><br><span class="line">    <span class="comment">//使用正则表达式匹配判断</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/image\/\w+/</span>.test(file.type)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> file;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-2-图片压缩"><a href="#3-2-图片压缩" class="headerlink" title="3.2 图片压缩"></a>3.2 图片压缩</h4><p>在图片压缩之前，需要先检查图片大小，图片过大才需要压缩：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">judgeCompress</span>(<span class="params">image, imageSize</span>) </span>&#123;<span class="comment">//判断图片大小</span></span><br><span class="line">    <span class="comment">//判断图片是否大于300000 bit</span></span><br><span class="line">    <span class="keyword">var</span> threshold = <span class="number">300000</span>; <span class="comment">//阈值,可根据实际情况调整</span></span><br><span class="line">    <span class="keyword">if</span> (imageSize &gt; threshold) &#123;</span><br><span class="line">        <span class="keyword">var</span> imageData = compress(image);<span class="comment">//图片压缩</span></span><br><span class="line">        <span class="keyword">var</span> newImage = <span class="keyword">new</span> Image();</span><br><span class="line">        newImage.src = imageData;</span><br><span class="line">        <span class="keyword">return</span> newImage;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> image;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>图片压缩是使用<code>canvas</code>实现，先将图片绘制出来，然后再讲绘制出来的图片保存为图片对象以完成压缩，代码实现如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compress</span>(<span class="params">image</span>) </span>&#123;<span class="comment">//图片压缩</span></span><br><span class="line">    <span class="keyword">var</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span><br><span class="line">    <span class="keyword">var</span> ctx = canvas.getContext(<span class="string">"2d"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> originWidth = image.width;</span><br><span class="line">    <span class="keyword">var</span> originHeight = image.height;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> maxWidth = <span class="number">800</span>,</span><br><span class="line">        maxHeight = <span class="number">800</span>;</span><br><span class="line">    <span class="comment">// 目标尺寸</span></span><br><span class="line">    <span class="keyword">var</span> targetWidth = originWidth,</span><br><span class="line">        targetHeight = originHeight;</span><br><span class="line">    <span class="comment">// 图片尺寸超过800x800的限制</span></span><br><span class="line">    <span class="keyword">if</span> (originWidth &gt; maxWidth || originHeight &gt; maxHeight) &#123;</span><br><span class="line">        <span class="keyword">if</span> (originWidth / originHeight &gt; maxWidth / maxHeight) &#123;</span><br><span class="line">            <span class="comment">// 更宽，按照宽度限定尺寸</span></span><br><span class="line">            targetWidth = maxWidth;</span><br><span class="line">            targetHeight = <span class="built_in">Math</span>.round(maxWidth * (originHeight / originWidth));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            targetHeight = maxHeight;</span><br><span class="line">            targetWidth = <span class="built_in">Math</span>.round(maxHeight * (originWidth / originHeight));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    canvas.height = targetHeight;</span><br><span class="line">    canvas.width = targetWidth;</span><br><span class="line">    ctx.drawImage(image, <span class="number">0</span>, <span class="number">0</span>, targetWidth, targetHeight);</span><br><span class="line">    <span class="comment">//压缩操作</span></span><br><span class="line">    <span class="keyword">var</span> quality = <span class="number">0.8</span>; <span class="comment">//图片质量  范围：0&lt;quality&lt;=1 根据实际需求调正</span></span><br><span class="line">    <span class="keyword">var</span> imageData = canvas.toDataURL(<span class="string">"image/jpeg"</span>, quality);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> imageData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-3-图片裁剪"><a href="#3-3-图片裁剪" class="headerlink" title="3.3 图片裁剪"></a>3.3 图片裁剪</h4><p>得到了处理完成的图片以后，就可以进行图片裁剪了，首先先按照官网进行插件的配置，我把它们写在了一个对象中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">    aspectRatio: <span class="number">1</span>,  <span class="comment">//宽高比</span></span><br><span class="line">    preview: <span class="string">'.preview'</span>,  <span class="comment">//预览窗口</span></span><br><span class="line">    guides: <span class="literal">true</span>,  <span class="comment">//裁剪框的虚线</span></span><br><span class="line">    autoCropArea: <span class="number">0.5</span>,  <span class="comment">//0-1之间的数值，定义自动剪裁区域的大小，默认0.8</span></span><br><span class="line">    dragCrop: <span class="literal">true</span>,  <span class="comment">//是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域</span></span><br><span class="line">    movable: <span class="literal">true</span>,  <span class="comment">//是否允许移动剪裁框</span></span><br><span class="line">    resizable: <span class="literal">true</span>,  <span class="comment">//是否允许改变裁剪框的大小</span></span><br><span class="line">    zoomable: <span class="literal">false</span>,  <span class="comment">//是否允许缩放图片大小</span></span><br><span class="line">    mouseWheelZoom: <span class="literal">false</span>,  <span class="comment">//是否允许通过鼠标滚轮来缩放图片</span></span><br><span class="line">    touchDragZoom: <span class="literal">false</span>,  <span class="comment">//是否允许通过触摸移动来缩放图片</span></span><br><span class="line">    rotatable: <span class="literal">false</span>,  <span class="comment">//是否允许旋转图片</span></span><br><span class="line">    minContainerWidth: <span class="number">200</span>,  <span class="comment">//容器的最小宽度</span></span><br><span class="line">    minContainerHeight: <span class="number">200</span>,  <span class="comment">//容器的最小高度</span></span><br><span class="line">    minCanvasWidth: <span class="number">0</span>,  <span class="comment">//canvas 的最小宽度（image wrapper）</span></span><br><span class="line">    minCanvasHeight: <span class="number">0</span>,  <span class="comment">//canvas 的最小高度（image wrapper）</span></span><br><span class="line">    strict: <span class="literal">true</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后就是图片这部分最核心的裁剪部分了，但是使用cropper裁剪出来的图片是<code>canvas</code>，解决的方法是将<code>canvas</code>使用<code>toDataURL()</code>方法转化为<code>base64</code>之后再转为<code>img</code>对象，用于后面的操作：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cropper</span>(<span class="params">photo, options</span>) </span>&#123;<span class="comment">//图片裁剪</span></span><br><span class="line">    <span class="keyword">var</span> cropper = <span class="keyword">new</span> Cropper(photo, options);</span><br><span class="line">    $(<span class="string">'#crop'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        imgResult = cropper.getCroppedCanvas().toDataURL();<span class="comment">//裁剪出来的base64</span></span><br><span class="line">        imgResultImg.src = imgResult;<span class="comment">//裁剪出来的图片对象</span></span><br><span class="line">        $(<span class="string">'.img'</span>).css(<span class="string">'display'</span>, <span class="string">'none'</span>);</span><br><span class="line">        LInit(<span class="number">60</span>, <span class="string">"myGame"</span>, gameWidth, gameHeight, main);<span class="comment">//游戏初始化</span></span><br><span class="line">        $(<span class="string">'.game'</span>).css(<span class="string">'display'</span>, <span class="string">'block'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样子图片处理部分就完成了，在图片裁剪完成之后就开始初始化游戏了。</p>
+<h3 id="4-游戏部分"><a href="#4-游戏部分" class="headerlink" title="4.游戏部分"></a>4.游戏部分</h3><p>接下来就开始游戏部分的制作，游戏中大致思路模仿了<a href="https://blog.csdn.net/yorhomwang/article/details/52133498" target="_blank" rel="noopener">《速度挑战 - 2小时完成HTML5拼图小游戏》</a>，在其基础上做了修改</p>
+<h4 id="4-1-定义变量"><a href="#4-1-定义变量" class="headerlink" title="4.1 定义变量"></a>4.1 定义变量</h4><p>首先还是要定义游戏中需要用到的变量：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 初始化游戏 */</span></span><br><span class="line"><span class="keyword">var</span> gameWidth = <span class="number">390</span>;</span><br><span class="line"><span class="keyword">var</span> gameHeight = <span class="number">390</span>;</span><br><span class="line"><span class="comment">/** 游戏层 */</span></span><br><span class="line"><span class="keyword">var</span> stageLayer, gameLayer, overLayer;</span><br><span class="line"><span class="comment">/** 拼图块列表 */</span></span><br><span class="line"><span class="keyword">var</span> blockList;</span><br><span class="line"><span class="comment">/** 是否游戏结束 */</span></span><br><span class="line"><span class="keyword">var</span> isGameOver,</span><br><span class="line">    isTimeOver;</span><br><span class="line"><span class="comment">/** 用时 */</span></span><br><span class="line"><span class="keyword">var</span> startTime, time, countTime;</span><br><span class="line"><span class="comment">/** 步数 */</span></span><br><span class="line"><span class="keyword">var</span> steps;</span><br><span class="line"><span class="comment">/** 图片 */</span></span><br><span class="line"><span class="keyword">var</span> imgBmpd, startNewGame, fail, startBitmap, Again, failBitmap, againBitmap, succeed, succeedBitmap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _blockList = [];<span class="comment">//拼图序列</span></span><br><span class="line"><span class="keyword">var</span> datalist = [];<span class="comment">//存放图片</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="4-2-游戏初始化"><a href="#4-2-游戏初始化" class="headerlink" title="4.2 游戏初始化"></a>4.2 游戏初始化</h4><p>游戏初始化，包括素材的加载，以及游戏界面的显示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;<span class="comment">//游戏资源初始化</span></span><br><span class="line">    <span class="comment">/** 全屏设置 */</span></span><br><span class="line">    <span class="keyword">if</span> (LGlobal.mobile) &#123;</span><br><span class="line">        LGlobal.width = gameWidth;</span><br><span class="line">        LGlobal.height = gameHeight;</span><br><span class="line">        LGlobal.stageScale = LStageScaleMode.SHOW_ALL;</span><br><span class="line">    &#125;</span><br><span class="line">    LGlobal.screen(LGlobal.FULL_SCREEN);</span><br><span class="line">    LGlobal.preventDefault = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 添加加载提示 */</span></span><br><span class="line">    <span class="keyword">var</span> loadingHint = <span class="keyword">new</span> LTextField();</span><br><span class="line">    loadingHint.text = <span class="string">"资源加载中……"</span>;</span><br><span class="line">    loadingHint.size = <span class="number">20</span>;</span><br><span class="line">    loadingHint.x = (LGlobal.width - loadingHint.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    loadingHint.y = (LGlobal.height - loadingHint.getHeight()) / <span class="number">2</span>;</span><br><span class="line">    addChild(loadingHint);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 加载图片 文件*/</span></span><br><span class="line">    LLoadManage.load(</span><br><span class="line">        [</span><br><span class="line">            &#123;<span class="attr">path</span>: <span class="string">"./js/Block.js"</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">name</span>: <span class="string">"startGame"</span>, <span class="attr">path</span>: <span class="string">"./images/start.png"</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">name</span>: <span class="string">"fail"</span>, <span class="attr">path</span>: <span class="string">"./images/fail.png"</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">name</span>: <span class="string">"Again"</span>, <span class="attr">path</span>: <span class="string">"./images/challengeAgain.png"</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">name</span>: <span class="string">"succeed"</span>, <span class="attr">path</span>: <span class="string">"./images/succeed.png"</span>&#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="literal">null</span>,</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">            <span class="comment">/** 移除加载提示 */</span></span><br><span class="line">            loadingHint.remove();</span><br><span class="line"></span><br><span class="line">            <span class="comment">/** 保存位图数据，方便后续使用 */</span></span><br><span class="line">            imgBmpd = <span class="keyword">new</span> LBitmapData(imgResultImg);</span><br><span class="line"></span><br><span class="line">            gameInit(result);</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameInit</span>(<span class="params">e</span>) </span>&#123;<span class="comment">//游戏内容初始化</span></span><br><span class="line">    datalist = e;</span><br><span class="line">    <span class="keyword">var</span> bitmapData = <span class="keyword">new</span> LBitmapData(imgResultImg);</span><br><span class="line">    <span class="keyword">var</span> bitmap = <span class="keyword">new</span> LBitmap(bitmapData);</span><br><span class="line"></span><br><span class="line">    bitmap.scaleX = LGlobal.width / bitmap.width;</span><br><span class="line">    bitmap.scaleY = LGlobal.height / bitmap.height;</span><br><span class="line">    bitmap.width = LGlobal.width;</span><br><span class="line">    bitmap.height = LGlobal.height;</span><br><span class="line">    bitmap.x = <span class="number">0</span>;</span><br><span class="line">    bitmap.y = <span class="number">0</span>;</span><br><span class="line">    addChild(bitmap);</span><br><span class="line"></span><br><span class="line">    startNewGame = <span class="keyword">new</span> LBitmapData(datalist[<span class="string">'startGame'</span>]);</span><br><span class="line">    fail = <span class="keyword">new</span> LBitmapData(datalist[<span class="string">"fail"</span>]);</span><br><span class="line">    Again = <span class="keyword">new</span> LBitmapData(datalist[<span class="string">"Again"</span>]);</span><br><span class="line">    succeed = <span class="keyword">new</span> LBitmapData(datalist[<span class="string">"succeed"</span>]);</span><br><span class="line">    startBitmap = <span class="keyword">new</span> LBitmap(startNewGame);</span><br><span class="line">    failBitmap = <span class="keyword">new</span> LBitmap(fail);</span><br><span class="line">    againBitmap = <span class="keyword">new</span> LBitmap(Again);</span><br><span class="line">    succeedBitmap = <span class="keyword">new</span> LBitmap(succeed);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 初始化舞台层 */</span></span><br><span class="line">    stageLayer = <span class="keyword">new</span> LSprite();</span><br><span class="line">    stageLayer.graphics.drawRect(<span class="number">0</span>, <span class="string">""</span>, [<span class="number">0</span>, <span class="number">0</span>, LGlobal.width, LGlobal.height], <span class="literal">true</span>, <span class="string">"transparent"</span>);</span><br><span class="line">    addChild(stageLayer);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 初始化游戏层 */</span></span><br><span class="line">    gameLayer = <span class="keyword">new</span> LSprite();</span><br><span class="line">    stageLayer.addChild(gameLayer);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 初始化最上层 */</span></span><br><span class="line">    overLayer = <span class="keyword">new</span> LSprite();</span><br><span class="line">    stageLayer.addChild(overLayer);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 添加开始界面 */</span></span><br><span class="line">    addBeginningUI();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addBeginningUI</span>(<span class="params"></span>) </span>&#123;<span class="comment">//游戏开始界面</span></span><br><span class="line">    <span class="keyword">var</span> beginningLayer = <span class="keyword">new</span> LSprite();</span><br><span class="line">    beginningLayer.graphics.drawRect(<span class="number">0</span>, <span class="string">""</span>, [<span class="number">0</span>, <span class="number">0</span>, LGlobal.width, LGlobal.height], <span class="literal">true</span>, <span class="string">"transparent"</span>);</span><br><span class="line">    stageLayer.addChild(beginningLayer);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 游戏标题 */</span></span><br><span class="line">    <span class="keyword">var</span> title = <span class="keyword">new</span> LTextField();</span><br><span class="line">    title.text = <span class="string">"拼图华容道"</span>;</span><br><span class="line">    title.size = <span class="number">48</span>;</span><br><span class="line">    title.weight = <span class="string">"bold"</span>;</span><br><span class="line">    title.x = (LGlobal.width - title.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    title.y = <span class="number">70</span>;</span><br><span class="line">    title.color = <span class="string">"#f8fbb5"</span>;</span><br><span class="line">    title.lineWidth = <span class="number">5</span>;</span><br><span class="line">    title.lineColor = <span class="string">"#000000"</span>;</span><br><span class="line">    title.stroke = <span class="literal">true</span>;</span><br><span class="line">    beginningLayer.addChild(title);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 开始游戏提示 */</span></span><br><span class="line">    startBitmap.scaleX = <span class="number">0.7</span>;</span><br><span class="line">    startBitmap.scaleY = <span class="number">0.7</span>;</span><br><span class="line">    startBitmap.x = (LGlobal.width - startBitmap.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    startBitmap.y = <span class="number">250</span> + <span class="number">0</span>;</span><br><span class="line">    beginningLayer.addChild(startBitmap);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 初始化拼图块列表 */</span></span><br><span class="line">    initBlockList();</span><br><span class="line">    <span class="comment">/** 打乱拼图 */</span></span><br><span class="line">    getRandomBlockList();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 开始游戏 */</span></span><br><span class="line">    beginningLayer.addEventListener(LMouseEvent.MOUSE_UP, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        beginningLayer.remove();</span><br><span class="line">        startGame();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-3-游戏主体"><a href="#4-3-游戏主体" class="headerlink" title="4.3 游戏主体"></a>4.3 游戏主体</h4><p>接下来来到了整个游戏最重要的部分，游戏主体的实现，开始以后将拼图打乱，然后进行游戏：</p>
+<h5 id="1-开始游戏"><a href="#1-开始游戏" class="headerlink" title="(1)开始游戏"></a>(1)开始游戏</h5><p>点击界面以后将游戏的各种值初始化，然后开始游戏<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startGame</span>(<span class="params"></span>) </span>&#123;<span class="comment">//开始游戏</span></span><br><span class="line">    isGameOver = <span class="literal">false</span>;</span><br><span class="line">    isTimeOver = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 初始化时间和步数 */</span></span><br><span class="line">    startTime = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</span><br><span class="line">    countTime = <span class="number">0</span>;</span><br><span class="line">    time = <span class="number">0</span>;</span><br><span class="line">    steps = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 显示拼图 */</span></span><br><span class="line">    showBlock();</span><br><span class="line">    <span class="comment">/** 计时 */</span></span><br><span class="line">    updateTimeTxt(countTime);</span><br><span class="line">    <span class="comment">/** 显示步数 */</span></span><br><span class="line">    updateStepsTxt();</span><br><span class="line"></span><br><span class="line">    stageLayer.addEventListener(LEvent.ENTER_FRAME, onFrame);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-显示拼图"><a href="#2-显示拼图" class="headerlink" title="(2)显示拼图"></a>(2)显示拼图</h5><p>显示拼图显然不是一张图，那么就需要拼图块，后面会定义一个类来表示这些拼图块<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showBlock</span>(<span class="params"></span>) </span>&#123;<span class="comment">//显示拼图</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = blockList.length; i &lt; l; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> b = blockList[i];</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 根据序号计算拼图块位置 */</span></span><br><span class="line">        <span class="keyword">var</span> y = (i / <span class="number">3</span>) &gt;&gt;&gt; <span class="number">0</span>, x = i % <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">        b.setLocation(x, y);</span><br><span class="line"></span><br><span class="line">        gameLayer.addChild(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-初始化拼图列表"><a href="#3-初始化拼图列表" class="headerlink" title="(3)初始化拼图列表"></a>(3)初始化拼图列表</h5><p>根据序号计算拼图块图片显示位置，将拼图块存放到列表中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initBlockList</span>(<span class="params"></span>) </span>&#123;<span class="comment">//初始化拼图列表</span></span><br><span class="line">    blockList = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="comment">/** 根据序号计算拼图块图片显示位置 */</span></span><br><span class="line">        <span class="keyword">var</span> y = (i / <span class="number">3</span>) &gt;&gt;&gt; <span class="number">0</span>, x = i % <span class="number">3</span>;</span><br><span class="line">        blockList.push(<span class="keyword">new</span> Block(i, x, y));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-打乱拼图"><a href="#4-打乱拼图" class="headerlink" title="(4)打乱拼图"></a>(4)打乱拼图</h5><p>这里使用的是随机打乱拼图，然后计算序列的倒序和，如果倒序和是奇数，拼图无法完成，需要重新打乱，直到倒序和为偶数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomBlockList</span>(<span class="params"></span>) </span>&#123;<span class="comment">//随机打乱拼图</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 随机打乱拼图 */</span></span><br><span class="line">    blockList.sort(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.5</span> - <span class="built_in">Math</span>.random();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 计算逆序和 */</span></span><br><span class="line">    <span class="keyword">var</span> reverseAmount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = blockList.length; i &lt; l; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> currentBlock = blockList[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; l; j++) &#123;</span><br><span class="line">            <span class="keyword">var</span> comparedBlock = blockList[j];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (comparedBlock.index &lt; currentBlock.index) &#123;</span><br><span class="line">                reverseAmount++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 检测打乱后是否可还原 */</span></span><br><span class="line">    <span class="keyword">if</span> (reverseAmount % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">/** 不合格，重新打乱 */</span></span><br><span class="line">        getRandomBlockList();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> str = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; blockList.length; i++) &#123;</span><br><span class="line">            str = str + blockList[i].index;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(str);</span><br><span class="line">        <span class="keyword">if</span> (str.substr(<span class="number">0</span>, <span class="number">3</span>) == <span class="string">"012"</span>) &#123;</span><br><span class="line">            getRandomBlockList();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            _blockList.push(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-4-拼图块"><a href="#4-4-拼图块" class="headerlink" title="4.4 拼图块"></a>4.4 拼图块</h4><p>在拼图过程中，引入了一个新的<code>Block</code>类，这个类用来表示并且操作拼图块：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Block</span>(<span class="params">index, x, y</span>) </span>&#123;</span><br><span class="line">    LExtends(<span class="keyword">this</span>, LSprite, []);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> bmpd = imgBmpd.clone();</span><br><span class="line">    <span class="keyword">if</span> (index != <span class="number">8</span>) &#123;</span><br><span class="line">        bmpd.setProperties(x * bmpd.width / <span class="number">3</span>, y * bmpd.width / <span class="number">3</span>, bmpd.width / <span class="number">3</span>, bmpd.width / <span class="number">3</span>);</span><br><span class="line">        <span class="keyword">this</span>.bmp = <span class="keyword">new</span> LBitmap(bmpd);</span><br><span class="line">        <span class="keyword">this</span>.bmp.scaleX = <span class="number">130</span> / <span class="keyword">this</span>.bmp.width;</span><br><span class="line">        <span class="keyword">this</span>.bmp.scaleY = <span class="number">130</span> / <span class="keyword">this</span>.bmp.height;</span><br><span class="line">        <span class="keyword">this</span>.addChild(<span class="keyword">this</span>.bmp);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> shape = <span class="keyword">new</span> LShape();</span><br><span class="line">        shape.graphics.drawRect(<span class="number">2</span>, <span class="string">"#ffffff"</span>, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">130</span>, <span class="number">130</span>], <span class="literal">true</span>, <span class="string">"#ffffff"</span>);</span><br><span class="line">        <span class="keyword">this</span>.addChild(shape);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格子边框</span></span><br><span class="line">    <span class="keyword">var</span> border = <span class="keyword">new</span> LShape();</span><br><span class="line">    border.graphics.drawRect(<span class="number">3</span>, <span class="string">"#ffffff"</span>, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">130</span>, <span class="number">130</span>]);</span><br><span class="line">    border.graphics.drawRoundRect(<span class="number">3</span>, <span class="string">"#ffffff"</span>, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">130</span>, <span class="number">130</span>, <span class="number">10</span>]);</span><br><span class="line">    <span class="keyword">this</span>.addChild(border);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.index = index;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.addEventListener(LMouseEvent.MOUSE_UP, <span class="keyword">this</span>.onClick);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Block.getBlock = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> blockList[y * <span class="number">3</span> + x];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Block.isGameOver = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> reductionAmount = <span class="number">0</span>, l = blockList.length;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 计算还原度 */</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; l; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> b = blockList[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (b.index == i) &#123;</span><br><span class="line">            reductionAmount++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 计算是否完全还原 */</span></span><br><span class="line">    <span class="keyword">if</span> (reductionAmount == l) &#123;</span><br><span class="line">        <span class="comment">/** 游戏结束 */</span></span><br><span class="line">        gameOver();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Block.exchangePosition = <span class="function"><span class="keyword">function</span> (<span class="params">b1, b2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b1x = b1.locationX, b1y = b1.locationY,</span><br><span class="line">        b2x = b2.locationX, b2y = b2.locationY,</span><br><span class="line">        b1Index = b1y * <span class="number">3</span> + b1x,</span><br><span class="line">        b2Index = b2y * <span class="number">3</span> + b2x;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 在地图块数组中交换两者位置 */</span></span><br><span class="line">    blockList.splice(b1Index, <span class="number">1</span>, b2);</span><br><span class="line">    blockList.splice(b2Index, <span class="number">1</span>, b1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 交换两者显示位置 */</span></span><br><span class="line">    b1.setLocation(b2x, b2y);</span><br><span class="line">    b2.setLocation(b1x, b1y);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 判断游戏是否结束 */</span></span><br><span class="line">    Block.isGameOver();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Block.prototype.setLocation = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;<span class="comment">//方块位置</span></span><br><span class="line">    <span class="keyword">this</span>.locationX = x;</span><br><span class="line">    <span class="keyword">this</span>.locationY = y;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.x = x * <span class="number">130</span>;</span><br><span class="line">    <span class="keyword">this</span>.y = y * <span class="number">130</span> + <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Block.prototype.onClick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;<span class="comment">//方块的点击事件</span></span><br><span class="line">    <span class="keyword">var</span> self = e.currentTarget;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isGameOver) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> checkList = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 判断右侧是否有方块 */</span></span><br><span class="line">    <span class="keyword">if</span> (self.locationX &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        checkList.push(Block.getBlock(self.locationX - <span class="number">1</span>, self.locationY));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 判断左侧是否有方块 */</span></span><br><span class="line">    <span class="keyword">if</span> (self.locationX &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        checkList.push(Block.getBlock(self.locationX + <span class="number">1</span>, self.locationY));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 判断上方是否有方块 */</span></span><br><span class="line">    <span class="keyword">if</span> (self.locationY &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        checkList.push(Block.getBlock(self.locationX, self.locationY - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 判断下方是否有方块 */</span></span><br><span class="line">    <span class="keyword">if</span> (self.locationY &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        checkList.push(Block.getBlock(self.locationX, self.locationY + <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = checkList.length; i &lt; l; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> checkO = checkList[i];</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** 判断是否是空白拼图块 */</span></span><br><span class="line">        <span class="keyword">if</span> (checkO.index == <span class="number">8</span>) &#123;</span><br><span class="line">            steps++;</span><br><span class="line">            updateStepsTxt();</span><br><span class="line"></span><br><span class="line">            Block.exchangePosition(self, checkO);</span><br><span class="line">            <span class="keyword">var</span> str = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; blockList.length; i++) &#123;</span><br><span class="line">                str = str + blockList[i].index;</span><br><span class="line">            &#125;</span><br><span class="line">            _blockList.push(str);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-5-游戏结束"><a href="#4-5-游戏结束" class="headerlink" title="4.5 游戏结束"></a>4.5 游戏结束</h4><p>添加游戏结束功能，根据拼图完成或者计时结束判断游戏成功或是失败</p>
+<h5 id="1-游戏计时计步"><a href="#1-游戏计时计步" class="headerlink" title="(1)游戏计时计步"></a>(1)游戏计时计步</h5><p>游戏未结束之前更新游戏的时间和步数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onFrame</span>(<span class="params"></span>) </span>&#123;<span class="comment">//计时</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isGameOver) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isTimeOver) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/** 获取当前时间 */</span></span><br><span class="line">    <span class="keyword">var</span> currentTime = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 计算使用的时间并更新时间显示 */</span></span><br><span class="line">    time = currentTime - startTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (countTime &gt; <span class="number">0</span>) &#123;<span class="comment">// 倒计时</span></span><br><span class="line">        updateTimeTxt();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        timeOver();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-更新时间和步数"><a href="#2-更新时间和步数" class="headerlink" title="(2)更新时间和步数"></a>(2)更新时间和步数</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateTimeTxt</span>(<span class="params"></span>) </span>&#123;<span class="comment">//更新时间</span></span><br><span class="line">    $(<span class="string">'#time'</span>).html(getTimeTxt());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTimeTxt</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(time);</span><br><span class="line">    countTime = <span class="number">99</span> - <span class="built_in">Math</span>.floor(d / <span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">return</span> countTime;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateStepsTxt</span>(<span class="params"></span>) </span>&#123;<span class="comment">//更新步数</span></span><br><span class="line">    $(<span class="string">'#steps'</span>).html(steps);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-游戏失败"><a href="#3-游戏失败" class="headerlink" title="(3)游戏失败"></a>(3)游戏失败</h5><p>游戏时间结束后视为游戏失败，弹出游戏失败界面，点击重新开始<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeOver</span>(<span class="params"></span>) </span>&#123;<span class="comment">// 判断时间是否结束 失败</span></span><br><span class="line">    isTimeOver = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> resultLayer = <span class="keyword">new</span> LSprite();</span><br><span class="line">    resultLayer.filters = [<span class="keyword">new</span> LDropShadowFilter()];</span><br><span class="line">    resultLayer.graphics.drawRoundRect(<span class="number">3</span>, <span class="string">"#BBBBBB"</span>, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">390</span>, <span class="number">450</span>, <span class="number">5</span>], <span class="literal">true</span>, <span class="string">"rgba(0,0,0,.6)"</span>);</span><br><span class="line">    resultLayer.x = (LGlobal.width - resultLayer.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    resultLayer.y = LGlobal.height / <span class="number">2</span>;</span><br><span class="line">    resultLayer.alpha = <span class="number">0</span>;</span><br><span class="line">    overLayer.addChild(resultLayer);</span><br><span class="line"></span><br><span class="line">    failBitmap.scaleX = <span class="number">0.6</span>;</span><br><span class="line">    failBitmap.scaleY = <span class="number">0.6</span>;</span><br><span class="line">    failBitmap.x = (LGlobal.width - failBitmap.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    failBitmap.y = <span class="number">70</span> + <span class="number">0</span>;</span><br><span class="line">    resultLayer.addChild(failBitmap);</span><br><span class="line"></span><br><span class="line">    againBitmap.scaleX = <span class="number">0.6</span>;</span><br><span class="line">    againBitmap.scaleY = <span class="number">0.6</span>;</span><br><span class="line">    againBitmap.x = (LGlobal.width - againBitmap.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    againBitmap.y = <span class="number">250</span> + <span class="number">0</span>;</span><br><span class="line">    resultLayer.addChild(againBitmap);</span><br><span class="line"></span><br><span class="line">    LTweenLite.to(resultLayer, <span class="number">0.5</span>, &#123;</span><br><span class="line">        alpha: <span class="number">0.7</span>,</span><br><span class="line">        y: (LGlobal.height - resultLayer.getHeight()) / <span class="number">2</span> - <span class="number">15</span>,</span><br><span class="line">        onComplete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">/** 点击界面重新开始游戏 */</span></span><br><span class="line">            stageLayer.addEventListener(LMouseEvent.MOUSE_UP, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                gameLayer.removeAllChild();</span><br><span class="line">                overLayer.removeAllChild();</span><br><span class="line">                stageLayer.removeAllEventListener();</span><br><span class="line">                main();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-游戏成功"><a href="#4-游戏成功" class="headerlink" title="(4)游戏成功"></a>(4)游戏成功</h5><p>拼图完成时游戏成功，弹出游戏成功界面，输出游戏用时，步数，分数以及游戏情况的序列，点击重新开始<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameOver</span>(<span class="params"></span>) </span>&#123;<span class="comment">// 游戏成功</span></span><br><span class="line">    <span class="keyword">let</span> score = <span class="number">99</span> - getTimeTxt(time);</span><br><span class="line">    <span class="keyword">let</span> blockList = _blockList.join(<span class="string">"-"</span>);</span><br><span class="line">    <span class="keyword">let</span> step = steps;</span><br><span class="line">    isGameOver = <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'用时：'</span> + getTimeTxt(time) + <span class="string">'步数：'</span> + step + <span class="string">'分数：'</span> + score + <span class="string">'序列：'</span> + blockList);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> resultLayer = <span class="keyword">new</span> LSprite();</span><br><span class="line">    resultLayer.filters = [<span class="keyword">new</span> LDropShadowFilter()];</span><br><span class="line">    resultLayer.graphics.drawRoundRect(<span class="number">3</span>, <span class="string">"#BBBBBB"</span>, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">390</span>, <span class="number">450</span>, <span class="number">5</span>], <span class="literal">true</span>, <span class="string">"rgba(0,0,0,.6)"</span>);</span><br><span class="line">    resultLayer.x = (LGlobal.width - resultLayer.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    resultLayer.y = LGlobal.height / <span class="number">2</span>;</span><br><span class="line">    resultLayer.alpha = <span class="number">0</span>;</span><br><span class="line">    overLayer.addChild(resultLayer);</span><br><span class="line"></span><br><span class="line">    succeedBitmap.scaleX = <span class="number">0.6</span>;</span><br><span class="line">    succeedBitmap.scaleY = <span class="number">0.6</span>;</span><br><span class="line">    succeedBitmap.x = (LGlobal.width - succeedBitmap.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    succeedBitmap.y = <span class="number">70</span> + <span class="number">0</span>;</span><br><span class="line">    resultLayer.addChild(succeedBitmap);</span><br><span class="line"></span><br><span class="line">    againBitmap.scaleX = <span class="number">0.6</span>;</span><br><span class="line">    againBitmap.scaleY = <span class="number">0.6</span>;</span><br><span class="line">    againBitmap.x = (LGlobal.width - againBitmap.getWidth()) / <span class="number">2</span>;</span><br><span class="line">    againBitmap.y = <span class="number">250</span> + <span class="number">0</span>;</span><br><span class="line">    resultLayer.addChild(againBitmap);</span><br><span class="line"></span><br><span class="line">    LTweenLite.to(resultLayer, <span class="number">0.5</span>, &#123;</span><br><span class="line">        alpha: <span class="number">0.7</span>,</span><br><span class="line">        y: (LGlobal.height - resultLayer.getHeight()) / <span class="number">2</span> - <span class="number">15</span>,</span><br><span class="line">        onComplete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">/** 点击界面重新开始游戏 */</span></span><br><span class="line">            stageLayer.addEventListener(LMouseEvent.MOUSE_UP, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                gameLayer.removeAllChild();</span><br><span class="line">                overLayer.removeAllChild();</span><br><span class="line">                stageLayer.removeAllEventListener();</span><br><span class="line">                main();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="反思和总结"><a href="#反思和总结" class="headerlink" title="反思和总结"></a>反思和总结</h2><h3 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h3><p>终于撸完了这个简单的小游戏，虽然写的毛毛糙糙，很多地方写得也不够好，但是收获肯定是有的，不光是看了文档，学习了大佬们的思路，同时也增长了一些动手能力，虽然代码比较简单，但是只要坚持，日积月累肯定会有收获。</p>
+<h3 id="可优化项"><a href="#可优化项" class="headerlink" title="可优化项"></a>可优化项</h3><p>在写这篇博客的时候，回顾代码就已经满满的槽点了，把可优化项记录下来，以后有空可以尝试去优化：</p>
+<ul>
+<li>1.使用jQuery和原生js两种方式获取dom元素，编码习惯不好，使代码更加混乱</li>
+<li>2.游戏白底界面过于简单</li>
+<li>3.随机打乱拼图，使游戏无法设置多种难度，缺少游戏乐趣</li>
+<li>4.图片裁剪部分布局粗糙使用WeUI来完成</li>
+<li>5.无法保留游戏记录</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/jQuery/" rel="tag"><i class="fa fa-tag"></i> jQuery</a>
+          
+            <a href="/tags/教程/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
+          
+            <a href="/tags/canvas/" rel="tag"><i class="fa fa-tag"></i> canvas</a>
+          
+            <a href="/tags/lufylegend/" rel="tag"><i class="fa fa-tag"></i> lufylegend</a>
+          
+            <a href="/tags/cropper/" rel="tag"><i class="fa fa-tag"></i> cropper</a>
+          
+            <a href="/tags/游戏/" rel="tag"><i class="fa fa-tag"></i> 游戏</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/11/01/post20181101/">基于lufylegend和cropper自定义图片的拼图华容道</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2018年11月01日 - 13:11</p>
+  <p><span>最后更新:</span>2022年09月22日 - 15:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/17/questions/" rel="next" title="【长期更新】前端试题整理">
+                <i class="fa fa-chevron-left"></i> 【长期更新】前端试题整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/05/post20181105/" rel="prev" title="圣杯布局和双飞翼布局的实现">
+                圣杯布局和双飞翼布局的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-布局"><span class="nav-number">2.1.</span> <span class="nav-text">1.布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-定义全局变量"><span class="nav-number">2.2.</span> <span class="nav-text">2.定义全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-图片处理部分"><span class="nav-number">2.3.</span> <span class="nav-text">3.图片处理部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-图片上传"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 图片上传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-图片压缩"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 图片压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-图片裁剪"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 图片裁剪</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-游戏部分"><span class="nav-number">2.4.</span> <span class="nav-text">4.游戏部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-定义变量"><span class="nav-number">2.4.1.</span> <span class="nav-text">4.1 定义变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-游戏初始化"><span class="nav-number">2.4.2.</span> <span class="nav-text">4.2 游戏初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-游戏主体"><span class="nav-number">2.4.3.</span> <span class="nav-text">4.3 游戏主体</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-开始游戏"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">(1)开始游戏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-显示拼图"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">(2)显示拼图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-初始化拼图列表"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">(3)初始化拼图列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-打乱拼图"><span class="nav-number">2.4.3.4.</span> <span class="nav-text">(4)打乱拼图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-拼图块"><span class="nav-number">2.4.4.</span> <span class="nav-text">4.4 拼图块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-游戏结束"><span class="nav-number">2.4.5.</span> <span class="nav-text">4.5 游戏结束</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-游戏计时计步"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">(1)游戏计时计步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-更新时间和步数"><span class="nav-number">2.4.5.2.</span> <span class="nav-text">(2)更新时间和步数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-游戏失败"><span class="nav-number">2.4.5.3.</span> <span class="nav-text">(3)游戏失败</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-游戏成功"><span class="nav-number">2.4.5.4.</span> <span class="nav-text">(4)游戏成功</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反思和总结"><span class="nav-number">3.</span> <span class="nav-text">反思和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#感受"><span class="nav-number">3.1.</span> <span class="nav-text">感受</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可优化项"><span class="nav-number">3.2.</span> <span class="nav-text">可优化项</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

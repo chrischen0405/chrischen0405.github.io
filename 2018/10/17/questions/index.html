@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,HTML5,CSS3,前端,面试,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="有些刷题遇到的题目，怕以后忘记，整理起来可以方便回顾。">
+<meta name="keywords" content="JavaScript,HTML5,CSS3,前端,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【长期更新】前端试题整理">
+<meta property="og:url" content="http://chrischen0405.github.io/2018/10/17/questions/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="有些刷题遇到的题目，怕以后忘记，整理起来可以方便回顾。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-22T07:47:58.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【长期更新】前端试题整理">
+<meta name="twitter:description" content="有些刷题遇到的题目，怕以后忘记，整理起来可以方便回顾。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2018/10/17/questions/">
+
+
+
+
+
+  <title>【长期更新】前端试题整理 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2018/10/17/questions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【长期更新】前端试题整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T17:33:38+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/刷题ing/" itemprop="url" rel="index">
+                    <span itemprop="name">刷题ing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>有些刷题遇到的题目，怕以后忘记，整理起来可以方便回顾。<br>    <a id="more"></a></p>
+<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="1-下面哪些是HTML5-新增的表单元素"><a href="#1-下面哪些是HTML5-新增的表单元素" class="headerlink" title="1.下面哪些是HTML5 新增的表单元素"></a>1.下面哪些是HTML5 新增的表单元素</h3><p>A.datalist<br>B.optgroup<br>C.output<br>D.legend<br><strong>答案</strong>：A C<br><strong>解析</strong>：<code>datalist</code>元素规定输入域的选项列表。<code>keygen</code>元素的作用是提供一种验证用户的可靠方法。<code>output</code>元素用于不同类型的输出。</p>
+<h3 id="2-HTML5新增的布局标签"><a href="#2-HTML5新增的布局标签" class="headerlink" title="2.HTML5新增的布局标签"></a>2.HTML5新增的布局标签</h3><p><code>header</code>、<code>hgroup</code>、<code>nav</code>、<code>aside</code>、<code>section</code>、<code>article</code>、<code>footer</code>、<code>figure</code>、<code>menu</code></p>
+<h3 id="3-给定下面的-HTML-代码："><a href="#3-给定下面的-HTML-代码：" class="headerlink" title="3.给定下面的 HTML 代码："></a>3.给定下面的 HTML 代码：</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">”wrapper”</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">”wText”</span>&gt;</span>…<span class="tag">&lt;/<span class="name">div</span>&gt;</span>…<span class="comment">&lt;!--more wText items here --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">”wImg”</span>&gt;</span>…<span class="tag">&lt;/<span class="name">div</span>&gt;</span>…<span class="comment">&lt;!--more wImg items here --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">”wVideo”</span>&gt;</span>…<span class="tag">&lt;/<span class="name">div</span>&gt;</span>…<span class="comment">&lt;!--more wVideo items here --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>怎么能够取得 ”wrapper” 中全部项的集合？<br>A.$(‘#wrapper’).children();<br>B.$(‘#wrapper’).html();<br>C.$(‘#wrapper’).contents();<br>D.$(‘#wrapper’).find(“all”);<br><strong>答案</strong>：C<br><strong>解析</strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(‘#wrapper’).children();  //（只沿着 DOM 树向下遍历单一层级）查询直接的子元素。而不管子元素的子元素。</span><br><span class="line">$(‘#wrapper’).html();  //返回的是dom结构。而不是集合</span><br><span class="line">$(‘#wrapper’).find(“all”);   //并没有all这个元素</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-span标签的width和height分别为多少？"><a href="#4-span标签的width和height分别为多少？" class="headerlink" title="4.span标签的width和height分别为多少？"></a>4.span标签的width和height分别为多少？</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">”width:400px;height:200px;”</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">”float:left;width:auto;height:100%;”</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">i</span> <span class="attr">style</span>=<span class="string">”position:absolute;float:left;width:100px;height:50px;”</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>A.width = 0px，height = 0px<br>B.width = 400px，height = 200px<br>C.width = 100px，height = 50px<br>D.width = 0px，height = 200px<br><strong>答案</strong>：D<br><strong>解析</strong>：<code>span</code>标签无法设置宽高，但是<code>float</code>会把浮动元素变成块级元素，<code>span</code>元素继承父元素的<code>height</code>的高度<code>200px</code>，由于i设置为绝对定位会脱离原先的文档流，<code>span</code>元素<code>width</code>设置为<code>auto</code>，所以会变<code>0</code></p>
+<h3 id="5-input属于窗体元素-层级显示比flash、其它元素都高。请判断这句话的正确与否。"><a href="#5-input属于窗体元素-层级显示比flash、其它元素都高。请判断这句话的正确与否。" class="headerlink" title="5.input属于窗体元素,层级显示比flash、其它元素都高。请判断这句话的正确与否。"></a>5.<code>input</code>属于窗体元素,层级显示比<code>flash</code>、其它元素都高。请判断这句话的正确与否。</h3><p>错误，在<code>html</code>中，帧元素（<code>frameset</code>）的优先级最高，表单元素比非表单元素的优先级要高。<br>表单元素包括：文本输入框，密码输入框，单选框，复选框，文本输入域，列表框等等；<br>非表单元素包括：连接（<code>a</code>），<code>div</code>，<code>table</code>，<code>span</code>等。<br>所有的<code>html</code>元素又可以根据其显示分成两类：有窗口元素以及无窗口元素。有窗口元素总是显示在无窗口元素的前面。<br>有窗口元素包括：<code>select</code>元素，<code>object</code>元素，以及<code>frames</code>元素等等。<br>无窗口元素：大部分<code>html</code>元素都是无窗口元素。  </p>
+<h2 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h2><h3 id="1-下述有关border-none以及border-0的区别，描述错误的是"><a href="#1-下述有关border-none以及border-0的区别，描述错误的是" class="headerlink" title="1.下述有关border:none以及border:0的区别，描述错误的是"></a>1.下述有关border:none以及border:0的区别，描述错误的是</h3><p>A.border:none表示边框样式无<br>B.border:0表示边框宽度为0<br>C.当定义了border:none，即隐藏了边框的显示，实际就是边框宽度为0<br>D.当定义边框时，仅设置边框宽度也可以达到显示的效果<br><strong>答案</strong>：C,D<br><strong>解析</strong>：<br>C:当定义border:none时，表示无边框样式，浏览器并不会对边框进行渲染，也就没有实际的宽度；<br>D:定义边框时，除了设置宽度外，还必须设置边框的样式才能显示出来。</p>
+<h3 id="2-下面哪条声明能固定背景图片"><a href="#2-下面哪条声明能固定背景图片" class="headerlink" title="2.下面哪条声明能固定背景图片"></a>2.下面哪条声明能固定背景图片</h3><p>A.background-attachment:fixed;<br>B.background-attachment:scroll;<br>C.background-origin: initial;<br>D.background-clip: initial;<br><strong>答案</strong>：A<br><strong>解析</strong>：  </p>
+<ul>
+<li><code>background-attachment</code>有三个值：<br><code>scroll</code>是默认值，背景图像会随着页面其余部分的滚动而移动。<br><code>fixed</code>当页面的其余部分滚动时，背景图像不会移动。<br><code>inherit</code>规定应该从父元素继承<code>background-attachment</code>属性的设置。</li>
+<li><code>background-origin</code>属性规定<code>background-position</code>属性相对于什么位置来定位。</li>
+<li><code>background-clip</code>属性规定背景的绘制区域。</li>
+</ul>
+<h3 id="3-重绘与回流的区别"><a href="#3-重绘与回流的区别" class="headerlink" title="3.重绘与回流的区别"></a>3.重绘与回流的区别</h3><p><strong>解析</strong>：</p>
+<ul>
+<li>repaint(重绘) ，<code>repaint</code>发生更改时，元素的外观被改变，且在<strong>没有改变布局</strong>的情况下发生，如改变<code>outline</code>,<code>visibility</code>,<code>background color</code>，不会影响到dom结构渲染。</li>
+<li>reflow(回流)，与<code>repaint</code>区别就是他会<strong>影响到dom的结构渲染</strong>，同时他会触发<code>repaint</code>，他会改变他本身与所有父辈元素(祖先)，这种开销是非常昂贵的，导致性能下降是必然的，页面元素越多效果越明显。<h3 id="4-盒子模型"><a href="#4-盒子模型" class="headerlink" title="4.盒子模型"></a>4.盒子模型</h3><strong>解析</strong>：<br>CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：边距，边框，填充，和实际内容：</li>
+<li><strong>Margin(外边距)</strong> - 清除边框外的区域，外边距是透明的。</li>
+<li><strong>Border(边框)</strong> - 围绕在内边距和内容外的边框。</li>
+<li><strong>Padding(内边距)</strong> - 清除内容周围的区域，内边距是透明的。</li>
+<li><strong>Content(内容)</strong> - 盒子的内容，显示文本和图像。<br>盒子模型分为普通盒子模型和怪异盒子模型，大多数浏览器的元素内容占据的空间是由<code>width</code>属性设置的，而内容周围的<code>padding</code>和<code>border</code>值是另外计算的。然而<code>IE 5</code>和<code>IE 6</code>的呈现却是不正确的。它们在怪异模式中使用自己的非标准模型，浏览器中元素的<code>width</code>属性不是内容的宽度，而是内容、内边距和边框的宽度的总和。</li>
+</ul>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="1-下列js可以让一个input的背景颜色变成红色的是"><a href="#1-下列js可以让一个input的背景颜色变成红色的是" class="headerlink" title="1.下列js可以让一个input的背景颜色变成红色的是"></a>1.下列js可以让一个input的背景颜色变成红色的是</h3><p>A.inputElement.style.backgroundColor = ‘red’;<br>B.inputElement.backgroundColor = ‘red’;<br>C.inputElement.style.backgroundColor = ‘#0000’;<br>D.inputElement.backgroundColor = ‘#0000’;<br><strong>答案</strong>：A<br><strong>解析</strong>：<br>1.获取元素可以借助<code>document.getElementById()</code>/<code>document.getElementsByTagName()</code>等若干方法，也可以利用层级关系（父子关系、兄弟关系等）。而这一点题目已经直接略过了，它直接给出了该元素的引用名称<code>inputElement</code>。<br>2.通过js来改变元素样式的两个最常见的API为：<code>style</code>、<code>className</code>。使用<code>style</code>接口一次只能改变一个样式，而使用<code>className</code>则可以同时改变多个样式，当然前提是已经用css定义该类名的相关样式。<br>3.backgroundColor? background-color?<br>在使用点运算符时，浏览器看到<code>-</code>就没法正确解析了，在那种情况下，只能将该变量使用驼峰命名法来表示。而使用方括号表示法，<code>-</code>被理解为字符串中的内容，该字符串能被正确解析。<br>eg:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inputElement.style.backgroundColor = <span class="string">'red'</span>; <span class="comment">// 这是没问题的</span></span><br><span class="line">inputElement.style.background-color = <span class="string">'red'</span>; <span class="comment">// 这是错的</span></span><br><span class="line">inputElement.style[<span class="string">"background-color"</span>] = <span class="string">'red'</span>; <span class="comment">// 这也是可以的</span></span><br></pre></td></tr></table></figure></p>
+<p>4.表示红色有若干种方法:  </p>
+<ul>
+<li>颜色名：red</li>
+<li>百分数：rgb(100%, 0%, 0%)</li>
+<li>数值：rgb(255, 0, 0)</li>
+<li>十六进制：#FF0000</li>
+<li>简写的十六进制：#F00</li>
+</ul>
+<h3 id="2-页面有一个按钮button-id为-button1，通过原生的js如何禁用？-IE-考虑IE-8-0以上版本"><a href="#2-页面有一个按钮button-id为-button1，通过原生的js如何禁用？-IE-考虑IE-8-0以上版本" class="headerlink" title="2.页面有一个按钮button id为 button1，通过原生的js如何禁用？(IE 考虑IE 8.0以上版本)"></a>2.页面有一个按钮button id为 button1，通过原生的js如何禁用？(IE 考虑IE 8.0以上版本)</h3><p>A.document.getElementById(“button1”).readolny= true;<br>B.document.getElementById(“button1”).setAttribute(“readolny”,”true”);<br>C.document.getElementById(“button1”).disabled = true;<br>D.document.getElementById(“button1”).setAttribute(“disabled”,”true”);<br><strong>答案</strong>：C D<br><strong>解析</strong>：<code>disabled</code>和<code>readOnly</code>都是表单的公有属性，<code>readOnly</code>是只读，<code>disabled</code>是禁用。<code>readOnly</code>只针对<code>input(text/password)</code>和<code>textarea</code>有效，而<code>disabled</code>对于所有的表单元素都有效，包括<code>select, radio, checkbox, button</code>等。<br><code>setAttribute</code>在ie7以前是不能通过<code>style</code>和<code>class</code>设置属性的</p>
+<h3 id="3-“1-quot-quot-2-quot-quot-3-quot-map-parseInt-的执行结果是？"><a href="#3-“1-quot-quot-2-quot-quot-3-quot-map-parseInt-的执行结果是？" class="headerlink" title="3.[“1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt)的执行结果是？"></a>3.<code>[“1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt)</code>的执行结果是？</h3><p><strong>答案</strong>：[1, NaN, NaN]<br><strong>解析</strong>：通常使用parseInt时,只需要传递一个参数。但实际上,parseInt可以有两个参数，第二个参数是进制数</p>
+<h3 id="4-下列代码存在几个变量没有被回收？"><a href="#4-下列代码存在几个变量没有被回收？" class="headerlink" title="4.下列代码存在几个变量没有被回收？"></a>4.下列代码存在几个变量没有被回收？</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> i = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        i++;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;();</span><br><span class="line">add();</span><br></pre></td></tr></table></figure>
+<p><strong>答案</strong>：3<br><strong>解析</strong>：<br>变量回收规则：</p>
+<ul>
+<li>全局变量不会被回收。</li>
+<li>局部变量会被回收，也就是函数一旦运行完以后，函数内部的东西都会被销毁。</li>
+<li>只要被另外一个作用域所引用就不会被回收（闭包）</li>
+</ul>
+<p>全局变量不会被回收，但是会被覆盖，所以第一个<code>i</code>被第二个<code>i</code>覆盖了，第二个<code>i</code>没有被回收，变量<code>add</code>被赋值了一个匿名函数，所以也没有被回收。虽然局部变量会被回收，但是<code>add</code>函数中形成了一个闭包，所以里面的变量<code>i</code>也不会被回收。</p>
+<h3 id="5-以下代码的输出结果是"><a href="#5-以下代码的输出结果是" class="headerlink" title="5.以下代码的输出结果是"></a>5.以下代码的输出结果是</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">23</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="keyword">typeof</span> g();</span><br></pre></td></tr></table></figure>
+<p>A.”number”<br>B.”undefined”<br>C.”function”<br>D.Error<br><strong>答案</strong>：D<br><strong>解析</strong>：<br>js定义函数的方法：<br>1、函数声明：<code>function foo(){...}</code><br>2、函数表达式：<code>var foo = function(){...}</code><br>3、构造函数：<code>var foo = new Function(...)</code><br>除此以外，类似<code>var foo = function bar(){...}</code>这样的定义函数的方法就是第二种函数表达式，在函数外部无法通过<code>bar</code>访问到函数，因为这已经变成了一个表达式。所以<code>g</code>就是<code>undefined</code>，<code>g()</code>就会抛出异常。</p>
+<h3 id="6-javascirpt中的数字在计算机内存储为多少Byte？"><a href="#6-javascirpt中的数字在计算机内存储为多少Byte？" class="headerlink" title="6.javascirpt中的数字在计算机内存储为多少Byte？"></a>6.javascirpt中的数字在计算机内存储为多少Byte？</h3><p>8Byte，Javascript中，由于其变量内容不同，变量被分为基本数据类型变量和引用数据类型变量。基本类型变量用八字节内存，存储基本数据类型(数值、布尔值、null和未定义)的值，引用类型变量则只保存对对象、数组和函数等引用类型的值的引用(即内存地址)。</p>
+<h3 id="7-new-Array-017-输出？"><a href="#7-new-Array-017-输出？" class="headerlink" title="7.+new Array(017)输出？"></a>7.<code>+new Array(017)</code>输出？</h3><p><code>+</code>是一元运算符，无运算效果，但是可以将字符串等转为<code>number</code>类型，<code>017</code>是八进制，故而是<code>Array(15)</code>，这里相当于对于一个未赋值但是长度为15的数组进行<code>number</code>类型转化，其结果为<code>NaN</code></p>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><h3 id="1-常见的浏览器端的存储技术有哪些"><a href="#1-常见的浏览器端的存储技术有哪些" class="headerlink" title="1.常见的浏览器端的存储技术有哪些"></a>1.常见的浏览器端的存储技术有哪些</h3><p>A.cookie<br>B.localStorage<br>C.session<br>D.userData<br><strong>答案</strong>：ABD<br><strong>解析</strong>：cookie 是靠谱的浏览器都支持；localStorge 比 cookie 存的更多，获取更方便，而且存储内容不会随请求发送给服务器；session 虽然需要 cookie 支持（通常存放加密过的 sessionId），但是不在浏览器端存放主要信息，排除；IE 支持 userData 存储数据，但是基本很少使用到，除非有很强的浏览器兼容需求。</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="1-HTTP状态码"><a href="#1-HTTP状态码" class="headerlink" title="1.HTTP状态码"></a>1.HTTP状态码</h3><p>常见HTTP状态码：</p>
+<ul>
+<li>200 - 请求成功</li>
+<li>301 - 资源（网页等）被永久转移到其它URL</li>
+<li>404 - 请求的资源（网页等）不存在</li>
+<li>500 - 内部服务器错误</li>
+</ul>
+<p>HTTP状态码分类：</p>
+<ul>
+<li>1**   信息，服务器收到请求，需要请求者继续执行操作</li>
+<li>2**   成功，操作被成功接收并处理</li>
+<li>3**   重定向，需要进一步的操作以完成请求</li>
+<li>4**   客户端错误，请求包含语法错误或无法完成请求</li>
+<li>5**   服务器错误，服务器在处理请求的过程中发生了错误</li>
+</ul>
+<h3 id="2-GET和POST的区别"><a href="#2-GET和POST的区别" class="headerlink" title="2.GET和POST的区别"></a>2.GET和POST的区别</h3><ul>
+<li>（1）GET请求在浏览器回退时是无害的，POST会再次提交请求</li>
+<li>（2）GET请求会被浏览器主动缓存，而POST不会，除非手动设置</li>
+<li>（3）GET请求参数会被完整的保留在浏览器历史记录里，而POST中的参数不会被保留</li>
+<li>（4）GET请求在URL中传递的参数是有长度限制的（不固定，因浏览器决定），而POST没有限制</li>
+<li>（5）GET请求参数通过URL传递，而POST放在request.body上</li>
+<li>（6）GET请求产生的URL地址可以被收藏，而POST不可以</li>
+<li>（7）GET请求只能进行URL编码，而POST支持多种编码方式</li>
+<li>（8）GET请求只接受ASC2字符，而对参数的数据类型POST没有限制</li>
+<li>（9）GET请求比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感数据</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="1-哪些操作会造成内存泄漏？"><a href="#1-哪些操作会造成内存泄漏？" class="headerlink" title="1.哪些操作会造成内存泄漏？"></a>1.哪些操作会造成内存泄漏？</h3><p>1、闭包引起的内存泄漏；<br>2、意外的全局变量引起的内存泄漏；<br>3、没有清理的DOM元素引起的内存泄漏<br>4、被遗忘的定时器或者回调函数；<br>5、子元素存在引用引起的内存泄漏；</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/HTML5/" rel="tag"><i class="fa fa-tag"></i> HTML5</a>
+          
+            <a href="/tags/CSS3/" rel="tag"><i class="fa fa-tag"></i> CSS3</a>
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/10/17/questions/">【长期更新】前端试题整理</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2018年10月17日 - 17:10</p>
+  <p><span>最后更新:</span>2022年09月22日 - 15:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/post20181012/" rel="next" title="人脸识别接口整理与对比">
+                <i class="fa fa-chevron-left"></i> 人脸识别接口整理与对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/01/post20181101/" rel="prev" title="基于lufylegend和cropper自定义图片的拼图华容道">
+                基于lufylegend和cropper自定义图片的拼图华容道 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5"><span class="nav-number">1.</span> <span class="nav-text">HTML5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下面哪些是HTML5-新增的表单元素"><span class="nav-number">1.1.</span> <span class="nav-text">1.下面哪些是HTML5 新增的表单元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HTML5新增的布局标签"><span class="nav-number">1.2.</span> <span class="nav-text">2.HTML5新增的布局标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-给定下面的-HTML-代码："><span class="nav-number">1.3.</span> <span class="nav-text">3.给定下面的 HTML 代码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-span标签的width和height分别为多少？"><span class="nav-number">1.4.</span> <span class="nav-text">4.span标签的width和height分别为多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-input属于窗体元素-层级显示比flash、其它元素都高。请判断这句话的正确与否。"><span class="nav-number">1.5.</span> <span class="nav-text">5.input属于窗体元素,层级显示比flash、其它元素都高。请判断这句话的正确与否。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS3"><span class="nav-number">2.</span> <span class="nav-text">CSS3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下述有关border-none以及border-0的区别，描述错误的是"><span class="nav-number">2.1.</span> <span class="nav-text">1.下述有关border:none以及border:0的区别，描述错误的是</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-下面哪条声明能固定背景图片"><span class="nav-number">2.2.</span> <span class="nav-text">2.下面哪条声明能固定背景图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重绘与回流的区别"><span class="nav-number">2.3.</span> <span class="nav-text">3.重绘与回流的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-盒子模型"><span class="nav-number">2.4.</span> <span class="nav-text">4.盒子模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">3.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下列js可以让一个input的背景颜色变成红色的是"><span class="nav-number">3.1.</span> <span class="nav-text">1.下列js可以让一个input的背景颜色变成红色的是</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-页面有一个按钮button-id为-button1，通过原生的js如何禁用？-IE-考虑IE-8-0以上版本"><span class="nav-number">3.2.</span> <span class="nav-text">2.页面有一个按钮button id为 button1，通过原生的js如何禁用？(IE 考虑IE 8.0以上版本)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-“1-quot-quot-2-quot-quot-3-quot-map-parseInt-的执行结果是？"><span class="nav-number">3.3.</span> <span class="nav-text">3.[“1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt)的执行结果是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-下列代码存在几个变量没有被回收？"><span class="nav-number">3.4.</span> <span class="nav-text">4.下列代码存在几个变量没有被回收？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-以下代码的输出结果是"><span class="nav-number">3.5.</span> <span class="nav-text">5.以下代码的输出结果是</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-javascirpt中的数字在计算机内存储为多少Byte？"><span class="nav-number">3.6.</span> <span class="nav-text">6.javascirpt中的数字在计算机内存储为多少Byte？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-new-Array-017-输出？"><span class="nav-number">3.7.</span> <span class="nav-text">7.+new Array(017)输出？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器"><span class="nav-number">4.</span> <span class="nav-text">浏览器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-常见的浏览器端的存储技术有哪些"><span class="nav-number">4.1.</span> <span class="nav-text">1.常见的浏览器端的存储技术有哪些</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络"><span class="nav-number">5.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HTTP状态码"><span class="nav-number">5.1.</span> <span class="nav-text">1.HTTP状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-GET和POST的区别"><span class="nav-number">5.2.</span> <span class="nav-text">2.GET和POST的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">6.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-哪些操作会造成内存泄漏？"><span class="nav-number">6.1.</span> <span class="nav-text">1.哪些操作会造成内存泄漏？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

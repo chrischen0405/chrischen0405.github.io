@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,API测试,AJAX,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前几天，在实习的公司里，要使用vue+webpack开发一个门店拜访的app，被分到了编写天气预报组件，然后就找了阿里云的免费天气预报API，传送门：https://market.aliyun.com/products/57126001/cmapi014302.html">
+<meta name="keywords" content="JavaScript,API测试,AJAX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js测试阿里云API：全国天气预报查询（免费版）以及替代API">
+<meta property="og:url" content="http://chrischen0405.github.io/2018/09/05/post20180905/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="前几天，在实习的公司里，要使用vue+webpack开发一个门店拜访的app，被分到了编写天气预报组件，然后就找了阿里云的免费天气预报API，传送门：https://market.aliyun.com/products/57126001/cmapi014302.html">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://chrischen0405.github.io/img/post20180905/error.png">
+<meta property="og:updated_time" content="2022-09-22T07:47:58.219Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js测试阿里云API：全国天气预报查询（免费版）以及替代API">
+<meta name="twitter:description" content="前几天，在实习的公司里，要使用vue+webpack开发一个门店拜访的app，被分到了编写天气预报组件，然后就找了阿里云的免费天气预报API，传送门：https://market.aliyun.com/products/57126001/cmapi014302.html">
+<meta name="twitter:image" content="http://chrischen0405.github.io/img/post20180905/error.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2018/09/05/post20180905/">
+
+
+
+
+
+  <title>js测试阿里云API：全国天气预报查询（免费版）以及替代API | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2018/09/05/post20180905/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js测试阿里云API：全国天气预报查询（免费版）以及替代API</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T19:08:11+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前几天，在实习的公司里，要使用vue+webpack开发一个门店拜访的app，被分到了编写天气预报组件，然后就找了阿里云的免费天气预报API，传送门：<a href="https://market.aliyun.com/products/57126001/cmapi014302.html" target="_blank">https://market.aliyun.com/products/57126001/cmapi014302.html</a><br><a id="more"></a><br>不过要使用阿里云服务需要先注册一个阿里云的账号，这里就不赘述了，注册完以后购买该免费服务，然后就会获得AppKey，AppSecret和AppCode。</p>
+<p>然后我们可以看看调用接口需要的请求参数：</p>
+<style>
+table th:nth-of-type(1) {
+    width: 15%;
+}
+table th:nth-of-type(2) {
+    width: 15%;
+}
+table th:nth-of-type(3) {
+    width: 15%;
+}
+table th:nth-of-type(4) {
+    width: 40%;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">city</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">城市（city,cityid,citycode三者任选其一）</td>
+</tr>
+<tr>
+<td style="text-align:center">citycode</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">城市天气代号（city,cityid,citycode三者任选其一）</td>
+</tr>
+<tr>
+<td style="text-align:center">cityid</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">城市ID（city,cityid,citycode三者任选其一）</td>
+</tr>
+<tr>
+<td style="text-align:center">ip</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">IP</td>
+</tr>
+<tr>
+<td style="text-align:center">location</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">经纬度 纬度在前，,分割 如：39.983424,116.322987</td>
+</tr>
+</tbody>
+</table>
+<p>以上五个参数我选择了直接使用城市名来进行测试，具体代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">            type: <span class="string">"GET"</span>,</span><br><span class="line">            url: <span class="string">"http://jisutqybmf.market.alicloudapi.com/weather/query"</span>,</span><br><span class="line">            data: &#123;<span class="attr">city</span>: <span class="string">'杭州'</span>&#125;,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(data); <span class="comment">//请求成功后操作</span></span><br><span class="line">            &#125;,</span><br><span class="line">            beforeSend: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</span><br><span class="line">                xhr.setRequestHeader(<span class="string">"Authorization"</span>, <span class="string">"APPCODE /*此处是自己的APPCODE*/"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>如果发送请求失败，返回的错误码如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">错误码</th>
+<th style="text-align:center">错误信息</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">201</td>
+<td style="text-align:center">City and city ID and city code are empty</td>
+<td style="text-align:center">城市和城市ID和城市代号都为空</td>
+</tr>
+<tr>
+<td style="text-align:center">202</td>
+<td style="text-align:center">City does not exist</td>
+<td style="text-align:center">城市不存在</td>
+</tr>
+<tr>
+<td style="text-align:center">203</td>
+<td style="text-align:center">There is no weather information in this city</td>
+<td style="text-align:center">此城市没有天气信息</td>
+</tr>
+<tr>
+<td style="text-align:center">210</td>
+<td style="text-align:center">No information</td>
+<td style="text-align:center">没有信息</td>
+</tr>
+</tbody>
+</table>
+<p>在返回结果中天气是有图片的，天气图片可以<a href="http://api.jisuapi.com/weather/icon.zip?spm=5176.730006-56956004-57126001-cmapi014302/A.content.12.4f901460cUsWvl&file=icon.zip" target="_blank">点此下载</a></p>
+<p>需要特别注意的是<strong>接口流量限制情况（每个用户ID）：30次流控/分钟</strong>。当然，如果是付费版就不存在限流的问题了。</p>
+<p>（2018.9.14）好吧，还是要说这是真的坑，我今天发现，这个接口出错了：</p>
+<p><img src="/img/post20180905/error.png" alt></p>
+<p>既然上一个API出错了，那就得换一个，还是在阿里云市场找了另一款天气预报API：<a href="https://market.aliyun.com/products/56928004/cmapi014123.html" target="_blank" rel="noopener">全国天气预报查询/<em>免费版/</em>易源数据</a>，当然，调用方式是大同小异的，只需要更改调用地址：<code>http://saweather.market.alicloudapi.com/area-to-weather</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">            type: <span class="string">"GET"</span>,</span><br><span class="line">            url: <span class="string">"http://saweather.market.alicloudapi.com/area-to-weather"</span>,</span><br><span class="line">            data: &#123;<span class="attr">area</span>: <span class="string">'杭州'</span>&#125;,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(data);<span class="comment">//请求成功后操作</span></span><br><span class="line">            &#125;,</span><br><span class="line">            beforeSend: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</span><br><span class="line">                xhr.setRequestHeader(<span class="string">"Authorization"</span>, <span class="string">"APPCODE /*此处是自己的appcode*/"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>然后调用该接口所需要的参数如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">area</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">地区名称。名称和id必须输入一个。如果都输入，以areaid为准。</td>
+</tr>
+<tr>
+<td style="text-align:center">areaid</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">地区id</td>
+</tr>
+<tr>
+<td style="text-align:center">need3HourForcast</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">是否需要每小时数据的累积数组。由于本系统是半小时刷一次实时状态，因此实时数组最大长度为48。每天0点长度初始化为0. 1为需要 0为不</td>
+</tr>
+<tr>
+<td style="text-align:center">needAlarm</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">是否需要天气预警。1为需要，0为不需要。</td>
+</tr>
+<tr>
+<td style="text-align:center">needHourData</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">是否需要每小时数据的累积数组。由于本系统是半小时刷一次实时状态，因此实时数组最大长度为48。每天0点长度初始化为0.</td>
+</tr>
+<tr>
+<td style="text-align:center">needIndex</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">是否需要返回指数数据，比如穿衣指数、紫外线指数等。1为返回，0为不返回。</td>
+</tr>
+<tr>
+<td style="text-align:center">needMoreDay</td>
+<td style="text-align:center">STRING</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">是否需要返回7天数据中的后4天。1为返回，0为不返回。</td>
+</tr>
+</tbody>
+</table>
+<p>然后正常调用返回结果如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"showapi_res_error"</span>:<span class="string">""</span>,<span class="attr">"showapi_res_id"</span>:<span class="string">"dc9235c7860e4776985a362365812bec"</span>,<span class="attr">"showapi_res_code"</span>:<span class="number">0</span>,<span class="attr">"showapi_res_body"</span>:</span><br><span class="line">&#123;<span class="attr">"time"</span>:<span class="string">"20180914113000"</span>,<span class="attr">"cityInfo"</span>:&#123;<span class="attr">"c4"</span>:<span class="string">"hangzhou"</span>,<span class="attr">"c17"</span>:<span class="string">"+8"</span>,<span class="attr">"c5"</span>:<span class="string">"杭州"</span>,<span class="attr">"c6"</span>:<span class="string">"zhejiang"</span>,<span class="attr">"latitude"</span>:<span class="number">30.319</span>,<span class="attr">"c7"</span>:<span class="string">"浙江"</span>,</span><br><span class="line"><span class="attr">"c1"</span>:<span class="string">"101210101"</span>,<span class="attr">"c12"</span>:<span class="string">"310000"</span>,<span class="attr">"c2"</span>:<span class="string">"hangzhou"</span>,<span class="attr">"c15"</span>:<span class="string">"43"</span>,<span class="attr">"c8"</span>:<span class="string">"china"</span>,<span class="attr">"c9"</span>:<span class="string">"中国"</span>,<span class="attr">"longitude"</span>:<span class="number">120.165</span>,<span class="attr">"c3"</span>:<span class="string">"杭州"</span>,</span><br><span class="line"><span class="attr">"c11"</span>:<span class="string">"0571"</span>,<span class="attr">"c16"</span>:<span class="string">"AZ9571"</span>,<span class="attr">"c10"</span>:<span class="string">"1"</span>&#125;,<span class="attr">"f2"</span>:&#123;<span class="attr">"day_wind_power"</span>:<span class="string">"0-3级 &lt;5.4m/s"</span>,<span class="attr">"night_wind_power"</span>:<span class="string">"0-3级 &lt;5.4m/s"</span>,</span><br><span class="line"><span class="attr">"night_weather_code"</span>:<span class="string">"01"</span>,<span class="attr">"day_weather"</span>:<span class="string">"多云"</span>,<span class="attr">"sun_begin_end"</span>:<span class="string">"05:43|18:06"</span>,<span class="attr">"air_press"</span>:<span class="string">"1014 hPa"</span>,</span><br><span class="line"><span class="attr">"day_weather_code"</span>:<span class="string">"01"</span>,<span class="attr">"jiangshui"</span>:<span class="string">"15%"</span>,<span class="attr">"night_weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/night/01.png"</span>,<span class="attr">"night_weather"</span>:<span class="string">"多云"</span>,</span><br><span class="line"><span class="attr">"day"</span>:<span class="string">"20180915"</span>,<span class="attr">"day_wind_direction"</span>:<span class="string">"东北风"</span>,<span class="attr">"night_wind_direction"</span>:<span class="string">"东北风"</span>,<span class="attr">"weekday"</span>:<span class="number">6</span>,<span class="attr">"ziwaixian"</span>:<span class="string">"中等"</span>,</span><br><span class="line"><span class="attr">"night_air_temperature"</span>:<span class="string">"24"</span>,<span class="attr">"day_weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/day/01.png"</span>,<span class="attr">"day_air_temperature"</span>:<span class="string">"32"</span>&#125;,<span class="attr">"now"</span>:</span><br><span class="line">&#123;<span class="attr">"wind_direction"</span>:<span class="string">"东北风"</span>,<span class="attr">"aqi"</span>:<span class="string">"105"</span>,<span class="attr">"weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/day/01.png"</span>,<span class="attr">"wind_power"</span>:<span class="string">"1级"</span>,</span><br><span class="line"><span class="attr">"temperature_time"</span>:<span class="string">"16:30"</span>,<span class="attr">"weather_code"</span>:<span class="string">"01"</span>,<span class="attr">"temperature"</span>:<span class="string">"32"</span>,<span class="attr">"sd"</span>:<span class="string">"58%"</span>,<span class="attr">"aqiDetail"</span>:&#123;<span class="attr">"quality"</span>:<span class="string">"轻度污染"</span>,<span class="attr">"aqi"</span>:<span class="string">"105"</span>,<span class="attr">"pm10"</span>:<span class="string">"70"</span>,<span class="attr">"area"</span>:<span class="string">"杭州"</span>,</span><br><span class="line"><span class="attr">"co"</span>:<span class="string">"0.718"</span>,<span class="attr">"o3"</span>:<span class="string">"203"</span>,<span class="attr">"so2"</span>:<span class="string">"7"</span>,<span class="attr">"no2"</span>:<span class="string">"18"</span>,<span class="attr">"primary_pollutant"</span>:<span class="string">"臭氧1小时"</span>,<span class="attr">"o3_8h"</span>:<span class="string">"115"</span>,<span class="attr">"num"</span>:<span class="string">"365"</span>,<span class="attr">"pm2_5"</span>:<span class="string">"48"</span>&#125;,<span class="attr">"weather"</span>:<span class="string">"多云"</span>&#125;,<span class="attr">"f3"</span>:</span><br><span class="line">&#123;<span class="attr">"day_wind_power"</span>:<span class="string">"0-3级 &lt;5.4m/s"</span>,<span class="attr">"night_wind_power"</span>:<span class="string">"0-3级 &lt;5.4m/s"</span>,<span class="attr">"night_weather_code"</span>:<span class="string">"01"</span>,<span class="attr">"day_weather"</span>:<span class="string">"阵雨"</span>,</span><br><span class="line"><span class="attr">"sun_begin_end"</span>:<span class="string">"05:44|18:04"</span>,<span class="attr">"air_press"</span>:<span class="string">"1014 hPa"</span>,</span><br><span class="line"><span class="attr">"day_weather_code"</span>:<span class="string">"03"</span>,<span class="attr">"jiangshui"</span>:<span class="string">"71%"</span>,<span class="attr">"night_weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/night/01.png"</span>,<span class="attr">"night_weather"</span>:<span class="string">"多云"</span>,</span><br><span class="line"><span class="attr">"day"</span>:<span class="string">"20180916"</span>,<span class="attr">"day_wind_direction"</span>:<span class="string">"东北风"</span>,<span class="attr">"night_wind_direction"</span>:<span class="string">"东北风"</span>,</span><br><span class="line"><span class="attr">"weekday"</span>:<span class="number">7</span>,<span class="attr">"ziwaixian"</span>:<span class="string">"弱"</span>,<span class="attr">"night_air_temperature"</span>:<span class="string">"24"</span>,<span class="attr">"day_weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/day/03.png"</span>,<span class="attr">"day_air_temperature"</span>:<span class="string">"29"</span>&#125;,<span class="attr">"ret_code"</span>:<span class="number">0</span>,<span class="attr">"f1"</span>:</span><br><span class="line">&#123;<span class="attr">"day_wind_power"</span>:<span class="string">"0-3级 &lt;5.4m/s"</span>,<span class="attr">"night_wind_power"</span>:<span class="string">"0-3级 &lt;5.4m/s"</span>,<span class="attr">"night_weather_code"</span>:<span class="string">"01"</span>,<span class="attr">"day_weather"</span>:<span class="string">"多云"</span>,</span><br><span class="line"><span class="attr">"sun_begin_end"</span>:<span class="string">"05:43|18:07"</span>,<span class="attr">"air_press"</span>:<span class="string">"1014 hPa"</span>,</span><br><span class="line"><span class="attr">"day_weather_code"</span>:<span class="string">"01"</span>,<span class="attr">"jiangshui"</span>:<span class="string">"8%"</span>,<span class="attr">"night_weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/night/01.png"</span>,<span class="attr">"night_weather"</span>:<span class="string">"多云"</span>,</span><br><span class="line"><span class="attr">"day"</span>:<span class="string">"20180914"</span>,<span class="attr">"day_wind_direction"</span>:<span class="string">"东北风"</span>,<span class="attr">"night_wind_direction"</span>:<span class="string">"东北风"</span>,<span class="attr">"weekday"</span>:<span class="number">5</span>,<span class="attr">"ziwaixian"</span>:<span class="string">"中等"</span>,</span><br><span class="line"><span class="attr">"night_air_temperature"</span>:<span class="string">"24"</span>,<span class="attr">"day_weather_pic"</span>:<span class="string">"http://app1.showapi.com/weather/icon/day/01.png"</span>,<span class="attr">"day_air_temperature"</span>:<span class="string">"33"</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在返回结果中的天气图片可以<a href="http://app1.showapi.com/weather/icon.zip?spm=5176.730006-56956004-56928004-cmapi014123/A.content.16.a6863a4cSoWwT7&amp;file=icon.zip" target="_blank" rel="noopener">点此下载</a><br>当然，这个API提供的天气图片可以直接通过链接显示，比如，返回结果需要的图片是01，那么地址就是<a href="http://app1.showapi.com/weather/icon/day/01.png" target="_blank" rel="noopener">http://app1.showapi.com/weather/icon/day/01.png</a>，以此类推。</p>
+<p>这个API是30分钟更新一次。需要特别注意的是<strong>免费版限制并发1秒1次</strong>，可根据地名、经纬度GPS、IP查询对应地区的预报。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/API测试/" rel="tag"><i class="fa fa-tag"></i> API测试</a>
+          
+            <a href="/tags/AJAX/" rel="tag"><i class="fa fa-tag"></i> AJAX</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/09/05/post20180905/">js测试阿里云API：全国天气预报查询（免费版）以及替代API</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2018年09月05日 - 19:09</p>
+  <p><span>最后更新:</span>2022年09月22日 - 15:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/03/post20180903/" rel="next" title="js实现数组去重的六种方法总结">
+                <i class="fa fa-chevron-left"></i> js实现数组去重的六种方法总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/07/post20180907/" rel="prev" title="JavaScript函数定义&立即执行">
+                JavaScript函数定义&立即执行 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

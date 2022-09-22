@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,HTML5,CSS3,教程,动画,canvas,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="转眼间，已经实习了两个月了，公司每个月都有个会员日的活动要做，这个月的任务是做一个扭蛋机抽奖的活动，数据什么的都有接口，那么前端剩下最大的任务就只剩下扭蛋机的动画实现了。 背景本来兴高采烈地从网上找了一个扭蛋机动画，但是发现它是直接用css动画，把扭蛋们的动画写死了，这样我不是很喜欢，于是还是选择用canvas绘制扭蛋的随机动画。先写了个简单的扭蛋机Demo，效果预览">
+<meta name="keywords" content="JavaScript,HTML5,CSS3,教程,动画,canvas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="canvas实现扭蛋机动画效果">
+<meta property="og:url" content="http://chrischen0405.github.io/2018/10/10/post20181010/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="转眼间，已经实习了两个月了，公司每个月都有个会员日的活动要做，这个月的任务是做一个扭蛋机抽奖的活动，数据什么的都有接口，那么前端剩下最大的任务就只剩下扭蛋机的动画实现了。 背景本来兴高采烈地从网上找了一个扭蛋机动画，但是发现它是直接用css动画，把扭蛋们的动画写死了，这样我不是很喜欢，于是还是选择用canvas绘制扭蛋的随机动画。先写了个简单的扭蛋机Demo，效果预览">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-22T07:47:58.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="canvas实现扭蛋机动画效果">
+<meta name="twitter:description" content="转眼间，已经实习了两个月了，公司每个月都有个会员日的活动要做，这个月的任务是做一个扭蛋机抽奖的活动，数据什么的都有接口，那么前端剩下最大的任务就只剩下扭蛋机的动画实现了。 背景本来兴高采烈地从网上找了一个扭蛋机动画，但是发现它是直接用css动画，把扭蛋们的动画写死了，这样我不是很喜欢，于是还是选择用canvas绘制扭蛋的随机动画。先写了个简单的扭蛋机Demo，效果预览">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2018/10/10/post20181010/">
+
+
+
+
+
+  <title>canvas实现扭蛋机动画效果 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2018/10/10/post20181010/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">canvas实现扭蛋机动画效果</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T15:55:56+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端的乐趣/" itemprop="url" rel="index">
+                    <span itemprop="name">前端的乐趣</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>转眼间，已经实习了两个月了，公司每个月都有个会员日的活动要做，这个月的任务是做一个扭蛋机抽奖的活动，数据什么的都有接口，那么前端剩下最大的任务就只剩下扭蛋机的动画实现了。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本来兴高采烈地从网上找了一个扭蛋机动画，但是发现它是直接用css动画，把扭蛋们的动画写死了，这样我不是很喜欢，于是还是选择用<code>canvas</code>绘制扭蛋的随机动画。先写了个简单的扭蛋机Demo，<a href="https://chrischen0405.github.io/Demo/canvas/canvas%E6%89%AD%E8%9B%8B%E6%9C%BA%E6%95%88%E6%9E%9C/index.html" target="_blank">效果预览</a><br><a id="more"></a></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><p>扭蛋机的布局比较简单，只需要在基础背景上添加一些元素就可以，最主要的是<code>canvas</code>标签，其他都无所谓：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"message"</span>&gt;</span>点击抽奖<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lotterybg"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"myCanvas"</span> <span class="attr">width</span>=<span class="string">"285px"</span> <span class="attr">height</span>=<span class="string">"170px"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/lighting.png"</span> <span class="attr">class</span>=<span class="string">"lighting"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/start-btn.png"</span> <span class="attr">id</span>=<span class="string">"start"</span> <span class="attr">onclick</span>=<span class="string">"play()"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"award"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"awardBall"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/1.png"</span> <span class="attr">id</span>=<span class="string">"ball1"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/2.png"</span> <span class="attr">id</span>=<span class="string">"ball2"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/3.png"</span> <span class="attr">id</span>=<span class="string">"ball3"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/4.png"</span> <span class="attr">id</span>=<span class="string">"ball4"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>附上样式表：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;<span class="attribute">margin</span>: <span class="number">0</span>;<span class="attribute">padding</span>: <span class="number">0</span>;<span class="attribute">border</span>: none;&#125;</span><br><span class="line"><span class="selector-class">.bg</span> &#123;<span class="attribute">background</span>: <span class="built_in">url</span>(../img/bg.png) top no-repeat;<span class="attribute">background-size</span>: <span class="number">100%</span>;<span class="attribute">overflow</span>: hidden;<span class="attribute">position</span>: absolute;<span class="attribute">width</span>: <span class="number">400px</span>;<span class="attribute">height</span>: <span class="number">100%</span>;<span class="attribute">margin-top</span>: <span class="number">0</span>;<span class="attribute">margin-left</span>: <span class="number">50%</span>;<span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-moz-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-ms-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-o-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%);&#125;</span><br><span class="line"><span class="selector-id">#message</span> &#123;<span class="attribute">position</span>: absolute;<span class="attribute">text-align</span>: center;<span class="attribute">height</span>: <span class="number">25px</span>;<span class="attribute">font-size</span>: <span class="number">22px</span>;<span class="attribute">margin-top</span>: <span class="number">110px</span>;<span class="attribute">margin-left</span>: <span class="number">50%</span>;<span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-moz-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-ms-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-o-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%);&#125;</span><br><span class="line"><span class="selector-class">.lotterybg</span> &#123;<span class="attribute">background</span>: <span class="built_in">url</span>(../img/lotterybg.png) top no-repeat;<span class="attribute">background-size</span>: <span class="number">100%</span>;<span class="attribute">overflow</span>: visible;<span class="attribute">width</span>: <span class="number">80%</span>;<span class="attribute">height</span>: <span class="number">100%</span>;<span class="attribute">margin-top</span>: <span class="number">160px</span>;<span class="attribute">margin-left</span>: <span class="number">50%</span>;<span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-moz-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-ms-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-o-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%);&#125;</span><br><span class="line"><span class="selector-id">#myCanvas</span> &#123;<span class="attribute">position</span>: absolute;<span class="attribute">border</span>: none;<span class="attribute">width</span>: <span class="number">285px</span>;<span class="attribute">height</span>: <span class="number">170px</span>;<span class="attribute">margin-top</span>: <span class="number">15px</span>;<span class="attribute">margin-left</span>: <span class="number">50%</span>;<span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-moz-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-ms-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-o-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%);&#125;</span><br><span class="line"><span class="selector-class">.lighting</span> &#123;<span class="attribute">display</span>: block;<span class="attribute">max-width</span>: <span class="number">99%</span>;<span class="attribute">margin-top</span>: <span class="number">0</span>;<span class="attribute">margin-left</span>: <span class="number">0</span>;&#125;</span><br><span class="line"><span class="selector-id">#start</span> &#123;<span class="attribute">position</span>: absolute;<span class="attribute">z-index</span>: <span class="number">3</span>;<span class="attribute">width</span>: <span class="number">202px</span>;<span class="attribute">margin-top</span>: <span class="number">413px</span>;<span class="attribute">margin-left</span>: <span class="number">50%</span>;<span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-moz-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-ms-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-o-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%);&#125;</span><br><span class="line"><span class="selector-class">.imgSrc</span> &#123;<span class="attribute">display</span>: none;<span class="attribute">position</span>: absolute;&#125;</span><br><span class="line"><span class="selector-class">.award</span> &#123;<span class="attribute">position</span>: absolute;<span class="attribute">border</span>: none;<span class="attribute">width</span>: <span class="number">60px</span>;<span class="attribute">height</span>: <span class="number">200px</span>;<span class="attribute">top</span>: <span class="number">470px</span>;<span class="attribute">margin-left</span>: <span class="number">50%</span>;<span class="attribute">-webkit-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-moz-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-ms-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">-o-transform</span>: <span class="built_in">translate</span>(-50%);<span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%);&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样子布局就算完成了，接下来主要工作就在<code>canvas</code>绘制图像上了。</p>
+<h3 id="扭蛋动画"><a href="#扭蛋动画" class="headerlink" title="扭蛋动画"></a>扭蛋动画</h3><p>先把各种变量定义好：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'myCanvas'</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line"><span class="keyword">var</span> ball1 = <span class="built_in">document</span>.getElementById(<span class="string">'ball1'</span>);<span class="comment">//图片对象</span></span><br><span class="line"><span class="keyword">var</span> ball2 = <span class="built_in">document</span>.getElementById(<span class="string">'ball2'</span>);<span class="comment">//图片对象</span></span><br><span class="line"><span class="keyword">var</span> ball3 = <span class="built_in">document</span>.getElementById(<span class="string">'ball3'</span>);<span class="comment">//图片对象</span></span><br><span class="line"><span class="keyword">var</span> ball4 = <span class="built_in">document</span>.getElementById(<span class="string">'ball4'</span>);<span class="comment">//图片对象</span></span><br><span class="line"><span class="keyword">var</span> ballList = [ball1, ball2, ball3, ball4];<span class="comment">//图片对象数组</span></span><br><span class="line"><span class="keyword">var</span> ballNum = <span class="number">4</span>;<span class="comment">//扭蛋机里面的小球数</span></span><br><span class="line"><span class="keyword">var</span> awardList = [];<span class="comment">//扭蛋机中的小球集合</span></span><br><span class="line"><span class="keyword">var</span> timer;<span class="comment">//计时器</span></span><br><span class="line"><span class="keyword">var</span> award = <span class="built_in">document</span>.getElementById(<span class="string">'awardBall'</span>);</span><br><span class="line"><span class="keyword">var</span> message = <span class="built_in">document</span>.getElementById(<span class="string">'message'</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="扭蛋对象"><a href="#扭蛋对象" class="headerlink" title="扭蛋对象"></a>扭蛋对象</h4><p>扭蛋机里面每个扭蛋都是一个对象，所以需要定义一个扭蛋对象：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Ball</span>(<span class="params">index, img</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.r = <span class="number">30</span>;<span class="comment">//小球半径</span></span><br><span class="line">    <span class="keyword">this</span>.x = <span class="keyword">this</span>.rand(canvas.width - <span class="keyword">this</span>.r * <span class="number">2</span>);<span class="comment">//小球初始横坐标</span></span><br><span class="line">    <span class="keyword">this</span>.y = <span class="keyword">this</span>.rand(canvas.height - <span class="keyword">this</span>.r * <span class="number">2</span>);<span class="comment">//小球初始纵坐标</span></span><br><span class="line">    <span class="keyword">this</span>.color = index;<span class="comment">//小球颜色，以下标表示</span></span><br><span class="line">    <span class="keyword">this</span>.img = img;<span class="comment">//小球素材</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.speedX = <span class="keyword">this</span>.rand(<span class="number">20</span>) - <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="keyword">this</span>.speedX &lt; <span class="number">5</span>);<span class="comment">//小球横坐标改变速度</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.speedY = <span class="keyword">this</span>.rand(<span class="number">20</span>) - <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="keyword">this</span>.speedY &lt; <span class="number">5</span>);<span class="comment">//小球纵坐标改变速度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>传入扭蛋对象的值<code>index</code>为小球的颜色，用数字1~4表示，<code>img</code>是图片对象，用来绘制扭蛋。</p>
+<h4 id="扭蛋方法"><a href="#扭蛋方法" class="headerlink" title="扭蛋方法"></a>扭蛋方法</h4><p>在上一步已经为扭蛋添加了属性，接下来就是给扭蛋添加方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Ball.prototype = &#123;</span><br><span class="line">    rand: <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;<span class="comment">//随机数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.random() * num;</span><br><span class="line">    &#125;,</span><br><span class="line">    run: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//小球运动函数</span></span><br><span class="line">        <span class="keyword">this</span>.x += <span class="keyword">this</span>.speedX;</span><br><span class="line">        <span class="keyword">this</span>.y += <span class="keyword">this</span>.speedY;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &gt; canvas.width - <span class="keyword">this</span>.r * <span class="number">2</span>) &#123;<span class="comment">//小球碰到右边界，横坐标速度变为负</span></span><br><span class="line">            <span class="keyword">this</span>.speedX = -<span class="keyword">this</span>.speedX;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &lt; <span class="number">0</span>) &#123;<span class="comment">//小球碰到左边界，横坐标速度变为正</span></span><br><span class="line">            <span class="keyword">this</span>.speedX = <span class="built_in">Math</span>.abs(<span class="keyword">this</span>.speedX);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &gt; canvas.height - <span class="keyword">this</span>.r * <span class="number">2</span>) &#123;<span class="comment">//小球碰到下边界，纵坐标速度变为负</span></span><br><span class="line">            <span class="keyword">this</span>.speedY = -<span class="keyword">this</span>.speedY;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &lt; <span class="number">0</span>) &#123;<span class="comment">//小球碰到上边界，纵坐标速度变为正</span></span><br><span class="line">            <span class="keyword">this</span>.speedY = <span class="built_in">Math</span>.abs(<span class="keyword">this</span>.speedY);</span><br><span class="line">        &#125;</span><br><span class="line">        ctx.drawImage(<span class="keyword">this</span>.img, <span class="keyword">this</span>.x, <span class="keyword">this</span>.y, <span class="number">60</span>, <span class="number">60</span>);<span class="comment">//绘制小球</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>主要是为扭蛋对象的原型添加上运动函数，运动函数的作用就是让扭蛋根据其速度动起来，并且在接触到边界的时候反弹。</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>接下来就是把扭蛋们放在扭蛋机里面：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>&#123;<span class="comment">//初始化</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; ballNum; i++) &#123;<span class="comment">//随机生成各色小球</span></span><br><span class="line">        <span class="keyword">let</span> index = <span class="built_in">Math</span>.floor(<span class="number">4</span> * <span class="built_in">Math</span>.random());</span><br><span class="line">        awardList[i] = <span class="keyword">new</span> Ball(index, ballList[index]);<span class="comment">//新建小球对象</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">window</span>.clearInterval(timer);<span class="comment">//清除计时器</span></span><br><span class="line">    timer = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);<span class="comment">//清空画布</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; awardList.length; i++) &#123;</span><br><span class="line">            awardList[i].run();</span><br><span class="line">        &#125;<span class="comment">//使小球运动</span></span><br><span class="line">    &#125;, <span class="number">15</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样子扭蛋机里面就已经有了小球。</p>
+<h4 id="开始扭蛋"><a href="#开始扭蛋" class="headerlink" title="开始扭蛋"></a>开始扭蛋</h4><p>开始扭蛋主要经历的过程就是点击按钮，扭蛋机扭蛋减少，获得相应扭蛋，中奖显示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">play</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (awardList.length === <span class="number">0</span>) &#123;<span class="comment">//奖池中没有小球</span></span><br><span class="line">        alert(<span class="string">'重新开始！'</span>);</span><br><span class="line">        init();</span><br><span class="line">        message.innerText = <span class="string">'点击抽奖'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">window</span>.clearInterval(timer);<span class="comment">//清除计时器</span></span><br><span class="line">        <span class="keyword">let</span> r = awardList.pop();<span class="comment">//将奖池中的小球减少</span></span><br><span class="line">        timer = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);<span class="comment">//清空画布</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; awardList.length; i++) &#123;</span><br><span class="line">                awardList[i].run();</span><br><span class="line">            &#125;<span class="comment">//使小球运动</span></span><br><span class="line">        &#125;, <span class="number">15</span>);</span><br><span class="line">        <span class="keyword">switch</span> (r.color) &#123;<span class="comment">//小球掉落动画</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                award.setAttribute(<span class="string">'class'</span>, <span class="string">'dropBall1'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                award.setAttribute(<span class="string">'class'</span>, <span class="string">'dropBall2'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                award.setAttribute(<span class="string">'class'</span>, <span class="string">'dropBall3'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                award.setAttribute(<span class="string">'class'</span>, <span class="string">'dropBall4'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">//扭蛋成功提示</span></span><br><span class="line">            award.setAttribute(<span class="string">'class'</span>, <span class="string">''</span>);</span><br><span class="line">            <span class="keyword">switch</span> (r.color) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                    message.innerText = <span class="string">'紫球！'</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                    message.innerText = <span class="string">'绿球！'</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                    message.innerText = <span class="string">'黄球！'</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                    message.innerText = <span class="string">'红球！'</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">1100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里扭蛋的掉落动画使用css动画的关键帧来完成：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.dropBall1</span> &#123;<span class="attribute">content</span>: <span class="string">""</span>;<span class="attribute">position</span>: absolute;<span class="attribute">left</span>: <span class="number">0</span>;<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">width</span>: <span class="number">60px</span>;<span class="attribute">height</span>: <span class="number">60px</span>;<span class="attribute">display</span>: block;<span class="attribute">background</span>: <span class="built_in">url</span>(../img/1.png) no-repeat;<span class="attribute">background-size</span>: contain;<span class="attribute">animation</span>: drop <span class="number">1s</span> ease-out forwards;<span class="attribute">-webkit-animation</span>: drop <span class="number">1s</span> ease-out forwards;&#125;</span><br><span class="line"><span class="selector-class">.dropBall2</span> &#123;<span class="attribute">content</span>: <span class="string">""</span>;<span class="attribute">position</span>: absolute;<span class="attribute">left</span>: <span class="number">0</span>;<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">width</span>: <span class="number">60px</span>;<span class="attribute">height</span>: <span class="number">60px</span>;<span class="attribute">display</span>: block;<span class="attribute">background</span>: <span class="built_in">url</span>(../img/2.png) no-repeat;<span class="attribute">background-size</span>: contain;<span class="attribute">animation</span>: drop <span class="number">1s</span> ease-out forwards;<span class="attribute">-webkit-animation</span>: drop <span class="number">1s</span> ease-out forwards;&#125;</span><br><span class="line"><span class="selector-class">.dropBall3</span> &#123;<span class="attribute">content</span>: <span class="string">""</span>;<span class="attribute">position</span>: absolute;<span class="attribute">left</span>: <span class="number">0</span>;<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">width</span>: <span class="number">60px</span>;<span class="attribute">height</span>: <span class="number">60px</span>;<span class="attribute">display</span>: block;<span class="attribute">background</span>: <span class="built_in">url</span>(../img/3.png) no-repeat;<span class="attribute">background-size</span>: contain;<span class="attribute">animation</span>: drop <span class="number">1s</span> ease-out forwards;<span class="attribute">-webkit-animation</span>: drop <span class="number">1s</span> ease-out forwards;&#125;</span><br><span class="line"><span class="selector-class">.dropBall4</span> &#123;<span class="attribute">content</span>: <span class="string">""</span>;<span class="attribute">position</span>: absolute;<span class="attribute">left</span>: <span class="number">0</span>;<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">width</span>: <span class="number">60px</span>;<span class="attribute">height</span>: <span class="number">60px</span>;<span class="attribute">display</span>: block;<span class="attribute">background</span>: <span class="built_in">url</span>(../img/4.png) no-repeat;<span class="attribute">background-size</span>: contain;<span class="attribute">animation</span>: drop <span class="number">1s</span> ease-out forwards;<span class="attribute">-webkit-animation</span>: drop <span class="number">1s</span> ease-out forwards;&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> drop &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scale</span>(0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    50% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">    &#125;</span><br><span class="line">    51% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translateY</span>(0px);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translateY</span>(100px);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> drop &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    50% &#123;</span><br><span class="line">        <span class="attribute">-webkit-transform</span>: <span class="built_in">scale</span>(1);</span><br><span class="line">    &#125;</span><br><span class="line">    51% &#123;</span><br><span class="line">        <span class="attribute">-webkit-transform</span>: <span class="built_in">translateY</span>(0px);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        <span class="attribute">-webkit-transform</span>: <span class="built_in">translateY</span>(100px);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>当然，需要最后加上<code>init();</code>来让扭蛋机跑起来，到这里，这个简单的扭蛋机就算完成了，<a href="https://chrischen0405.github.io/Demo/canvas/canvas%E6%89%AD%E8%9B%8B%E6%9C%BA%E6%95%88%E6%9E%9C/index.html" target="_blank">效果预览</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然这个Demo比较简单，但是还是有一些注意点和一些可优化的地方。</p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><h4 id="img对象"><a href="#img对象" class="headerlink" title="img对象"></a>img对象</h4><p>在<code>html</code>中的这些<code>img</code>标签：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/1.png"</span> <span class="attr">id</span>=<span class="string">"ball1"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/2.png"</span> <span class="attr">id</span>=<span class="string">"ball2"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/3.png"</span> <span class="attr">id</span>=<span class="string">"ball3"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/4.png"</span> <span class="attr">id</span>=<span class="string">"ball4"</span> <span class="attr">class</span>=<span class="string">"imgSrc"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>样式也写成<code>display: none;</code>，这样写是为了在js中获取<code>img</code>对象，当然也可以不在<code>html</code>中写这些<code>img</code>标签，直接在js文件中写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image(); </span><br><span class="line">img.src = <span class="string">'img/1.png'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这样子也可以得到<code>img</code>对象，也可以用来绘制扭蛋。</p>
+<h4 id="清除计时器"><a href="#清除计时器" class="headerlink" title="清除计时器"></a>清除计时器</h4><p>代码中清除计时器都是在调用计时器之前，之所以这样做的目的，是因为不清除计时器，计时器会一直计时，导致动画越来越鬼畜。</p>
+<h4 id="画布"><a href="#画布" class="headerlink" title="画布"></a>画布</h4><p>在<code>canvas</code>画布上绘制可能会出现图像不清晰、放大的情况，这种情况可以通过将<code>canvas</code>标签的<code>width</code>和<code>height</code>属性设置成和样式的<code>width</code>和<code>height</code>属性相同来解决。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/HTML5/" rel="tag"><i class="fa fa-tag"></i> HTML5</a>
+          
+            <a href="/tags/CSS3/" rel="tag"><i class="fa fa-tag"></i> CSS3</a>
+          
+            <a href="/tags/教程/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
+          
+            <a href="/tags/动画/" rel="tag"><i class="fa fa-tag"></i> 动画</a>
+          
+            <a href="/tags/canvas/" rel="tag"><i class="fa fa-tag"></i> canvas</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/10/10/post20181010/">canvas实现扭蛋机动画效果</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2018年10月10日 - 15:10</p>
+  <p><span>最后更新:</span>2022年09月22日 - 15:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/post20180912/" rel="next" title="js中call()和apply()方法的区别和用法详解">
+                <i class="fa fa-chevron-left"></i> js中call()和apply()方法的区别和用法详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/12/post20181012/" rel="prev" title="人脸识别接口整理与对比">
+                人脸识别接口整理与对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#布局"><span class="nav-number">2.1.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扭蛋动画"><span class="nav-number">2.2.</span> <span class="nav-text">扭蛋动画</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#扭蛋对象"><span class="nav-number">2.2.1.</span> <span class="nav-text">扭蛋对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扭蛋方法"><span class="nav-number">2.2.2.</span> <span class="nav-text">扭蛋方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.3.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始扭蛋"><span class="nav-number">2.2.4.</span> <span class="nav-text">开始扭蛋</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">2.3.</span> <span class="nav-text">结束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意点"><span class="nav-number">3.1.</span> <span class="nav-text">注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#img对象"><span class="nav-number">3.1.1.</span> <span class="nav-text">img对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清除计时器"><span class="nav-number">3.1.2.</span> <span class="nav-text">清除计时器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#画布"><span class="nav-number">3.1.3.</span> <span class="nav-text">画布</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

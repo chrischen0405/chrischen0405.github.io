@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,翻译,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="JavaScript的崛起Massimo DiPierro DePaul University">
+<meta name="keywords" content="JavaScript,翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“The Rise of JavaScript”中文翻译">
+<meta property="og:url" content="http://chrischen0405.github.io/2018/11/21/post20181121/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="JavaScript的崛起Massimo DiPierro DePaul University">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-22T07:47:58.222Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="“The Rise of JavaScript”中文翻译">
+<meta name="twitter:description" content="JavaScript的崛起Massimo DiPierro DePaul University">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2018/11/21/post20181121/">
+
+
+
+
+
+  <title>“The Rise of JavaScript”中文翻译 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2018/11/21/post20181121/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">“The Rise of JavaScript”中文翻译</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T16:24:48+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript的崛起"><a href="#JavaScript的崛起" class="headerlink" title="JavaScript的崛起"></a>JavaScript的崛起</h1><p><strong>Massimo DiPierro</strong> DePaul University<br><a id="more"></a><br>&emsp;&emsp;仅在几年前，JavaScript（JS）是一种被许多人蔑视的编程语言。如今，JS非常受欢迎，是增长速度最快的编程语言之一。无论是否为网络发展，都不容忽视。事实上，正如我们在此论证的那样，JS是一种用于某类科学应用的优秀开发语言。</p>
+<p>&emsp;&emsp;Brendan Eich在1995年发明了JS，JS被用来作为在Netscape Navigator中编程的一种方式，Netscape Navigator是最早的流行网络浏览器之一。之后随着时间的推移，其他的浏览器也已经采用了JS作为主要语言来为网页添加逻辑。 此后，各种各样的实现汇集成了一个单独的增强的标准。  </p>
+<p>&emsp;&emsp;尽管JS最初是作为解释语言开发的，但是现代浏览器很聪明，如果他们观察到某个JS函数被经常调用，那么他们就会使用JIT编译[^1]。 这使得JS成为一种非常快速的语言，在某些情况下几乎与C或C ++一样快，并且通常比Java更快（尽管两者名称相似，但Java和JavaScript没有关系）。作为一种主要在浏览器中运行的语言，JS提供了一个标准API来处理HTML和JSON; 处理网络协议;在画布上作画; 并能够与计算机的相机，音频，GPS，陀螺仪甚至GPU等设备连接。 最新版本的JS称为ECMAScript 6，简称ES6。  </p>
+<p>&emsp;&emsp;2009年，Ryan Dahl发明了node.js，这是一个不需要浏览器，而可以将JS代码运行在服务器端的解释器。从那时起，基于JS的命令行工具不断涌现。 Node.js包含一个名为Node Package Manager（npm）的包管理器，可以轻松下载其他模块并管理依赖项。这种模块的一个例子是Babel，它可以将现代ES6编译为以前版本的JS以实现可移植性。另一个例子是Browserify，它允许将多个JS文件及其依赖项打包到一个单独的可移植的.js文件中，以便于分发。  </p>
+<p>&emsp;&emsp;JS历史上的另一个重要的事件是2013年发明的asm.js。这种中间编程语言允许C编译成JS的可移植的优化子集。 因为asm.js的出现，使得浏览器可以运行整个虚拟机（VM）以及运行其中的任何操作系统。 例如，要运行Linux，只需访问jslinux.org。如今，许多语言都可以编译成JS，包括Python。  </p>
+<p>&emsp;&emsp;如果我们说服您尝试使用JS，那么您需要注意一些特征。 这些特征可能会让具有其他语言经验的程序员感到困惑：</p>
+<ul>
+<li>直到2015年，JS还没有“class”关键字。 尽管如此，JS始终是一种面向对象的编程语言，支持封装，继承，多态和抽象的基本功能。 所谓的原型接口允许创建原型对象，从中可以产生其他对象。 关键字“class”纯粹作为语法糖[^2]添加。</li>
+<li>一个重要的特征是执行模型。 在JS中，代码总是单线程运行的，并且两个函数不可能同时运行。一个线程维护一个要执行的异步任务队列。每次调用一个函数时，它都作为闭包（与调用环境的副本一起）放入队列中，队列中的函数按照它们被调用的顺序执行。 函数也可以安排在稍后运行或在另一个函数运行后（promises[^3]）运行。  </li>
+</ul>
+<p>&emsp;&emsp;在本期CiSE特刊中，我们专注于用JS编写的一小部分库和工具，可能会让科学家和工程师感兴趣。 当然，我们的目标不是详尽无遗，也不具代表性，因为考虑到了巨大并且在迅速扩大的领域，而是为了激发读者的好奇心并向他们展示JS中某些任务非常简单。 特别是，我们将涵盖以下任务：</p>
+<ul>
+<li><strong>使用Emscripten将C / C ++代码编译为JS。</strong>在他的文章中，Alon Zakai回顾了asm.js，WebAssembly和Emscripten的性能。 他还演示了如何使用后者编译实现Ising模型[^4]的C ++代码到JS代码中，而无需读取或编写一行JS。</li>
+<li><strong>执行符号数学。</strong>Jos de Jong和Eric Mansfield提供了math.js的教程，这是一个用JS实现的符号计算的可扩展库。Math.js带有一个记事本，就像Mathematica Notebook或Jupyter Notebook的轻量级版本，除了它完全在用户的浏览器中运行。</li>
+<li><strong>GPU编程。</strong>Fazli Sapuan，Matthew Saw和Eugene Cheah为gpu.js提供了一个教程，这是一个为GPU提供编程接口的库。 非常像CUDA和OpenCL，在gpu.js中，使用JS开发内核程序，该程序实时编译并部署到GPU的多个线程/核心。 因为这都是在浏览器中的JS中完成的，所以它允许真正的GPU编程，而无需安装任何第三方开发工具。</li>
+<li><strong>试验相机和机器视觉。</strong>在我的论文中，我演示了如何使用JS ES6编写代码来访问计算机网络摄像头，处理帧以检测运动，并使用观察到的运动来控制模拟的3D机器人手臂。对于后者，可以使用three.js，这是一个功能强大的库，可以利用计算机GPU来构建和渲染复杂的3D对象，如纹理和照明。</li>
+<li><strong>创建复杂的接口。</strong>在最后的论文中，Ibrahim Tanyalcin，Carla Al Assaf，Julien Ferte，FrançoisAncien，Taushif Khan，Guillaume Smits，Marianne Rooman和Wim Vranken介绍了Mutaframe，这是一个可扩展的DNA序列和突变可视化框架。  </li>
+</ul>
+<p>&emsp;&emsp;我希望你确信JS是一种认真，强大，快速的语言。 更重要的是，JS是在浏览器端构建复杂和现代接口（新代码和现有代码）不可或缺的语言，JS可以在用户的浏览器中运行，而无需安装第三方工具。 很多时候，优秀的科学代码隐藏在神秘的用户接口和长链依赖之后。 使代码在网络上具有交互性和可访问性应被视为科学家的首要任务。</p>
+<p>[^1]: JIT编译（just-in-time compilation），狭义来说是当某段代码即将第一次被执行时进行编译，因而叫“即时编译”。<br>[^2]: 语法糖（Syntactic sugar），也译为糖衣语法，是由英国计算机科学家彼得·约翰·兰达（Peter J. Landin）发明的一个术语，指计算机语言中添加的某种语法，这种语法对语言的功能并没有影响，但是更方便程序员使用。通常来说使用语法糖能够增加程序的可读性，从而减少程序代码出错的机会。<br>[^3]: Promise 对象是一个代理对象（代理一个值），被代理的值在Promise对象创建时可能是未知的。它允许你为异步操作的成功和失败分别绑定相应的处理方法（handlers）。 这让异步方法可以像同步方法那样返回值，但并不是立即返回最终执行结果，而是一个能代表未来出现的结果的promise对象。<br>[^4]: Ising模型（伊辛模型）是一个最简单且能够提供非常丰富的物理内容的模型，可用于描写叙述非常多物理现象。  </p>
+<h1 id="The-Rise-of-JavaScript"><a href="#The-Rise-of-JavaScript" class="headerlink" title="The Rise of JavaScript"></a>The Rise of JavaScript</h1><p><strong>Massimo DiPierro</strong> DePaul University<br>Only a few years ago, JavaScript (JS) was a programming language disdained by many. Today, JS is very popular and one of the fastest-growing programming languages. It cannot be ignored, whether one develops for the web or not. In fact, as we will argue here, JS is an excellent development language for a certain class of scientific applications.  </p>
+<p>Brendan Eich invented JS in 1995 as a way to program one of the first popular web browsers, Netscape Navigator. Over time, other browsers have adopted JS as a primary language to add logic to webpages. The various implementations have since converged into a single, enhanced standard.  </p>
+<p>Even if originally developed as an interpreted language, modern browsers are smart, and if they observe that a certain JS function is called often, they compile it using a just-in-time (JIT) compiler. This makes JS a very fast language, almost as fast as C/C++ in some instances and usually faster than Java (which isn’t related to JS, despite the name similarity). As a language designed to run primarily in the browser, JS provides a standard API to process HTML and JSON; handle network protocols; draw on a canvas; and interface with devices such as the computer’s camera, audio, GPS, gyroscope, and even the GPU. The latest version of JS is called ECMAScript 6, or ES6 for short.  </p>
+<p>In 2009, Ryan Dahl invented node.js, an interpreter for running JS code server-side without the need for a browser. Since then, there has been a proliferation of command-line tools based on JS. Node.js includes a package manager called Node Package Manager (npm), which makes it easy to download additional modules and manage dependencies. One example of such modules is Babel, which can compile modern ES6 to previous versions of JS for portability. Another example is Browserify, which allows packaging of multiple JS files and their dependencies into a single portable .js file for ease of distribution.  </p>
+<p>Another major step in the history of JS was the invention of asm.js in 2013. This intermediate programming language allows C to compile into a portable and optimized subset of JS. Thanks to asm.js, it is possible to run an entire virtual machine (VM) in the browser and run any operating system in it. For example, to run Linux, just visit jslinux.org. Today, many languages can be compiled into JS, including Python.  </p>
+<p>If we have convinced you to try JS, there are a couple of features that you need to be aware of. These features can be confusing to programmers with experience in other languages:  </p>
+<ul>
+<li>Until 2015, JS did not have a “class” keyword. Despite that, JS was always an objectoriented programming language with support for the basic functionalities of encapsulation, inheritance, polymorphism, and abstraction. The so-called prototype interface allows the creation of a prototype object from which other objects can be made. The keyword “class” was added purely as syntactic sugar.</li>
+<li>An important feature is the execution model. In JS, the code always runs single threaded, and it is impossible for two functions to run at the same time. That one thread maintains a queue of asynchronous tasks to be executed. Every time a function is called,it is placed in the queue as a closure (together with a copy of the calling environment), and functions in the queue are executed in the order in which they were called. Functions can also be scheduled to run at a later time or after another function has run (promises). </li>
+</ul>
+<p>In this special issue of CiSE, we focus on a small sample of libraries and tools written in JS that might interest scientists and engineers. Our goal is, of course, not to be exhaustive nor representative—given the huge and rapidly expanding field—but to spark the reader’s curiosity and show how certain tasks are remarkably easy in JS. In particular, we will cover the following tasks:</p>
+<ul>
+<li><strong>Compile C/C++ code to JS using Emscripten.</strong> In his article, Alon Zakai reviews the performance of asm.js, WebAssembly, and Emscripten. He also demonstrates how to use the latter to compile C++ code implementing the Ising model into JS code, without having to read or write one line of JS.</li>
+<li><strong>Perform symbolic math.</strong> Jos de Jong and Eric Mansfield provide a tutorial for math.js, an extensible library for symbolic computations implemented in JS. Math.js comes with a notepad that is like a lightweight version of the Mathematica Notebook or the Jupyter Notebook, except that it runs completely in the user’s browser.</li>
+<li><strong>Program the GPU.</strong> Fazli Sapuan, Matthew Saw, and Eugene Cheah contributed a tutorial for gpu.js, a library that provides a programming interface to the GPU. Very much like CUDA and OpenCL, in gpu.js, one develops a kernel program using JS that is compiled in real time and deployed to the multiple threads/cores of the GPU. Because this is all done in JS within the browser, it allows for real GPU programming without the need to install any third-party development tools.</li>
+<li><strong>Experiment with a camera and machine vision.</strong> In my paper, I demonstrate how to write code using JS ES6 to access the computer web camera, process the frames to detect movement, and use the observed movements to control a simulated 3D robotic arm. For the latter, one can use three.js, a powerful library that can take advantage of the computer GPU to build and render complex 3D objects such as textures and lighting.</li>
+<li><strong>Create complex interfaces.</strong> In the final paper, Ibrahim Tanyalcin, Carla Al Assaf, Julien Ferte, François Ancien, Taushif Khan, Guillaume Smits, Marianne Rooman, and Wim Vranken provide an introduction to Mutaframe, an extensible framework for the visualization of DNA sequences and mutations.  </li>
+</ul>
+<p>I hope you are convinced that JS is a serious, powerful, and fast language. And more importantly, that JS is an indispensable language for building complex and modern interfaces (to new and existing code) that can run in the user’s browser without the need to install third-party tools. Too often, excellent scientific code is hidden behind arcane user interfaces and long chains of dependencies. Making the code interactive and accessible on the web should be considered a priority for scientists.  </p>
+<p><strong>ABOUT THE AUTHOR</strong><br><strong>Massimo DiPierro</strong> is a professor in the School of Computing at DePaul University and codirector of the MS program in computational finance. Contact him at <a href="mailto:massimo.dipierro@depaul.edu" target="_blank" rel="noopener">massimo.dipierro@depaul.edu</a>.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/翻译/" rel="tag"><i class="fa fa-tag"></i> 翻译</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/tools1/" rel="next" title="js使用正则获取当前页面url指定参数">
+                <i class="fa fa-chevron-left"></i> js使用正则获取当前页面url指定参数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/21/post20181121-2/" rel="prev" title="使用hexo发布文章报错can not read a block mapping entry">
+                使用hexo发布文章报错can not read a block mapping entry <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的崛起"><span class="nav-number">1.</span> <span class="nav-text">JavaScript的崛起</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Rise-of-JavaScript"><span class="nav-number">2.</span> <span class="nav-text">The Rise of JavaScript</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

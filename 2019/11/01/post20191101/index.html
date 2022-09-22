@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git,工具,教程,git flow,版本控制,回退,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="使用了一阵子git，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：） git基本流程可能以下流程不是标准的git flow，但是日常开发中用的最多的也是这几个命令，有错之处还望指正">
+<meta name="keywords" content="git,工具,教程,git flow,版本控制,回退">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git基本命令以及使用场景介绍">
+<meta property="og:url" content="http://chrischen0405.github.io/2019/11/01/post20191101/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="使用了一阵子git，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：） git基本流程可能以下流程不是标准的git flow，但是日常开发中用的最多的也是这几个命令，有错之处还望指正">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-22T07:47:58.247Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git基本命令以及使用场景介绍">
+<meta name="twitter:description" content="使用了一阵子git，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：） git基本流程可能以下流程不是标准的git flow，但是日常开发中用的最多的也是这几个命令，有错之处还望指正">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2019/11/01/post20191101/">
+
+
+
+
+
+  <title>git基本命令以及使用场景介绍 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2019/11/01/post20191101/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git基本命令以及使用场景介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-01T22:23:26+08:00">
+                2019-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人整理/" itemprop="url" rel="index">
+                    <span itemprop="name">个人整理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>使用了一阵子<code>git</code>，记录一下收获以及遇到的问题或者是解决办法，如果文章中有什么错误，或者有什么疑问可以指出交流 ：）</p>
+<h3 id="git基本流程"><a href="#git基本流程" class="headerlink" title="git基本流程"></a>git基本流程</h3><p>可能以下流程不是标准的<code>git flow</code>，但是日常开发中用的最多的也是这几个命令，有错之处还望指正<br><a id="more"></a></p>
+<h4 id="第一步-从远端克隆仓库"><a href="#第一步-从远端克隆仓库" class="headerlink" title="第一步 从远端克隆仓库"></a>第一步 从远端克隆仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;仓库地址&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="第二步-从master开一个新的分支"><a href="#第二步-从master开一个新的分支" class="headerlink" title="第二步 从master开一个新的分支"></a>第二步 从<code>master</code>开一个新的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+<p>如果只是切换已经有的分支就不用加<code>-b</code>了，比如，远端有一个<code>dev</code>分支，本地在从<code>master</code>分支切换到<code>dev</code>分支的时候就不需要加<code>-b</code>参数了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure></p>
+<h4 id="第三步-提交修改的代码"><a href="#第三步-提交修改的代码" class="headerlink" title="第三步 提交修改的代码"></a>第三步 提交修改的代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -a -m &quot;git message&quot;</span><br></pre></td></tr></table></figure>
+<p>这里的参数<code>-m</code>是可以填写提交信息，后面的<code>git message</code>就是填写的提交信息，至于提交信息的填写规范可以自行查看。<br>参数<code>-a</code>是用来把已经被<code>git</code>追踪的修改或删除的文件提交，如果只是修改或者删除文件的话可以不使用<code>git add</code>，但如果有新增的文件，在提交前需要把文件添加到 <code>git</code>系统中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></p>
+<p><code>.</code>表示所有的文件，也可以指定具体的文件名，但是我一直都是<code>git add .</code>，图方便嘻嘻</p>
+<h4 id="第四步-把分支合并"><a href="#第四步-把分支合并" class="headerlink" title="第四步 把分支合并"></a>第四步 把分支合并</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master //切换到master分支</span><br><span class="line">git pull --rebase origin master //拉取远端master代码</span><br><span class="line">git merge &lt;分支名称&gt; //合并分支</span><br></pre></td></tr></table></figure>
+<p>在提交完自己分支修改的代码之后，首先切换到需要合代码的分支，比如<code>master</code>分支，然后拉取远端代码，因为在协同工作的时候，可能别人已经把修改之后的代码推到远端，所以需要先把<code>master</code>更新到最新，然后再把自己的分支合并即可。<br>拉代码的时候不加<code>--rebase</code>也没有关系，只不过加了<code>--rebase</code>以后<code>git</code>的提交树会比较清爽，感兴趣的可以搜<strong>变基合并</strong></p>
+<h4 id="第五步-把修改提交到远端"><a href="#第五步-把修改提交到远端" class="headerlink" title="第五步 把修改提交到远端"></a>第五步 把修改提交到远端</h4><p>上一步已经把修改合并到了<code>master</code>分支上，然后把本地的<code>master</code>分支推到远端：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<h4 id="第六步-删除自己的分支"><a href="#第六步-删除自己的分支" class="headerlink" title="第六步 删除自己的分支"></a>第六步 删除自己的分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+<p>在功能分支合并了以后，就可以把功能分支删除了。<br>如果功能分支没有合并的话，<code>-d</code>是无法删除该分支的，但如果非要删，可以用<code>-D</code>参数强制删除该分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D &lt;分支名称&gt;</span><br></pre></td></tr></table></figure></p>
+<p>不加参数的话就是查看本地所有分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
+<p>如果本地的分支已经删除，还想删除远端的分支的话，可以用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :&lt;分支名称&gt;</span><br></pre></td></tr></table></figure></p>
+<p>因为本地分支已经删除了，所以要在分支名称前加上<code>:</code>，不然<code>push</code>的时候会报错说分支不存在</p>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><h4 id="暂存"><a href="#暂存" class="headerlink" title="暂存"></a>暂存</h4><p>在日常开发中，可能在写一个需求的时候，让你改一个紧急的bug，而且是在同一个项目里，这时候就要使用<code>git</code>的储存了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git stash //把修改的内容储存起来</span><br><span class="line">git stash list //查看储存的堆栈</span><br><span class="line">git stash pop //把最近的储存取出到工作区并且删除堆栈中的这次储存</span><br><span class="line">git stash apply //应用最近的储存</span><br><span class="line">git stash drop //删除最近的储存</span><br><span class="line">git stash clear //清空储存堆栈</span><br></pre></td></tr></table></figure></p>
+<p>这些储存操作默认都是最近的一次储存，当然，<code>pop</code>，<code>apply</code>，<code>drop</code>操作可以指定第几次储存，命令最后需要加<code>stash@{$num}</code>，比如默认的就是<code>stash@{0}</code>，但是省略掉了。<br>需要注意的是，能够储存的文件必须得是被<code>git</code>追踪的文件，<strong>如果一个新增的文件没有<code>add</code>过是不能被储存的</strong>。<br>还有一点储存的用处就是我之前丢弃修改的时候是先<code>git stash</code>，然后直接<code>git statsh clear</code>把储存删除，相当于丢弃了我的修改。</p>
+<h4 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h4><p>回退的问题可以有很多花里胡哨的情况发生，还好我日常中遇到需要回退的情况比较少。</p>
+<h5 id="丢弃工作区的内容"><a href="#丢弃工作区的内容" class="headerlink" title="丢弃工作区的内容"></a>丢弃工作区的内容</h5><p>工作区的内容，就是还没有执行<code>git add</code>的修改，可以用<code>git checkout</code>来丢弃修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- *</span><br></pre></td></tr></table></figure></p>
+<h5 id="丢弃暂存区的内容"><a href="#丢弃暂存区的内容" class="headerlink" title="丢弃暂存区的内容"></a>丢弃暂存区的内容</h5><p>暂存区的内容，就是在执行了<code>git add</code>以后，但是还没有<code>git commit</code>，就需要使用<code>git reset</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD *</span><br></pre></td></tr></table></figure></p>
+<p>这样可以把暂存区的内容回退到<code>git add</code>以前，然后可以使用<code>git checkout</code>来丢弃修改</p>
+<h5 id="回退提交"><a href="#回退提交" class="headerlink" title="回退提交"></a>回退提交</h5><p>在提交了以后想要回退，然后要保留修改的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD^</span><br></pre></td></tr></table></figure></p>
+<p>这是回退到上一个提交节点，每多退一次提交就加一个<code>^</code>，当然也可以用<code>HEAD~3</code>，这个<code>3</code>就表示要回退。<br>如果要回退并且直接丢弃所有修改，只需要把参数<code>--soft</code>改为<code>--hard</code>即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^</span><br></pre></td></tr></table></figure></p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>以上差不多就是我在工作之中使用<code>git</code>的一些收获，可能会有错误，如果发现有什么不对的地方还望指正</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+            <a href="/tags/工具/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          
+            <a href="/tags/教程/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
+          
+            <a href="/tags/git-flow/" rel="tag"><i class="fa fa-tag"></i> git flow</a>
+          
+            <a href="/tags/版本控制/" rel="tag"><i class="fa fa-tag"></i> 版本控制</a>
+          
+            <a href="/tags/回退/" rel="tag"><i class="fa fa-tag"></i> 回退</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/11/01/post20191101/">git基本命令以及使用场景介绍</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2019年11月01日 - 22:11</p>
+  <p><span>最后更新:</span>2022年09月22日 - 15:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/02/post20190602/" rel="next" title="父元素由于子元素使用float而无法自适应高度">
+                <i class="fa fa-chevron-left"></i> 父元素由于子元素使用float而无法自适应高度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/13/post20200217-2/" rel="prev" title="flutter真机调试一直loading">
+                flutter真机调试一直loading <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#git基本流程"><span class="nav-number">1.</span> <span class="nav-text">git基本流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-从远端克隆仓库"><span class="nav-number">1.1.</span> <span class="nav-text">第一步 从远端克隆仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步-从master开一个新的分支"><span class="nav-number">1.2.</span> <span class="nav-text">第二步 从master开一个新的分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步-提交修改的代码"><span class="nav-number">1.3.</span> <span class="nav-text">第三步 提交修改的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四步-把分支合并"><span class="nav-number">1.4.</span> <span class="nav-text">第四步 把分支合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五步-把修改提交到远端"><span class="nav-number">1.5.</span> <span class="nav-text">第五步 把修改提交到远端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六步-删除自己的分支"><span class="nav-number">1.6.</span> <span class="nav-text">第六步 删除自己的分支</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决问题"><span class="nav-number">2.</span> <span class="nav-text">解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暂存"><span class="nav-number">2.1.</span> <span class="nav-text">暂存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回退"><span class="nav-number">2.2.</span> <span class="nav-text">回退</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#丢弃工作区的内容"><span class="nav-number">2.2.1.</span> <span class="nav-text">丢弃工作区的内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#丢弃暂存区的内容"><span class="nav-number">2.2.2.</span> <span class="nav-text">丢弃暂存区的内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#回退提交"><span class="nav-number">2.2.3.</span> <span class="nav-text">回退提交</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
