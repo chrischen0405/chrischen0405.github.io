@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,vuex,学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="用了好久vuex没有记录过，重新再学一遍并做一下笔记。">
+<meta name="keywords" content="Vue,vuex,学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex学习笔记">
+<meta property="og:url" content="http://chrischen0405.github.io/2021/04/09/post20210409/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="用了好久vuex没有记录过，重新再学一遍并做一下笔记。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-22T09:38:29.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vuex学习笔记">
+<meta name="twitter:description" content="用了好久vuex没有记录过，重新再学一遍并做一下笔记。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2021/04/09/post20210409/">
+
+
+
+
+
+  <title>Vuex学习笔记 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2021/04/09/post20210409/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vuex学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-09T16:05:17+08:00">
+                2021-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vuex/" itemprop="url" rel="index">
+                    <span itemprop="name">vuex</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>用了好久<code>vuex</code>没有记录过，重新再学一遍并做一下笔记。</p>
+<a id="more"></a>
+<h1 id="1-Vuex概述"><a href="#1-Vuex概述" class="headerlink" title="1 Vuex概述"></a>1 Vuex概述</h1><h2 id="1-1-组件之间共享数据的方式"><a href="#1-1-组件之间共享数据的方式" class="headerlink" title="1.1 组件之间共享数据的方式"></a>1.1 组件之间共享数据的方式</h2><p>父向子传值：<code>v-bind</code> 属性绑定<br>子向父传值：<code>v-on</code> 事件绑定<br>兄弟组件传值： <code>EventBus</code></p>
+<ul>
+<li><code>$on</code> 接收数据的组件</li>
+<li><code>$emit</code> 发送数据的组件</li>
+</ul>
+<h2 id="1-2-Vuex是什么"><a href="#1-2-Vuex是什么" class="headerlink" title="1.2 Vuex是什么"></a>1.2 Vuex是什么</h2><p><code>Vuex</code>是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间数据的共享。</p>
+<h2 id="1-3-使用Vuex的好处"><a href="#1-3-使用Vuex的好处" class="headerlink" title="1.3 使用Vuex的好处"></a>1.3 使用Vuex的好处</h2><ul>
+<li>能够在<code>vuex</code>中集中管理共享的数据，方便开发和维护</li>
+<li>能够高效实现组件之间数据共享，提高开发效率</li>
+<li>存储在<code>vuex</code>中的数据都是响应式的，能够实时保持数据与页面的同步</li>
+</ul>
+<h2 id="1-4-什么样的数据适合存储到Vuex中"><a href="#1-4-什么样的数据适合存储到Vuex中" class="headerlink" title="1.4 什么样的数据适合存储到Vuex中"></a>1.4 什么样的数据适合存储到Vuex中</h2><p>一般情况向下，只有组件间共享的内容才存储到<code>vuex</code>中，对于组件中的私有数据，依旧存储在组件自身的<code>data</code>中</p>
+<h1 id="2-Vuex的基本使用"><a href="#2-Vuex的基本使用" class="headerlink" title="2 Vuex的基本使用"></a>2 Vuex的基本使用</h1><h2 id="2-1-安装vuex依赖包"><a href="#2-1-安装vuex依赖包" class="headerlink" title="2.1 安装vuex依赖包"></a>2.1 安装vuex依赖包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex --save</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-导入vuex包"><a href="#2-2-导入vuex包" class="headerlink" title="2.2 导入vuex包"></a>2.2 导入vuex包</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"><span class="comment">//挂载Vuex</span></span><br><span class="line">Vue.use(Vuex)</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-创建store对象"><a href="#2-3-创建store对象" class="headerlink" title="2.3 创建store对象"></a>2.3 创建store对象</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建VueX对象</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        <span class="comment">//存放的键值对就是所要管理的状态</span></span><br><span class="line">        name: <span class="string">'helloVueX'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-将store对象挂载到vue实例中"><a href="#2-4-将store对象挂载到vue实例中" class="headerlink" title="2.4 将store对象挂载到vue实例中"></a>2.4 将store对象挂载到vue实例中</h2><p>在根目录底下的<code>main.js</code>的文件中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  <span class="comment">// 将创建的数据共享对象挂载到这个vue实例中</span></span><br><span class="line">  store,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="3-Vuex核心概念"><a href="#3-Vuex核心概念" class="headerlink" title="3 Vuex核心概念"></a>3 Vuex核心概念</h1><h2 id="3-1-State"><a href="#3-1-State" class="headerlink" title="3.1 State"></a>3.1 State</h2><p><code>State</code>提供唯一的公共数据源，所有共享的数据源都要统一放到<code>Store</code>的<code>State</code>中进行存储。<br>组件访问<code>State</code>中数据方式：</p>
+<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.state.全局数据名称</span><br></pre></td></tr></table></figure>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从vuex中按需导入mapState</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapState &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br></pre></td></tr></table></figure>
+<p>通过导入的<code>mapState</code>函数，将当前函数需要的全局数据，映射为当前组件的<code>computed</code>计算属性：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  ...mapState([<span class="string">'name'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在当前组件就可以直接使用<code>this.name</code></p>
+<h2 id="3-2-Mutation"><a href="#3-2-Mutation" class="headerlink" title="3.2 Mutation"></a>3.2 Mutation</h2><p><code>Mutation</code>用于变更<code>Store</code>中的数据。</p>
+<ul>
+<li>只能通过<code>Mutation</code>变更<code>Store</code>中的数据，不可以直接操作<code>Store</code>中的数据。</li>
+<li>操作虽然繁琐，但是可以集中监控所有数据的变化。</li>
+<li><code>Mutations</code>中<strong>不能执行异步操作</strong>。<h3 id="mutations使用方法"><a href="#mutations使用方法" class="headerlink" title="mutations使用方法"></a>mutations使用方法</h3><code>mutations</code>方法都有默认的形参：<br>([state] [,payload])</li>
+<li><code>state</code>是当前<code>vuex</code>对象中的<code>state</code></li>
+<li><code>payload</code>是该方法在被调用时传递参数使用的</li>
+</ul>
+<p>定义<code>Mutation</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        name: <span class="string">'helloVueX'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        edit (state, name) &#123;</span><br><span class="line">            <span class="comment">// 变更状态</span></span><br><span class="line">            state.name = name</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>在组件中使用<code>commit</code>函数调用这个<code>mutation</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.commit(<span class="string">'edit'</span>, <span class="string">'111'</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从vuex中按需导入mapMutitions</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapMutations &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br></pre></td></tr></table></figure>
+<p>通过导入的<code>mapMutations</code>函数，将需要的<code>mutations</code>函数映射为当前组件的<code>methods</code>方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  ...mapMutations([<span class="string">'edit'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在当前组件可以直接调用方法<code>this.edit(&#39;111&#39;)</code></p>
+<h2 id="3-3-Action"><a href="#3-3-Action" class="headerlink" title="3.3 Action"></a>3.3 Action</h2><p><code>Action</code>用于处理异步任务。<br>如果通过异步操作变更数据，必须使用<code>Action</code>，而不能使用<code>Mutation</code>，但是在<code>Action</code>中还是要通过触发<code>Mutation</code>的方式间接变更数据。</p>
+<h3 id="actions使用方法"><a href="#actions使用方法" class="headerlink" title="actions使用方法"></a>actions使用方法</h3><p><code>Actions</code>中的方法有两个默认参数：<br>([context] [,payload])</p>
+<ul>
+<li><code>context</code> 上下文对象</li>
+<li><code>payload</code> 挂载参数</li>
+</ul>
+<p>比如执行<code>setTimeout</code>异步操作：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">actions:&#123;</span><br><span class="line">    aEdit(context, payload) &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 只有mutations中定义的函数才有权利修改state中的数据</span></span><br><span class="line">            context.commit(<span class="string">'edit'</span>, payload)</span><br><span class="line">        &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法一-1"><a href="#方法一-1" class="headerlink" title="方法一"></a>方法一</h4><p>在组件中调用异步方法，使用<code>dispatch</code>函数来触发<code>action</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.dispatch(<span class="string">'aEdit'</span>, <span class="string">'111'</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法二-1"><a href="#方法二-1" class="headerlink" title="方法二"></a>方法二</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从vuex中按需导入mapActions</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapActions &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br></pre></td></tr></table></figure>
+<p>通过导入的<code>mapActions</code>函数，将需要的<code>actions</code>函数映射为当前组件的<code>methods</code>方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  ...mapActions([<span class="string">'aEdit'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在当前组件可以直接调用方法<code>this.aEdit(&#39;111&#39;)</code></p>
+<h2 id="3-4-Getter"><a href="#3-4-Getter" class="headerlink" title="3.4 Getter"></a>3.4 Getter</h2><p><code>Getter</code>用于对<code>Store</code>中的数据进行加工处理形成新的数据。</p>
+<ul>
+<li><code>Getter</code>可以对<code>Store</code>中已有的数据进行加工处理之后形成新的数据，类似<code>Vue</code>的计算属性。</li>
+<li><code>Store</code>中的数据发生变化，<code>Getter</code>中的数据也会发生变化。</li>
+<li><code>Getter</code>中的数据处理不会修改<code>State</code>中的数据，只起到包装的作用。<h3 id="Getters使用方法"><a href="#Getters使用方法" class="headerlink" title="Getters使用方法"></a>Getters使用方法</h3><code>Getters</code>中的方法有两个默认参数</li>
+<li><code>state</code> 当前<code>vuex</code>对象中的状态对象</li>
+<li><code>getters</code> 当前<code>getters</code>对象，用于将<code>getters</code>下的其他<code>getter</code>拿来用<br>定义<code>Getter</code>：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">getters:&#123;</span><br><span class="line">    name1(state) &#123;</span><br><span class="line">        <span class="keyword">return</span> state.name</span><br><span class="line">    &#125;,</span><br><span class="line">    name2(state, getters) &#123;</span><br><span class="line">        <span class="keyword">return</span> getters.name1 + state.name</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="方法一-2"><a href="#方法一-2" class="headerlink" title="方法一"></a>方法一</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.getters.名称</span><br></pre></td></tr></table></figure>
+<h4 id="方法二-2"><a href="#方法二-2" class="headerlink" title="方法二"></a>方法二</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从vuex中按需导入mapGetters</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br></pre></td></tr></table></figure>
+<p>通过导入的<code>mapGetters</code>函数，将当前函数需要的全局数据，映射为当前组件的<code>computed</code>计算属性：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  ...mapGetters([<span class="string">'name1'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/vuex/" rel="tag"><i class="fa fa-tag"></i> vuex</a>
+          
+            <a href="/tags/学习/" rel="tag"><i class="fa fa-tag"></i> 学习</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2021/04/09/post20210409/">Vuex学习笔记</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2021年04月09日 - 16:04</p>
+  <p><span>最后更新:</span>2022年09月22日 - 17:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/26/post20210326/" rel="next" title="uniapp image标签base64不显示图片的问题">
+                <i class="fa fa-chevron-left"></i> uniapp image标签base64不显示图片的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/12/post20210512/" rel="prev" title="Do not access Object.prototype method 'hasOwnProperty' from target object no-prototype-builtins">
+                Do not access Object.prototype method 'hasOwnProperty' from target object no-prototype-builtins <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:791476143@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/p/1005055902368392/home?from=page_100505&mod=TAB#place" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Vuex概述"><span class="nav-number">1.</span> <span class="nav-text">1 Vuex概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-组件之间共享数据的方式"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 组件之间共享数据的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Vuex是什么"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Vuex是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-使用Vuex的好处"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 使用Vuex的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-什么样的数据适合存储到Vuex中"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 什么样的数据适合存储到Vuex中</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Vuex的基本使用"><span class="nav-number">2.</span> <span class="nav-text">2 Vuex的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装vuex依赖包"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装vuex依赖包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-导入vuex包"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 导入vuex包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-创建store对象"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 创建store对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-将store对象挂载到vue实例中"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 将store对象挂载到vue实例中</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Vuex核心概念"><span class="nav-number">3.</span> <span class="nav-text">3 Vuex核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-State"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 State</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一"><span class="nav-number">3.1.1.</span> <span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二"><span class="nav-number">3.1.2.</span> <span class="nav-text">方式二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Mutation"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Mutation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mutations使用方法"><span class="nav-number">3.2.1.</span> <span class="nav-text">mutations使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">方法二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Action"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Action</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#actions使用方法"><span class="nav-number">3.3.1.</span> <span class="nav-text">actions使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一-1"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二-1"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">方法二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Getter"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Getter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Getters使用方法"><span class="nav-number">3.4.1.</span> <span class="nav-text">Getters使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一-2"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二-2"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">方法二</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
