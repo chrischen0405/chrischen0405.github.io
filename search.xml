@@ -3,6 +3,139 @@
   
     
     <entry>
+      <title>npm安装卸载指令</title>
+      <link href="/2022/07/11/post20220711/"/>
+      <url>/2022/07/11/post20220711/</url>
+      <content type="html"><![CDATA[<h2 id="npm安装模块"><a href="#npm安装模块" class="headerlink" title="npm安装模块"></a>npm安装模块</h2><ul><li><code>npm install xxx</code> 安装xxx模块到当前命令行所在目录</li><li><code>npm install xxx -g</code> 全局安装xxx模块</li></ul><a id="more"></a><p>本地安装把模块写入 package.json 中：</p><ul><li><code>npm install xxx</code> 安装xxx模块不写入 package.json</li><li><code>npm install xxx -save</code> 安装xxx模块并且写入 package.json 的 <code>dependencies</code> 中</li><li><code>npm install xxx -save-dev</code> 安装xxx模块并写入 package.json 的 <code>devDependencies</code> 中</li></ul><h2 id="npm卸载模块"><a href="#npm卸载模块" class="headerlink" title="npm卸载模块"></a>npm卸载模块</h2><ul><li><code>npm uninstall xxx</code> 卸载xxx模块</li><li><code>npm uninstall xxx -g</code> 全局卸载xxx模块</li></ul>]]></content>
+      
+      <categories>
+          
+          <category> node </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> npm </tag>
+            
+            <tag> node </tag>
+            
+            <tag> 指令 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>VUE-CLI3+PX2REM-LOADER+SCSS移动端自适应配置</title>
+      <link href="/2022/07/06/post20220706/"/>
+      <url>/2022/07/06/post20220706/</url>
+      <content type="html"><![CDATA[<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><p>移动端自适应需要做适配，本文介绍vue-cli3+px2rem-loader+scss的配置</p><a id="more"></a><h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h2><blockquote><p><strong>amfe-flexible</strong>：根据设备宽度，修改根元素html的大小，以适配不一样终端<br><strong>px2rem-loader</strong>：将css中的px转为rem单位，用了它就不用本身计算rem值了</p></blockquote><p><strong>注意</strong>：amfe-flexible是lib-flexible的优化，主要区别是amfe-flexible不会改变视口大小</p><p>安装amfe-flexible和px2rem-loader:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install amfe-flexible -save</span><br><span class="line">npm install px2rem-loader -save-dev</span><br></pre></td></tr></table></figure><h2 id="3-配置amfe-flexible"><a href="#3-配置amfe-flexible" class="headerlink" title="3 配置amfe-flexible"></a>3 配置amfe-flexible</h2><p>在入口文件main.js文件中引入amfe-flexible：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'amfe-flexible/index.js'</span></span><br></pre></td></tr></table></figure><p>在index.html中修改meta：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure><blockquote><p>amfe-flexible干了什么呢？</p><ul><li>给元素动态改写font-size的值</li><li>设置1rem = viewWidth / 10</li><li>设置页面刷新时重置rem</li><li>支持0.5px</li></ul></blockquote><h3 id="4-配置px2rem-loader"><a href="#4-配置px2rem-loader" class="headerlink" title="4 配置px2rem-loader"></a>4 配置px2rem-loader</h3><p>在vue.config.js中配置：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  chainWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    config.module</span><br><span class="line">      .rule(<span class="string">'scss'</span>)</span><br><span class="line">      .test(<span class="regexp">/\.scss$/</span>)</span><br><span class="line">      .oneOf(<span class="string">'vue'</span>)</span><br><span class="line">      .use(<span class="string">'px2rem'</span>)</span><br><span class="line">      .loader(<span class="string">'px2rem-loader'</span>)</span><br><span class="line">      .before(<span class="string">'postcss-loader'</span>)</span><br><span class="line">      .options(&#123;</span><br><span class="line">        remUnit: <span class="number">75</span> <span class="comment">// 设计稿的宽度的1/10</span></span><br><span class="line">      &#125;).end()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后重启脚手架</p><h2 id="5-参考文章"><a href="#5-参考文章" class="headerlink" title="5 参考文章"></a>5 参考文章</h2><p><a href="http://www.javashuo.com/article/p-dqkawmqf-g.html" target="_blank" rel="noopener">《vue移动端h5适配解决方案（rem or vw）》</a><br><a href="https://blog.csdn.net/josiecici/article/details/109336620" target="_blank" rel="noopener">《vue-cli3+lib-flexible+postcss-px2rem+less》</a></p>]]></content>
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+            <tag> PX2REM-LOADER </tag>
+            
+            <tag> scss </tag>
+            
+            <tag> 移动端 </tag>
+            
+            <tag> 自适应 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>ecahrts雷达图tooltip显示axis单轴数据</title>
+      <link href="/2022/05/26/post20220526/"/>
+      <url>/2022/05/26/post20220526/</url>
+      <content type="html"><![CDATA[<h3 id="1、遇到问题"><a href="#1、遇到问题" class="headerlink" title="1、遇到问题"></a>1、遇到问题</h3><p>在echarts雷达图中将<code>tooltip.trigger</code>设置为<code>axis</code>时失效，雷达图并不会显示单轴数据，而是整个雷达图的数据</p><a id="more"></a><p><img src="https://upload-images.jianshu.io/upload_images/13924215-bc93503eac6a11ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tooltip.trigger"></p><h3 id="2、实现效果"><a href="#2、实现效果" class="headerlink" title="2、实现效果"></a>2、实现效果</h3><p>先贴出我们想要的效果，和折线图柱状图类似的，希望可以在一个轴线上能显示雷达图在这个轴线维度上的数据：</p><p><img src="https://upload-images.jianshu.io/upload_images/13924215-378f08d2a081c56b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="实现效果"></p><h3 id="3、源码"><a href="#3、源码" class="headerlink" title="3、源码"></a>3、源码</h3><p>可以直接在echarts官网运行查看效果的代码：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dataList = [</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">'小明'</span>,</span><br><span class="line">        data: [<span class="number">54</span>, <span class="number">32</span>, <span class="number">56</span>, <span class="number">30</span>, <span class="number">95</span>, <span class="number">35</span>],</span><br><span class="line">        color: <span class="string">'#5470c6'</span>,</span><br><span class="line">        unit: <span class="string">'分'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">'小红'</span>,</span><br><span class="line">        data: [<span class="number">84</span>, <span class="number">63</span>, <span class="number">23</span>, <span class="number">59</span>, <span class="number">78</span>, <span class="number">95</span>],</span><br><span class="line">        color: <span class="string">'#91cc75'</span>,</span><br><span class="line">        unit: <span class="string">'分'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">'小刚'</span>,</span><br><span class="line">        data: [<span class="number">14</span>, <span class="number">98</span>, <span class="number">63</span>, <span class="number">74</span>, <span class="number">40</span>, <span class="number">67</span>],</span><br><span class="line">        color: <span class="string">'#fac858'</span>,</span><br><span class="line">        unit: <span class="string">'分'</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> indicator = [</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'语文'</span>, <span class="attr">max</span>: <span class="number">100</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'数学'</span>, <span class="attr">max</span>: <span class="number">100</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'英语'</span>, <span class="attr">max</span>: <span class="number">100</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'物理'</span>, <span class="attr">max</span>: <span class="number">100</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'化学'</span>, <span class="attr">max</span>: <span class="number">100</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'生物'</span>, <span class="attr">max</span>: <span class="number">100</span> &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buildSeries = <span class="function"><span class="keyword">function</span> (<span class="params">dataIndex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> data = dataList[dataIndex].data</span><br><span class="line">    <span class="keyword">const</span> helper = data.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(data.length)</span><br><span class="line">        arr.splice(index, <span class="number">1</span>, item)</span><br><span class="line">        <span class="keyword">return</span> arr</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> [data, ...helper].map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            name: dataList[dataIndex].name,</span><br><span class="line">            type: <span class="string">'radar'</span>,</span><br><span class="line">            symbol: index === <span class="number">0</span> ? <span class="string">'circle'</span> : <span class="string">'none'</span>,</span><br><span class="line">            symbolSize: <span class="number">4</span>,</span><br><span class="line">            itemStyle: &#123;</span><br><span class="line">                color: <span class="string">'#fff'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            lineStyle: &#123;</span><br><span class="line">                color: index === <span class="number">0</span> ? dataList[dataIndex].color : <span class="string">'transparent'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            areaStyle: &#123;</span><br><span class="line">                color: index === <span class="number">0</span> ? dataList[dataIndex].color : <span class="string">'transparent'</span>,</span><br><span class="line">                opacity: <span class="number">0.5</span></span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;</span><br><span class="line">                show: index === <span class="number">0</span> ? <span class="literal">false</span> : <span class="literal">true</span>,</span><br><span class="line">                formatter: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">let</span> res = indicator[index - <span class="number">1</span>].name + <span class="string">'：&lt;br&gt;'</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">let</span> x <span class="keyword">of</span> dataList) &#123;</span><br><span class="line">                        <span class="keyword">let</span> str = <span class="string">'&lt;i style="display: inline-block;width: 10px;height: 10px;background: '</span> +</span><br><span class="line">                            x.color + <span class="string">';margin-right: 5px;border-radius: 50%;&#125;"&gt;&lt;/i&gt;'</span> +</span><br><span class="line">                            x.name + <span class="string">'：'</span> + x.data[index - <span class="number">1</span>] + x.unit + <span class="string">'&lt;br&gt;'</span></span><br><span class="line">                        res += str</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            z: index === <span class="number">0</span> ? <span class="number">1</span> : <span class="number">2</span>,</span><br><span class="line">            data: [item]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> series = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> dataList) &#123;</span><br><span class="line">    series.push(...buildSeries(i))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">option = &#123;</span><br><span class="line">    tooltip: &#123;&#125;,</span><br><span class="line">    radar: &#123;</span><br><span class="line">        indicator: indicator</span><br><span class="line">    &#125;,</span><br><span class="line">    series: series</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="4、源码地址"><a href="#4、源码地址" class="headerlink" title="4、源码地址"></a>4、源码地址</h3><p><a href="https://github.com/chrischen0405/Demo/blob/master/echarts/7-1radar.js" target="_blank" rel="noopener">https://github.com/chrischen0405/Demo/blob/master/echarts/7-1radar.js</a></p>]]></content>
+      
+      <categories>
+          
+          <category> Echarts </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Echarts </tag>
+            
+            <tag> tooltip </tag>
+            
+            <tag> axis </tag>
+            
+            <tag> 雷达图 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Echarts tooltip formatter函数使用</title>
+      <link href="/2022/05/20/post20220520/"/>
+      <url>/2022/05/20/post20220520/</url>
+      <content type="html"><![CDATA[<p><img src="https://upload-images.jianshu.io/upload_images/13924215-536d0c54c8418216.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tooltip"></p><p>实现如上默认的tooltip样式，<code>tooltip</code>配置部分代码如下：</p><a id="more"></a><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">tooltip: &#123;</span><br><span class="line">    trigger: <span class="string">'axis'</span>,</span><br><span class="line">        axisPointer: &#123;            <span class="comment">// 坐标轴指示器，坐标轴触发有效</span></span><br><span class="line">        type: <span class="string">'line'</span>        <span class="comment">// 默认为直线，可选为：'line' | 'shadow'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    formatter: <span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> list = []</span><br><span class="line">        <span class="keyword">let</span> listItem = <span class="string">''</span></span><br><span class="line">        <span class="keyword">let</span> axisValueLabel = params[<span class="number">0</span>].axisValueLabel</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; params.length; i++) &#123;</span><br><span class="line">            list.push(</span><br><span class="line">                <span class="string">'&lt;i style="display: inline-block;width: 10px;height: 10px;background: '</span> +</span><br><span class="line">                params[i].color +</span><br><span class="line">                <span class="string">';margin-right: 5px;border-radius: 50%;&#125;"&gt;&lt;/i&gt;'</span> +</span><br><span class="line">                <span class="string">'&lt;span style="display:inline-block;"&gt;'</span> +</span><br><span class="line">                params[i].seriesName +</span><br><span class="line">                <span class="string">'&lt;/span&gt;&lt;span style="display:inline-block;"&gt;&amp;nbsp&amp;nbsp'</span> +</span><br><span class="line">                params[i].data +</span><br><span class="line">                <span class="string">'&lt;/span&gt;'</span></span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">        listItem = list.join(<span class="string">'&lt;br&gt;'</span>)</span><br><span class="line">        <span class="keyword">return</span> axisValueLabel + <span class="string">'&lt;br&gt;'</span> + listItem</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>具体想获取的数据在<code>params</code>中查找，每次弹出tooltip都会触发一次<code>formatter</code>回调函数</p>]]></content>
+      
+      <categories>
+          
+          <category> Echarts </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 函数 </tag>
+            
+            <tag> Echarts </tag>
+            
+            <tag> tooltip </tag>
+            
+            <tag> formatter </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>webstorm快捷键</title>
+      <link href="/2022/05/19/post20220519/"/>
+      <url>/2022/05/19/post20220519/</url>
+      <content type="html"><![CDATA[<p>ctrl+/ 单行注释<br>ctrl+shift+/ 块注释<br>ctrl+shift+ +/- 展开/折叠<br>ctrl+alt+L 格式化代码<br>ctrl+shift+ up/down 上下移动句子</p><a id="more"></a><p>Alt+回车 导入包,自动修正<br>Ctrl+N 查找类<br>Ctrl+Shift+N 查找文件<br>Ctrl+Alt+L 格式化代码<br>Ctrl+Alt+O 优化导入的类和包<br>Alt+Insert 生成代码(如get,set方法,构造函数等)<br>Ctrl+E或者Alt+Shift+C 最近更改的代码<br>Ctrl+R 替换文本<br>Ctrl+F 查找文本<br>Ctrl+Shift+Space 自动补全代码<br>Ctrl+空格 代码提示<br>Ctrl+Alt+Space 类名或接口名提示<br>Ctrl+P 方法参数提示<br>Ctrl+Shift+Alt+N 查找类中的方法或变量<br>Alt+Shift+C 对比最近修改的代码</p><p>Shift+F6 重构-重命名<br>Ctrl+Shift+先上键<br>Ctrl+X 删除行<br>Ctrl+D 复制行<br>Ctrl+/ 或 Ctrl+Shift+/ 注释（// 或者/<em>…</em>/ ）<br>Ctrl+J 自动代码<br>Ctrl+E 最近打开的文件<br>Ctrl+H 显示类结构图<br>Ctrl+Q 显示注释文档<br>Alt+F1 查找代码所在位置<br>Alt+1 快速打开或隐藏工程面板<br>Ctrl+Alt+ left/right 返回至上次浏览的位置<br>Alt+ left/right 切换代码视图<br>Alt+ Up/Down 在方法间快速移动定位<br>Ctrl+Shift+Up/Down 代码向上/下移动。<br>F2 或Shift+F2 高亮错误或警告快速定位</p><p>代码标签输入完成后，按Tab，生成代码。<br>选中文本，按Ctrl+Shift+F7 ，高亮显示所有该文本，按Esc高亮消失。<br>Ctrl+W 选中代码，连续按会有其他效果<br>选中文本，按Alt+F3 ，逐个往下查找相同文本，并高亮显示。<br>Ctrl+Up/Down 光标跳转到第一行或最后一行下<br>Ctrl+B 快速打开光标处的类或方法</p><h3 id="查找-代替"><a href="#查找-代替" class="headerlink" title="查找/代替"></a>查找/代替</h3><p>ctrl+shift+N 通过文件名快速查找工程内的文件（必记）<br>ctrl+shift+alt+N 通过一个字符快速查找位置（必记）<br>ctrl+F 在文件内快速查找代码<br>F3 查找下一个<br>shift+F3 查找上一个<br>ctrl+R 文件内代码替换<br>ctrl+shift+R 指定目录内代码批量替换<br>ctrl+shift+F 指定目录内代码批量查找<br>ctrl+R 文件内代码替换</p><h3 id="界面操作"><a href="#界面操作" class="headerlink" title="界面操作"></a>界面操作</h3><p>ctrl+shift+A 快速查找并使用编辑器所有功能（必记）</p><p>alt+[0-9] 快速拆合功能界面模块<br>ctrl+shift+F12 最大区域显示代码（会隐藏其他的功能界面模块）<br>alt+shift+F 将当前文件加入收藏夹<br>ctrl+alt+s 打开配置窗口<br>ctrl+tab 切换代码选项卡（还要进行此选择，效率差些）<br>alt+&lt;-或-&gt; 切换代码选项卡</p><p>ctrl+shift+N 通过文件名快速查找工程内的文件（必记）<br>ctrl+shift+alt+N 通过一个字符快速查找位置（必记）<br>ctrl+F 在文件内快速查找代码<br>F3 查找下一个<br>shift+F3 查找上一个<br>ctrl+R 文件内代码替换<br>ctrl+shift+R 指定目录内代码批量替换<br>ctrl+shift+F 指定目录内代码批量查找<br>ctrl+R 文件内代码替换</p><p>ctrl+F4 关闭当前代码选项卡</p><p>ctrl+D 复制当前行<br>ctrl+W 选中单词<br>ctrl+&lt;-或-&gt; 以单词作为边界跳光标位置<br>alt+Insert 新建一个文件或其他<br>ctrl+alt+L 格式化代码<br>shift+tab/tab 减少/扩大缩进（可以在代码中减少行缩进）<br>ctrl+Y 删除一行<br>shift+enter 重新开始一行（无论光标在哪个位置）</p><h3 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h3><p>esc 进入代码编辑区域<br>alt+F1 查找代码在其他界面模块的位置，颇为有用<br>ctrl+G 到指定行的代码<br>ctrl+]/[ 光标到代码块的前面或后面<br>alt+up/down 上一个/下一个方法</p>]]></content>
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+            <tag> webstorm </tag>
+            
+            <tag> 快捷键 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>vue事件代理</title>
       <link href="/2022/05/10/post20220510/"/>
       <url>/2022/05/10/post20220510/</url>
@@ -965,7 +1098,7 @@
       <title>Hello World</title>
       <link href="/2018/08/31/hello-world/"/>
       <url>/2018/08/31/hello-world/</url>
-      <content type="html"><![CDATA[<p>终于搭建好了个人博客，写下了第一篇博客，按照惯例，作为程序猿，第一篇博客的名称就叫“Hello World”了。</p><p>实在不知道应该写点啥，就整理一下如何用hexo写博客好了。</p><p>先说一下基本配置：使用Hexo+GitHub Pages搭建博客，next主题以及Windows OS。<br><a id="more"></a></p><h2 id="1-新建文章"><a href="#1-新建文章" class="headerlink" title="1 新建文章"></a>1 新建文章</h2><p>以hello world为例，在hexo目录下命令行输入<code>hexo new &quot;hello_world&quot;</code>，然后会在source的_posts目录下生成一个hello_world.md文件,在该markdown文件中就可以编辑这篇文章的内容了。编辑完成后刷新博客，博客里便会出现这篇文章，同时hexo也会直接为这篇文章生成一个页面。</p><h2 id="2-新建草稿"><a href="#2-新建草稿" class="headerlink" title="2 新建草稿"></a>2 新建草稿</h2><p>hexo默认配置是新建文章，所以如果需要新建一篇草稿，需要输入<code>hexo new draft &quot;文章名称&quot;</code>，然后再source的目录下会生成一个_drafts文件夹，里面会有所有新建的草稿，如果想要预览草稿，可以输入<code>hexo server --draft</code>命令来预览草稿文件</p><p>当草稿完成以后，可以通过输入<code>hexo publish &quot;文章名称&quot;</code>来发布草稿，然后这篇草稿会从_drafts中被删除，出现在_posts目录下。</p><h2 id="3-删除文章"><a href="#3-删除文章" class="headerlink" title="3 删除文章"></a>3 删除文章</h2><p>删除文章十分简单，只需要把_posts目录下需要删除的markdown删除，然后刷新博客之后这篇文章就不会出现在博客中了。</p><p>当然还有更多的教程可以直接去<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank">官网</a>学习。</p>]]></content>
+      <content type="html"><![CDATA[<p>终于搭建好了个人博客，写下了第一篇博客，按照惯例，作为程序猿，第一篇博客的名称就叫“Hello World”了。</p><p>实在不知道应该写点啥，就整理一下如何用hexo写博客好了。</p><p>先说一下基本配置：使用Hexo+GitHub Pages搭建博客，next主题以及Windows OS。</p><a id="more"></a><h2 id="1-新建文章"><a href="#1-新建文章" class="headerlink" title="1 新建文章"></a>1 新建文章</h2><p>以hello world为例，在hexo目录下命令行输入<code>hexo new &quot;hello_world&quot;</code>，然后会在source的_posts目录下生成一个hello_world.md文件,在该markdown文件中就可以编辑这篇文章的内容了。编辑完成后刷新博客，博客里便会出现这篇文章，同时hexo也会直接为这篇文章生成一个页面。</p><h2 id="2-新建草稿"><a href="#2-新建草稿" class="headerlink" title="2 新建草稿"></a>2 新建草稿</h2><p>hexo默认配置是新建文章，所以如果需要新建一篇草稿，需要输入<code>hexo new draft &quot;文章名称&quot;</code>，然后再source的目录下会生成一个_drafts文件夹，里面会有所有新建的草稿，如果想要预览草稿，可以输入<code>hexo server --draft</code>命令来预览草稿文件</p><p>当草稿完成以后，可以通过输入<code>hexo publish &quot;文章名称&quot;</code>来发布草稿，然后这篇草稿会从_drafts中被删除，出现在_posts目录下。</p><h2 id="3-删除文章"><a href="#3-删除文章" class="headerlink" title="3 删除文章"></a>3 删除文章</h2><p>删除文章十分简单，只需要把_posts目录下需要删除的markdown删除，然后刷新博客之后这篇文章就不会出现在博客中了。</p><h2 id="4-发布文章"><a href="#4-发布文章" class="headerlink" title="4 发布文章"></a>4 发布文章</h2><p>确认文章没问题以后可以使用命令<code>hexo d</code>来一键部署到github-pages上</p><p>当然还有更多的教程可以直接去<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank">官网</a>学习。</p>]]></content>
       
       <categories>
           

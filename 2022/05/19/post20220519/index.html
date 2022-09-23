@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具,webstorm,快捷键,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chris的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="ctrl+/ 单行注释ctrl+shift+/ 块注释ctrl+shift+ +/- 展开/折叠ctrl+alt+L 格式化代码ctrl+shift+ up/down 上下移动句子">
+<meta name="keywords" content="工具,webstorm,快捷键">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webstorm快捷键">
+<meta property="og:url" content="http://chrischen0405.github.io/2022/05/19/post20220519/index.html">
+<meta property="og:site_name" content="Chris的博客">
+<meta property="og:description" content="ctrl+/ 单行注释ctrl+shift+/ 块注释ctrl+shift+ +/- 展开/折叠ctrl+alt+L 格式化代码ctrl+shift+ up/down 上下移动句子">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-09-23T02:23:21.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webstorm快捷键">
+<meta name="twitter:description" content="ctrl+/ 单行注释ctrl+shift+/ 块注释ctrl+shift+ +/- 展开/折叠ctrl+alt+L 格式化代码ctrl+shift+ up/down 上下移动句子">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chrischen0405.github.io/2022/05/19/post20220519/">
+
+
+
+
+
+  <title>webstorm快捷键 | Chris的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chris的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端路漫漫</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chrischen0405.github.io/2022/05/19/post20220519/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webstorm快捷键</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-19T17:27:35+08:00">
+                2022-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ctrl+/ 单行注释<br>ctrl+shift+/ 块注释<br>ctrl+shift+ +/- 展开/折叠<br>ctrl+alt+L 格式化代码<br>ctrl+shift+ up/down 上下移动句子</p>
+<a id="more"></a>
+<p>Alt+回车 导入包,自动修正<br>Ctrl+N 查找类<br>Ctrl+Shift+N 查找文件<br>Ctrl+Alt+L 格式化代码<br>Ctrl+Alt+O 优化导入的类和包<br>Alt+Insert 生成代码(如get,set方法,构造函数等)<br>Ctrl+E或者Alt+Shift+C 最近更改的代码<br>Ctrl+R 替换文本<br>Ctrl+F 查找文本<br>Ctrl+Shift+Space 自动补全代码<br>Ctrl+空格 代码提示<br>Ctrl+Alt+Space 类名或接口名提示<br>Ctrl+P 方法参数提示<br>Ctrl+Shift+Alt+N 查找类中的方法或变量<br>Alt+Shift+C 对比最近修改的代码</p>
+<p>Shift+F6 重构-重命名<br>Ctrl+Shift+先上键<br>Ctrl+X 删除行<br>Ctrl+D 复制行<br>Ctrl+/ 或 Ctrl+Shift+/ 注释（// 或者/<em>…</em>/ ）<br>Ctrl+J 自动代码<br>Ctrl+E 最近打开的文件<br>Ctrl+H 显示类结构图<br>Ctrl+Q 显示注释文档<br>Alt+F1 查找代码所在位置<br>Alt+1 快速打开或隐藏工程面板<br>Ctrl+Alt+ left/right 返回至上次浏览的位置<br>Alt+ left/right 切换代码视图<br>Alt+ Up/Down 在方法间快速移动定位<br>Ctrl+Shift+Up/Down 代码向上/下移动。<br>F2 或Shift+F2 高亮错误或警告快速定位</p>
+<p>代码标签输入完成后，按Tab，生成代码。<br>选中文本，按Ctrl+Shift+F7 ，高亮显示所有该文本，按Esc高亮消失。<br>Ctrl+W 选中代码，连续按会有其他效果<br>选中文本，按Alt+F3 ，逐个往下查找相同文本，并高亮显示。<br>Ctrl+Up/Down 光标跳转到第一行或最后一行下<br>Ctrl+B 快速打开光标处的类或方法</p>
+<h3 id="查找-代替"><a href="#查找-代替" class="headerlink" title="查找/代替"></a>查找/代替</h3><p>ctrl+shift+N 通过文件名快速查找工程内的文件（必记）<br>ctrl+shift+alt+N 通过一个字符快速查找位置（必记）<br>ctrl+F 在文件内快速查找代码<br>F3 查找下一个<br>shift+F3 查找上一个<br>ctrl+R 文件内代码替换<br>ctrl+shift+R 指定目录内代码批量替换<br>ctrl+shift+F 指定目录内代码批量查找<br>ctrl+R 文件内代码替换</p>
+<h3 id="界面操作"><a href="#界面操作" class="headerlink" title="界面操作"></a>界面操作</h3><p>ctrl+shift+A 快速查找并使用编辑器所有功能（必记）</p>
+<p>alt+[0-9] 快速拆合功能界面模块<br>ctrl+shift+F12 最大区域显示代码（会隐藏其他的功能界面模块）<br>alt+shift+F 将当前文件加入收藏夹<br>ctrl+alt+s 打开配置窗口<br>ctrl+tab 切换代码选项卡（还要进行此选择，效率差些）<br>alt+&lt;-或-&gt; 切换代码选项卡</p>
+<p>ctrl+shift+N 通过文件名快速查找工程内的文件（必记）<br>ctrl+shift+alt+N 通过一个字符快速查找位置（必记）<br>ctrl+F 在文件内快速查找代码<br>F3 查找下一个<br>shift+F3 查找上一个<br>ctrl+R 文件内代码替换<br>ctrl+shift+R 指定目录内代码批量替换<br>ctrl+shift+F 指定目录内代码批量查找<br>ctrl+R 文件内代码替换</p>
+<p>ctrl+F4 关闭当前代码选项卡</p>
+<p>ctrl+D 复制当前行<br>ctrl+W 选中单词<br>ctrl+&lt;-或-&gt; 以单词作为边界跳光标位置<br>alt+Insert 新建一个文件或其他<br>ctrl+alt+L 格式化代码<br>shift+tab/tab 减少/扩大缩进（可以在代码中减少行缩进）<br>ctrl+Y 删除一行<br>shift+enter 重新开始一行（无论光标在哪个位置）</p>
+<h3 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h3><p>esc 进入代码编辑区域<br>alt+F1 查找代码在其他界面模块的位置，颇为有用<br>ctrl+G 到指定行的代码<br>ctrl+]/[ 光标到代码块的前面或后面<br>alt+up/down 上一个/下一个方法</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          
+            <a href="/tags/webstorm/" rel="tag"><i class="fa fa-tag"></i> webstorm</a>
+          
+            <a href="/tags/快捷键/" rel="tag"><i class="fa fa-tag"></i> 快捷键</a>
+          
+        </div>
+      
+
+<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2022/05/19/post20220519/">webstorm快捷键</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈文杰 的个人博客">陈文杰</a></p>
+  <p><span>发布时间:</span>2022年05月19日 - 17:05</p>
+  <p><span>最后更新:</span>2022年09月23日 - 10:09</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+
+      
+</div>
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/10/post20220510/" rel="next" title="vue事件代理">
+                <i class="fa fa-chevron-left"></i> vue事件代理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/05/20/post20220520/" rel="prev" title="Echarts tooltip formatter函数使用">
+                Echarts tooltip formatter函数使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈文杰">
+            
+              <p class="site-author-name" itemprop="name">陈文杰</p>
+              <p class="site-description motion-element" itemprop="description">在城院学计算机又学不好的辣鸡死宅</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chrischen0405" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chrischen0405@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c6a5a7f59d5f" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找-代替"><span class="nav-number">1.</span> <span class="nav-text">查找/代替</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#界面操作"><span class="nav-number">2.</span> <span class="nav-text">界面操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导航"><span class="nav-number">3.</span> <span class="nav-text">导航</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈文杰</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
